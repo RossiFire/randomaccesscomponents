@@ -12,7 +12,7 @@ export default function PkgInstallerTabs({
     pkgList?: PackageManager[];
 }) {
     return (
-        <Tabs defaultValue={pkgList[0]}>
+        <Tabs groupId='pkg-installer-tabs' defaultValue={pkgList[0]}>
             <TabsList>
                 {pkgList.map((pkg) => (
                     <TabsTrigger value={pkg} key={pkg}>
