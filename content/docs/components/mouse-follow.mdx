@@ -16,7 +16,7 @@ hot_item: true
 
 Copy and paste the following code into your project.
 
-```tsx title="mouse-follow.tsx"
+```tsx title="mouse-follow.tsx" icon="react"
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -131,7 +131,7 @@ import { MouseFollowContent, MouseFollowItem } from "@/components/mouse-follow";
 
 
 ### Basic
-```tsx title="page.tsx"
+```tsx title="page.tsx" icon="react"
 <MouseFollowContent asChild>
   <div className="my-card-container">
     <span>Card content</span>
@@ -143,7 +143,7 @@ import { MouseFollowContent, MouseFollowItem } from "@/components/mouse-follow";
 ```
 
 ### Custom position
-```tsx title="page.tsx"
+```tsx title="page.tsx" icon="react"
 <MouseFollowContent asChild>
   <div className="my-card-container">
     <span>Card content</span>
@@ -157,7 +157,7 @@ import { MouseFollowContent, MouseFollowItem } from "@/components/mouse-follow";
 ### Global
 You can also wrap your entire page in the MouseFollowContent to make it follow the mouse cursor everywhere.
 
-```tsx title="layout.tsx"
+```tsx title="app/layout.tsx" icon="react"
 export default function Layout({ children }) {
   return (
     <html>

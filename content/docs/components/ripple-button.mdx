@@ -20,7 +20,7 @@ description: Button with smooth animated ripple effect, customizable and extenda
 <PkgInstallerTabs command="gsap @gsap/react" />
 
 Copy and paste the following code into your project.
-```tsx title="ripple-button.tsx"
+```tsx title="ripple-button.tsx" icon="react"
 "use client";
 import { useGSAP } from "@gsap/react";
 import { FunctionComponent, useRef, useState } from "react";
@@ -152,7 +152,7 @@ You can easily integrate the ripple effect with your design system button compon
 
 #### Step 1: Import your Button component
 
-```tsx title="ripple-button.tsx"
+```tsx title="ripple-button.tsx" icon="react"
 import { Button } from "@/components/ui/button"; // Your design system button
 ```
 
@@ -160,7 +160,7 @@ import { Button } from "@/components/ui/button"; // Your design system button
 
 Replace the native `<button>` element with your design system's `<Button>` component:
 
-```tsx title="ripple-button.tsx" {1,6,8}
+```tsx title="ripple-button.tsx" icon="react" {1,6,8}
 // Change from:
 return (
   <button
@@ -202,7 +202,7 @@ return (
 
 #### Base Example
 
-```tsx title="ripple-button-design-system.tsx"
+```tsx title="ripple-button-design-system.tsx" icon="react"
 "use client";
 import { useGSAP } from "@gsap/react";
 import { FunctionComponent, useRef, useState } from "react";

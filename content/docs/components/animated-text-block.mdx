@@ -16,7 +16,7 @@ hot_item: true
 
 
 Copy and paste the following code into your project.
-```tsx title="animated-text-block.tsx"
+```tsx title="animated-text-block.tsx" icon="react"
 "use client";
 import gsap from "gsap";
 
@@ -86,7 +86,7 @@ export default AnimatedTextBlock;
 
 ### Basic
 
-```tsx title="animated-text-block.tsx"
+```tsx title="animated-text-block.tsx" icon="react"
 return (
     <AnimatedTextBlock />
 )
@@ -120,7 +120,7 @@ To use the component with ScrollTrigger, you need first to install the following
 
 Import the followings to your component:
 
-```tsx title="animated-text-block.tsx"
+```tsx title="animated-text-block.tsx" icon="react"
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -129,7 +129,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 Then remove the `runAnimation` function and replace it with `useGSAP` hook.
 
-```tsx title="animated-text-block.tsx"
+```tsx title="animated-text-block.tsx" icon="react"
 // Previous:
 const runAnimation = () => {
     gsap.set(".faded-text", { clipPath: "inset(0px 100% 0px 0px)" });
@@ -196,22 +196,22 @@ For example, this is an alternative implementation with a different timing and e
     </Tab>
     <Tab value="animation">
     ```tsx
-        const tl = gsap.timeline();
-        tl.to(".faded-text", {
-            clipPath: "inset(0px 0% 0px 0px)",
+    const tl = gsap.timeline();
+    tl.to(".faded-text", {
+        clipPath: "inset(0px 0% 0px 0px)",
+        duration: 0.8,
+        stagger: 0.05,
+        ease: "power2.out",
+    }).to(
+        ".faded-text .high-line-reveal",
+        {
+            scaleX: 0,
             duration: 0.8,
             stagger: 0.05,
-            ease: "power2.out",
-        }).to(
-            ".faded-text .high-line-reveal",
-            {
-                scaleX: 0,
-                duration: 0.8,
-                stagger: 0.05,
-                ease: "power4.inOut",
-            },
-            "<20%"
-        );
+            ease: "power4.inOut",
+        },
+        "<20%"
+    );
     ```
     </Tab>
 </Tabs>

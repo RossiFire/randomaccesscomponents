@@ -15,12 +15,11 @@ Install the following dependencies:
 <PkgInstallerTabs command="motion" />
 
 Copy and paste the following code into your project.
-```tsx title="magnet.tsx"
-"use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useSpring } from "motion/react";
-import { cn } from "@/lib/utils";
+```tsx title="magnet.tsx" icon="react"
+import { useEffect, useRef, useState } from 'react';
+import { motion, useSpring } from 'motion/react';
+import { cn } from '@/lib/utils';
 
 interface MagnetProps {
   children: React.ReactNode;
@@ -50,7 +49,7 @@ const Magnet: React.FC<MagnetProps> = ({
     if (!isActive || !ref.current) return;
     const { clientX, clientY } = e;
 
-    const { width, height, left, top} = ref.current.getBoundingClientRect();
+    const { width, height, left, top } = ref.current.getBoundingClientRect();
     const x =
       (clientX - (left + width / 2)) *
       (magnetMultiplier < 0 ? 1 : (magnetMultiplier < 0 ? 1 : magnetMultiplier));
@@ -80,10 +79,10 @@ const Magnet: React.FC<MagnetProps> = ({
 
   return (
     <motion.div
-      className={cn("relative", className)}
+      className={cn('relative', className)}
       ref={ref}
       whileHover={isActive ? { scale: 1.1 } : {}}
-      transition={{ type: "spring", stiffness: 300 }}
+      transition={{ type: 'spring', stiffness: 300 }}
       onMouseMove={mouseMove}
       onMouseLeave={mouseLeave}
       style={{ x, y }}
@@ -94,7 +93,6 @@ const Magnet: React.FC<MagnetProps> = ({
 };
 
 export default Magnet;
-
 ```
 
 ## Usage

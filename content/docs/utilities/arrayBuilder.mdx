@@ -21,7 +21,7 @@ where you need to assign resources based on the user's role. It has several bene
 
 Copy and paste the following code into your project.
 
-```ts title="arrayBuilder.ts"
+```ts title="arrayBuilder.ts" icon="ts"
 export const arrayBuilder = <T>(
     ...args: (T[] | T | null | (T | false) | (()=>(T | false)))[]
 ): T[] => {

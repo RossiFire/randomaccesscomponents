@@ -13,7 +13,7 @@ The `useHydration` hook returns `false` during the initial server render and fir
 ## Installation
 
 Copy and paste the following code into your project.
-```typescript title="use-hydration.ts"
+```typescript title="use-hydration.ts" icon="ts"
 "use client";
 import { useEffect, useState } from "react";
 
@@ -40,7 +40,7 @@ import { useHydration } from "@/hooks/use-hydration";
 ```tsx
 const isMounted = useHydration();
 
-// remember: all hooks must be before return statement
+// remember: all hooks must execute before return statement
 
 if (!isMounted) return null;
 

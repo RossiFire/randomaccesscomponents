@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { cn } from '../lib/utils';
 import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
+import * as TechIcons from './ui/tech-icons';
 import {
   Tabs,
   TabsContent,
@@ -49,6 +50,37 @@ export const buttonVariants = cva(
 
 export type ButtonProps = VariantProps<typeof buttonVariants>;
 
+const ICON_ALIASES = {
+  next: TechIcons.Nextjs,
+  nextjs: TechIcons.Nextjs,
+  express: TechIcons.Expressjs,
+  expressjs: TechIcons.Expressjs,
+  react: TechIcons.React,
+  motion: TechIcons.Motion,
+  framer: TechIcons.Motion,
+  framermotion: TechIcons.Motion,
+  tailwind: TechIcons.TailwindCSS,
+  tailwindcss: TechIcons.TailwindCSS,
+  supabase: TechIcons.Supabase,
+  shadcn: TechIcons.ShadcnUi,
+  shadcnui: TechIcons.ShadcnUi,
+  vercel: TechIcons.Vercel,
+  gsap: TechIcons.Gsap,
+  npm: TechIcons.NPM,
+  pnpm: TechIcons.Pnpm,
+  yarn: TechIcons.Yarn,
+  bun: TechIcons.Bun,
+  css: TechIcons.CSS,
+  radix: TechIcons.RadixUI,
+  radixui: TechIcons.RadixUI,
+  typescript: TechIcons.TypeScript,
+  ts: TechIcons.TypeScript,
+} as const;
+
+function resolveNamedIcon(icon: string) {
+  const normalized = icon.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+  return ICON_ALIASES[normalized as keyof typeof ICON_ALIASES];
+}
 
 export interface CodeBlockProps extends ComponentProps<'figure'> {
   /**
@@ -85,6 +117,8 @@ export interface CodeBlockProps extends ComponentProps<'figure'> {
   'data-line-numbers-start'?: number;
 
   Actions?: (props: { className?: string; children?: ReactNode }) => ReactNode;
+
+  'data-icon'?: string;
 }
 
 const TabsContext = createContext<{
@@ -109,6 +143,7 @@ export function CodeBlock({
   allowCopy = true,
   keepBackground = false,
   icon,
+  'data-icon': dataIcon,
   viewportProps = {},
   children,
   Actions = (props) => (
@@ -118,6 +153,7 @@ export function CodeBlock({
 }: CodeBlockProps) {
   const inTab = useContext(TabsContext) !== null;
   const areaRef = useRef<HTMLDivElement>(null);
+  const resolvedIcon = dataIcon ?? icon;
 
   return (
     <figure
@@ -137,15 +173,33 @@ export function CodeBlock({
     >
       {title ? (
         <div className="flex text-muted-foreground items-center gap-2 h-9.5 border-b px-4">
-          {typeof icon === 'string' ? (
-            <div
-              className="[&_svg]:size-3.5"
-              dangerouslySetInnerHTML={{
-                __html: icon,
-              }}
-            />
+          {typeof resolvedIcon === 'string' ? (
+            (() => {
+              const Icon = resolveNamedIcon(resolvedIcon);
+              if (Icon) {
+                return (
+                  <Icon
+                    className="!size-3.5 text-current"
+                    aria-hidden
+                  />
+                );
+              }
+
+              if (!resolvedIcon.includes('<')) {
+                return null;
+              }
+
+              return (
+              <div
+                className="[&_svg]:size-3.5"
+                dangerouslySetInnerHTML={{
+                  __html: resolvedIcon,
+                }}
+              />
+              );
+            })()
           ) : (
-            icon
+            resolvedIcon
           )}
           <figcaption className="flex-1 truncate">{title}</figcaption>
           {Actions({

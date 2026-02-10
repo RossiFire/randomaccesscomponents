@@ -4,6 +4,7 @@ import {
   frontmatterSchema,
   metaSchema,
 } from 'fumadocs-mdx/config';
+import { rehypeCodeDefaultOptions } from 'fumadocs-core/mdx-plugins';
 import { z } from 'zod';
 
 // Custom frontmatter schema that includes hot_item property
@@ -27,6 +28,30 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
-    // MDX options
+    rehypeCodeOptions: {
+      transformers: [
+        ...(rehypeCodeDefaultOptions.transformers ?? []),
+        {
+          name: 'codeblock-icon-meta',
+          pre(node) {
+            const meta = this.options.meta;
+            const fromObject = typeof meta?.icon === 'string' ? meta.icon : undefined;
+            const raw =
+              typeof meta === 'string'
+                ? meta
+                : typeof meta?.__raw === 'string'
+                  ? meta.__raw
+                  : '';
+
+            const match = raw.match(/(?:^|\s)icon=(?:"([^"]+)"|'([^']+)'|([^\s]+))/);
+            const fromRaw = match?.[1] ?? match?.[2] ?? match?.[3];
+            const icon = fromObject ?? fromRaw;
+            if (!icon) return;
+
+            node.properties['data-icon'] = icon;
+          },
+        },
+      ],
+    },
   },
 });

@@ -73,7 +73,7 @@ Since this is a modular system, I recommend the following file structure:
 
 Copy and paste the main hook directly into your project.
 
-```typescript title="hooks/use-quick-form/useQuickForm.ts"
+```typescript title="hooks/use-quick-form/useQuickForm.ts" icon="ts"
 "use client";
 
 import {
@@ -910,7 +910,7 @@ The form system includes optional modules that extend functionality:
 
 Adds undo/redo functionality with configurable history size.
 
-```typescript title="hooks/use-quick-form/useQuickFormHistory.ts"
+```typescript title="hooks/use-quick-form/useQuickFormHistory.ts" icon="ts"
 "use client";
 import { useState, useCallback, useRef, useEffect } from "react";
 
@@ -1229,7 +1229,7 @@ history.undo(); // Restores previous array state
 
 Tracks form interactions and provides insights.
 
-```typescript title="hooks/use-quick-form/useQuickFormAnalytics.ts"
+```typescript title="hooks/use-quick-form/useQuickFormAnalytics.ts" icon="ts"
 "use client";
 import { useRef, useCallback, useMemo, useEffect, useState } from "react";
 import type { FormStateRef } from "./useQuickForm";
