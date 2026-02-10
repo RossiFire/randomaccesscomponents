@@ -14,8 +14,13 @@ This component needs an image as base background. You can find it [here](https:/
 
 Copy and paste the following code into your project.
 
-<Tabs items={['noisy-background.tsx', 'globals.css']}>
-  <Tab value="noisy-background.tsx">
+<MultiCodeBlock>
+  <MultiCodeBlock.Tab
+    value="noisy-background.tsx"
+    label="noisy-background.tsx"
+    icon={<React />}
+    lang="tsx"
+  >
 ```tsx
 import { cn } from "@/lib/cn";
 
@@ -50,9 +55,15 @@ const NoisyBackground: React.FC<NoisyBackgroundProps> = ({ className, disableAni
 
 export default NoisyBackground;
 ```
-  </Tab>
-  <Tab value="globals.css">
-    ```css
+  </MultiCodeBlock.Tab>
+
+  <MultiCodeBlock.Tab
+    value="globals.css"
+    label="globals.css"
+    icon={<CSS />}
+    lang="css"
+  >
+ ```css
   @keyframes noise {
       0%, 100% {
           background-position: 0 0;
@@ -86,8 +97,9 @@ export default NoisyBackground;
       }
   }
     ```
-  </Tab>
-</Tabs>
+  </MultiCodeBlock.Tab>
+</MultiCodeBlock>
+
 
 ## Usage
 ```typescript

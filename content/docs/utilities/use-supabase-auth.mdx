@@ -33,8 +33,18 @@ With this utility instead, we're centralizing the declaration and the logic. Mor
 This guide assumes you have already configured Supabase in your project. If not, 
 you can follow the official [Supabase guide](https://supabase.com/docs/guides/auth/server-side/nextjs?queryGroups=router&router=app) for NextJs.
 
-<Tabs items={['nextjs', 'react']}>
-  <Tab value="nextjs">
+<Tabs defaultValue="nextjs">
+  <TabsList>
+    <TabsTrigger value="nextjs">
+      <Nextjs size="small" />
+      Next.js
+    </TabsTrigger>
+    <TabsTrigger value="react">
+      <React size="small" />
+      React
+    </TabsTrigger>
+  </TabsList>
+  <TabsContent value="nextjs">
     ```typescript title="useSupabaseAuth.ts" icon="ts"
     import { createClient } from "@/lib/supabase/server";
     import { SupabaseClient } from "@supabase/supabase-js";
@@ -88,8 +98,8 @@ you can follow the official [Supabase guide](https://supabase.com/docs/guides/au
         }
     };
     ```
-  </Tab>
-  <Tab value="react">
+  </TabsContent>
+  <TabsContent value="react">
     ```typescript title="useSupabaseAuth.ts" icon="ts"
     import { createClient, SupabaseClient } from '@supabase/supabase-js'
     import supabase from '@/lib/supabase'
@@ -140,7 +150,7 @@ you can follow the official [Supabase guide](https://supabase.com/docs/guides/au
         }
     };
     ```
-  </Tab>
+  </TabsContent>
 </Tabs>
 
 ## Usage

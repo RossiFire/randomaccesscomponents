@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed",
+        primary: "bg-primary text-background px-4 py-2 rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed",
         secondary: "bg-accent cursor-pointer text-accent-foreground hover:bg-accent/70 hover:shadow-md hover:shadow-accent/50 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent-foreground/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
         ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
       },

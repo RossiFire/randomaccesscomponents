@@ -19,7 +19,15 @@ A performant, accessible marquee component built with React compound components.
 
 Copy and paste the following code into your project.
 
-```tsx title="components/markee.tsx" icon="react"
+
+<MultiCodeBlock>
+  <MultiCodeBlock.Tab
+    value="components/markee.tsx"
+    label="markee.tsx"
+    icon={<React />}
+    lang="tsx"
+  >
+    ```tsx
 "use client";
 import * as React from "react";
 import { cn } from "@/lib/utils";
@@ -182,24 +190,30 @@ MarkeeItem.displayName = "MarkeeItem";
 
 export { Markee, MarkeeSpacer, MarkeeFade, MarkeeContent, MarkeeItem };
 export type { MarkeeContentProps };
-```
+  ```
+  </MultiCodeBlock.Tab>
+  <MultiCodeBlock.Tab
+    value="globals.css"
+    label="globals.css"
+    icon={<CSS />}
+    lang="css"
+  >
+    ```css
+    @keyframes markee-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+    ```
+  </MultiCodeBlock.Tab>
+</MultiCodeBlock>
 
 Add the following CSS to your global stylesheet:
 
-```css title="app/global.css" icon="css"
-@theme {
-  --animate-markee-scroll: markee-scroll;
 
-  @keyframes markee-scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
-}
-```
 
 ## Usage
 
