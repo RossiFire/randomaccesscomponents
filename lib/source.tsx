@@ -1,14 +1,8 @@
 import { docs } from '@/.source';
-import { ShimmerText } from '@/components/shimmer-text';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 import { FlameIcon, icons } from 'lucide-react';
 import { createElement } from 'react';
-
-const random = () => {
-  return Math.floor(Math.random() * 5) + 6;
-}
-
 
 // See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
@@ -23,10 +17,8 @@ export const source = loader({
             const fileData = this.storage.read(file);
             if(fileData && (fileData.data as unknown as { hot_item?: boolean }).hot_item) {
               node.name = <div className='flex gap-2 items-center'>
-                <ShimmerText asChild style={{ animationDuration: `${random()}s !important` }} className='[background:radial-gradient(circle_at_center,var(--primary),transparent)_-200%_50%/250%_100%_no-repeat,var(--muted-foreground)]'>
-                  <span>{node.name}</span>
-                </ShimmerText>
-                <div className='size-2 bg-gradient-to-r from-primary to-accent-foreground rounded-full' />
+                <span className='text-primary'>{node.name}</span>
+                <div className='size-2 bg-gradient-to-r from-primary to-base rounded-full' />
               </div>
             }
           }

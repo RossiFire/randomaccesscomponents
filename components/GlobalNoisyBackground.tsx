@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import useNoisyBackgroundStore from "../../store/noisy-background-store";
+import useNoisyBackgroundStore from "../store/noisy-background-store";
 
 interface GlobalNoisyBackgroundProps {
   className?: string;

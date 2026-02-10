@@ -1,7 +1,9 @@
-import PageBadge from "@/components/ui/page-badge";
+import PageBadge from "@/components/docs/page-badge";
+import PkgInstallerTabs from "@/components/docs/install-tab";
 
 export { 
     PageBadge,
+    PkgInstallerTabs,
 };
 
 export * from "./components";

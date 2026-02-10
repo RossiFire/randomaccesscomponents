@@ -1,6 +1,6 @@
 import '@/app/global.css';
 import { RootProvider } from 'fumadocs-ui/provider/next';
-import GlobalNoisyBackground from './components/GlobalNoisyBackground';
+import GlobalNoisyBackground from '../components/GlobalNoisyBackground';
 import { Analytics } from "@vercel/analytics/next"
 import { cn } from '@/lib/utils';
 import { dmSans, roslindale } from '@/lib/fonts';

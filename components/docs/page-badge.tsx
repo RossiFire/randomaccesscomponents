@@ -1,4 +1,4 @@
-import TechBadge, { Badge } from "./tech-badge";
+import TechBadge, { Badge } from "../ui/tech-badge";
 
 
 interface PageBadgeProps {
