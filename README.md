@@ -1,8 +1,6 @@
-# Random UI
+# Random Access Components
 
-Shout out to Gemini who made this logo
 
-![logo](./public/assets/rui_logo_short.png)
 
 ## 📦 Documentation
 
@@ -10,7 +8,7 @@ Visit the [documentation website](https://www.randomui.dev/) for documentation a
 
 
 ## ℹ️ About
-Random UI is a modern collection of React components, hooks, and utilities designed for Next.js and React applications. Built with TypeScript and powered by industry-standard libraries like TailwindCss, Framer Motion and GSAP.
+Random Access Components is a modern collection of React components, hooks, and utilities designed for Next.js and React applications. Built with TypeScript and powered by industry-standard libraries like TailwindCss, Framer Motion and GSAP.
 
 
 ## 🤝 Contributing

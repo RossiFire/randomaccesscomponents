@@ -171,10 +171,10 @@ async function myServerFunction(){
     const { isLoggedIn, user } = await useAuth();
 
     if (!isLoggedIn) {
-        const isRandomUser = user.fullName === "Random UI" //TS ERROR: since "isLoggedIn" is false, user is undefined
+        const isRandomUser = user.fullName === "Random Access Components" //TS ERROR: since "isLoggedIn" is false, user is undefined
     }  
 
-    const isRandomUser = user.fullName === "Random UI" //OK: since "isLoggedIn" is true, user is defined and we can access its properties
+    const isRandomUser = user.fullName === "Random Access Components" //OK: since "isLoggedIn" is true, user is defined and we can access its properties
     
 }
 

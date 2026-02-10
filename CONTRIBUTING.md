@@ -1,6 +1,6 @@
-# Contributing to Random UI
+# Contributing to Random Access Components
 
-Thank you for considering contributing to Random UI!
+Thank you for considering contributing to Random Access Components!
 
 ## Base info
 I use the GitHub issue tracker to keep track of everything about the project. Before starting to work on a new feature or bug fix, please check the issue tracker to see if there's an existing issue or discussion related to it. If not, feel free to create a new issue.
