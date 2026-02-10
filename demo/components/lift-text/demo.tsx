@@ -36,7 +36,7 @@ function LiftText({ className, text, ...props }: Omit<React.ComponentProps<"a">,
             className
           )}
           style={{
-            textShadow: "0 1.85ex 0",
+            textShadow: "0 2ex 0",
           }}
           {...props}
         >
