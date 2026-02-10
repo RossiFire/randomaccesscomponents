@@ -1,5 +1,4 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { majorFont } from './fonts';
 import { cn } from 'fumadocs-ui/utils/cn';
 
 /**
@@ -13,7 +12,7 @@ export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
       title: (
-        <span className={cn('text-lg bg-gradient-to-bl from-fd-primary to-fd-accent text-transparent bg-clip-text', majorFont)}>Random UI</span>
+        <span className={cn('text-lg bg-gradient-to-bl from-primary to-accent text-transparent bg-clip-text font-serif')}>Random UI</span>
       ),
     },
     githubUrl: "https://github.com/RossiFire/randomui",

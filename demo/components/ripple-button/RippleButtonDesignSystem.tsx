@@ -57,7 +57,7 @@ const RippleButtonDesignSystem: FunctionComponent<ButtonProps> = ({
   return (
     <Button
       {...props}
-      className={cn("relative overflow-hidden group")}
+      className={cn("relative overflow-hidden group", className)}
       onMouseEnter={(e) => {
         setIsHovered(true);
         props.onMouseEnter?.(e);
@@ -74,11 +74,11 @@ const RippleButtonDesignSystem: FunctionComponent<ButtonProps> = ({
       <div
         ref={rippleRef}
         className={cn(
-          "absolute pointer-events-none bg-fd-primary-foreground rounded-full scale-0 top-0 left-0 size-28",
+          "absolute pointer-events-none bg-primary-foreground rounded-full scale-0 top-0 left-0 size-28",
           rippleClassName
         )}
       />
-        <div className="z-20 relative group-hover:text-fd-primary transition-colors duration-300">{children}</div>
+        <div className="z-20 relative group-hover:text-primary transition-colors duration-300">{children}</div>
     </Button>
   );
 };

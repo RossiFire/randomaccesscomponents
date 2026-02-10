@@ -1,7 +1,7 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { interFont, majorFont } from "@/lib/fonts";
+import { dmSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { SplitText } from "gsap/SplitText";
 import RippleButton from "@/app/components/RippleButton";
@@ -34,80 +34,55 @@ const Hero: React.FC = () => {
     useGSAP(() => {
         if(!isMounted) return;
         
-        gsap.to(".radial-overlay", {
-            background: `radial-gradient(circle at center, transparent 50%, var(--color-fd-background) 100%)`,
-            duration: 2,
-            ease: "power2.out",
-        });
         
+        const tl = gsap.timeline({ delay: 0.25 });
         
         const splittedH1 = new SplitText(".hero-text", { type: "chars" });
 
-        gsap.from(splittedH1.chars, {
+        tl.from(splittedH1.chars, {
             y: 50,
             opacity: 0,
             delay: 0.25,
-            duration: 0.5,
-            stagger: 0.05,
+            stagger: 0.03,
             ease: "back.out(1.7)"
         });
 
 
-        const splittedH2 = new SplitText("h2", {type: "chars"});
+        const splittedH2 = new SplitText("h2", {type: "lines"});
 
-        gsap.set(splittedH2.chars, {
-            overflow: 'hidden',
-            transformOrigin: 'bottom',
-            perspective: 1000,
-        });
-
-        const tl = gsap.timeline({ repeat: -1 });
-        
-        tl.to(splittedH2.chars, {
-            rotateX: -90,
-            stagger: 0.05,
-            duration: 0.2,
-        }).to(splittedH2.chars, {
-            rotateX: 0,
-            duration: 0.2,
-            ease: "sine.out",
-            stagger: 0.05,
+        tl.from(splittedH2.lines, {
+            y: 50,
+            opacity: 0,
+            delay: 0.25,
+            stagger: 0.03,
+            ease: "back.out(1.7)"
         },'<20%');
+
+
+        tl.from(".hero-buttons > *", {
+            opacity: 0,
+            stagger: 0.03,
+            ease: "power2.inOut"
+        },'<20%');
+
 
     }, [isMounted]);
 
     if(!isMounted) return null;
     return (
-        <div className="flex flex-col items-center justify-center gap-8 z-[2] px-4 md:px-0">
-            <div className="absolute inset-0 z-[99] radial-overlay touch-none pointer-events-none" style={{ background: `radial-gradient(circle at center, transparent 0%, var(--color-fd-background)) 0%` }} />
-            <h1 className={cn("text-3xl md:text-4xl lg:text-6xl text-fd-foreground hero-text", majorFont)}>Random UI</h1>
-            <h2 className={cn("text-base md:text-xl lg:text-2xl text-fd-muted-foreground px-2 md:px-0", interFont)}>A collection of reusable components, hooks, utilities and more</h2>
-            <Markee className="w-full md:w-1/2 lg:w-1/3">
-                <MarkeeFade position="left" className="from-fd-background"/>
-                <MarkeeContent duration={15}>
-                    {techBadges.map((badge, i) => (
-                        <React.Fragment key={i}>
-                            <MarkeeItem>{badge}</MarkeeItem>
-                            <MarkeeSpacer className="w-2 md:w-4" />
-                        </React.Fragment>
-                    ))}
-                </MarkeeContent>
-                <MarkeeFade position="right" className="from-fd-background"/>
-            </Markee>
-            <div className="mt-20 flex items-center gap-4">
-                <RippleButton 
-                    className={cn("border-none h-8.5 cursor-none",interFont)} 
-                >
-                    <Link href="/docs/getting-started" className="cursor-none">Explore Docs</Link>
-                </RippleButton>
-                <Button variant="secondary" className="flex items-center gap-2 group cursor-none" asChild>
-                    <Link href="https://github.com/RossiFire/randomui" target="_blank" rel="noopener noreferrer">
-                        Star on GitHub 
-                        <Star 
-                            className="size-4 group-hover:rotate-12 transition-transform duration-300 group-hover:fill-amber-300 group-hover:text-amber-300" 
-                        />
-                    </Link>
-                </Button>
+        <div className="flex flex-col items-start gap-8 z-[2] container">
+            <h1 className={cn("text-3xl md:text-4xl lg:text-6xl text-foreground hero-text font-serif",)}>Random Access Components</h1>
+            <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-xl font-sans")}>A collection of animated, accessible and performant components. Made for the web.</h2>
+            <div className="mt-10 flex items-center gap-8 hero-buttons">
+                <div className="relative group">
+                    <RippleButton 
+                        rippleClassName="bg-primary-foreground"
+                        className={cn("bg-primary text-primary-foreground border-none rounded-lg z-10 md:px-4 font-sans")} 
+                    >
+                        <Link href="/docs/getting-started" className="text-primary-foreground group-hover:text-primary transition-colors duration-300">View docs</Link>
+                    </RippleButton>
+                    <span className="pointer-events-none absolute -inset-4 z-0 transform-gpu rounded-2xl bg-gradient-to-br from-primary to-primary/20 opacity-20 blur-xl transition-all duration-300 group-hover:opacity-70 group-active:opacity-50" />
+                </div>
             </div>
         </div>
     );

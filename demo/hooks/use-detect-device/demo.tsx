@@ -8,13 +8,13 @@ const UseDetectDeviceDemo: React.FC = () => {
     return ( 
         <DemoBlock>
         <div className="text-center space-y-4">
-          <div className="text-sm text-fd-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             Current Device
           </div>
-          <p className="text-lg font-semibold text-fd-foreground">
+          <p className="text-lg font-semibold text-foreground">
             {device}
           </p>
-          <p className="text-sm text-fd-muted-foreground mt-8">
+          <p className="text-sm text-muted-foreground mt-8">
             Open on other devices to see different values
           </p>
         </div>

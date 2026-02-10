@@ -227,7 +227,7 @@ const AnimatedTextBlockScrollingDemo: React.FC = () => {
     return ( 
         <DemoBlock containerClassName="py-12 h-[400px] overflow-scroll relative" className="m-0">
             <div className="h-[400px] grid place-items-center" id="text-line-section" >
-                <span className="text-fd-muted-foreground text-sm md:text-base">Scroll to see the animation</span>
+                <span className="text-muted-foreground text-sm md:text-base">Scroll to see the animation</span>
             </div>
             <div className="flex flex-col gap-12 justify-center items-center">
                 <div className="flex flex-col gap-0 whitespace-pre-wrap items-center text-center">
@@ -255,7 +255,7 @@ const TextLineReveal: React.FC<{ children: React.ReactNode, spanClass: string, l
     return (
         <span
         className={cn(
-            "text text-2xl md:text-4xl lg:text-6xl font-bold uppercase relative text-fd-foreground leading-[60px] md:leading-[100px] -tracking-wider",
+            "text text-2xl md:text-4xl lg:text-6xl font-bold uppercase relative text-foreground leading-[60px] md:leading-[100px] -tracking-wider",
             spanClass,
             interFont
         )}

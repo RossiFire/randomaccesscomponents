@@ -12,7 +12,7 @@ const CustomKbd: React.FC<CustomKbdProps> = ({ className }) => {
     const os = useOs();
 
     return (
-        <kbd className={cn("text-sm text-fd-background", className)}>{os === "macos" ? "⌘" : "Ctrl"}</kbd>
+        <kbd className={cn("text-sm text-background", className)}>{os === "macos" ? "⌘" : "Ctrl"}</kbd>
     );
 }
  

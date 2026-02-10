@@ -3,10 +3,10 @@ import { cn } from '../../lib/utils';
 import { Info, Check, AlertTriangle, AlertCircle } from 'lucide-react';
 
 const variants = {
-  info: 'bg-fd-info/30 border border-fd-info/50 text-fd-info-foreground',
-  success: 'bg-fd-success/30 border border-fd-success/50 text-fd-success-foreground',
-  warning: 'bg-fd-warning/30 border border-fd-warning/50 text-fd-warning-foreground',
-  error: 'bg-fd-error/30 border border-fd-error/50 text-fd-error-foreground',
+  info: 'bg-info/30 border border-info/50 text-info-foreground',
+  success: 'bg-success/30 border border-success/50 text-success-foreground',
+  warning: 'bg-warning/30 border border-warning/50 text-warning-foreground',
+  error: 'bg-error/30 border border-error/50 text-error-foreground',
 } as const;
 
 export const alertVariants = cva(

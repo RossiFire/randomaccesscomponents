@@ -3,20 +3,25 @@ import { useGSAP } from "@gsap/react";
 import { FunctionComponent, useRef, useState } from "react";
 import gsap from "gsap";
 import { cn } from "@/lib/utils";
+import { Slot } from "@radix-ui/react-slot";
 
 interface ButtonProps extends React.ComponentProps<"button"> {
     rippleClassName?: string;
+    asChild?: boolean;
 }
 
 const RippleButton: FunctionComponent<ButtonProps> = ({
   className,
   children,
   rippleClassName,
+  asChild = false,
   ...props
 }) => {
   const rippleRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const Comp = asChild ? Slot : "button";
 
 
   useGSAP(() => {
@@ -56,10 +61,10 @@ const RippleButton: FunctionComponent<ButtonProps> = ({
 
 
   return (
-    <button
+    <Comp
       {...props}
       className={cn(
-        "px-4 py-1.5 group font-medium border border-white cursor-pointer rounded-lg relative overflow-hidden active:scale-95 transition-transform duration-150",
+        "px-4 py-1.5 group font-medium border cursor-pointer rounded-lg relative overflow-hidden active:scale-95 transition-transform duration-150",
         className
       )}
       onMouseEnter={(e) => {
@@ -77,12 +82,12 @@ const RippleButton: FunctionComponent<ButtonProps> = ({
     >
       <div
         ref={rippleRef}
-        className={cn("absolute pointer-events-none bg-fd-foreground rounded-full scale-0 top-0 left-0 size-28", rippleClassName)}
+        className={cn("absolute pointer-events-none bg-foreground rounded-full scale-0 top-0 left-0 size-28", rippleClassName)}
       />
-      <span className="relative z-10 text-fd-primary  group-hover:text-fd-primary-foreground transition-colors duration-300">
+      <span className="relative z-10 text-primary  group-hover:text-primary-foreground transition-colors duration-300">
         {children}
       </span>
-    </button>
+    </Comp>
   );
 };
 

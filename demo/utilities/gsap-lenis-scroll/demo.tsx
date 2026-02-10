@@ -26,7 +26,7 @@ const GsapLenisScrollDemo: React.FC = () => {
             <DemoBlock className="m-0" disableOverflowHidden containerClassName="flex flex-col gap-12 py-20">
                 <div className="flex flex-col gap-4 text-center">
                     <h1 className="text-2xl font-bold mb-0">Gsap Lenis Scroll</h1>
-                    <h2 className="text-sm text-fd-muted-foreground mt-0">Scroll this page to see the lenis scroll in action</h2>
+                    <h2 className="text-sm text-muted-foreground mt-0">Scroll this page to see the lenis scroll in action</h2>
                 </div>
                 <Button onClick={toggleLenis}>
                     {isEnabled ? "Disable Lenis Scroll" : "Enable Lenis Scroll"}

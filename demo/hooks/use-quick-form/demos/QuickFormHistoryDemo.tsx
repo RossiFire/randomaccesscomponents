@@ -33,7 +33,7 @@ const QuickFormHistoryDemo: React.FC = () => {
                     type="text"
                     value={data.fullName}
                     onChange={(e) => set('fullName', e.target.value)}
-                    className="px-3 py-2 border rounded-md bg-fd-background placeholder:text-fd-muted-foreground placeholder:text-sm"
+                    className="px-3 py-2 border rounded-md bg-background placeholder:text-muted-foreground placeholder:text-sm"
                 />
                 {errors.fullName && touched('fullName') && (
                     <span className="text-xs text-red-500">{errors.fullName}</span>
@@ -48,7 +48,7 @@ const QuickFormHistoryDemo: React.FC = () => {
                     value={data.email}
                     onChange={(e) => set('email', e.target.value)}
                     className={cn(
-                        "px-3 py-2 border rounded-md bg-fd-background placeholder:text-fd-muted-foreground placeholder:text-sm"
+                        "px-3 py-2 border rounded-md bg-background placeholder:text-muted-foreground placeholder:text-sm"
                     )}
                 />
                 {(errors.email && touched('email')) && (
@@ -63,7 +63,7 @@ const QuickFormHistoryDemo: React.FC = () => {
             placeholder="Describe yourself..."
             value={data.description}
             onChange={(e) => set('description', e.target.value)}
-            className="px-3 py-2 border rounded-md bg-fd-background placeholder:text-fd-muted-foreground placeholder:text-sm"
+            className="px-3 py-2 border rounded-md bg-background placeholder:text-muted-foreground placeholder:text-sm"
           />
           {errors.description && touched('description') && (
             <span className="text-xs text-red-500">{errors.description}</span>
@@ -78,7 +78,7 @@ const QuickFormHistoryDemo: React.FC = () => {
             </div>
         </div>
       </form>
-      <span className="text-xs text-fd-muted-foreground">History update has a debounce of 500ms, you can customize it</span>
+      <span className="text-xs text-muted-foreground">History update has a debounce of 500ms, you can customize it</span>
     </DemoBlock>
   );
 };

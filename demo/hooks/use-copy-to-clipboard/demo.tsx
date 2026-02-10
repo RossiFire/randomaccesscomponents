@@ -36,7 +36,7 @@ const handleCopy = () => {
         <span>Status:</span>
         <Badge variant={isCopied ? 'default' : 'secondary'} className={cn(isCopied && 'bg-green-500')}>{isCopied ? 'Copied' : 'Not Copied'}</Badge>
       </div>
-      <div className="text-lg font-semibold text-fd-foreground">
+      <div className="text-lg font-semibold text-foreground">
         Copy to clipboard hook
       </div>
       <div className='flex gap-2 items-center'>

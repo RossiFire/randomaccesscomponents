@@ -18,11 +18,11 @@ const TechBadge: React.FC<{ badge: Badge }> = ({ badge }) => {
     const { filename, extension, label } = badgeConfig[badge];
     const imagePath = `/assets/badges/${filename}.${extension}`;
     return (
-        <div className="flex items-center gap-2 border border-fd-border rounded-lg py-2 md:py-1 px-3 bg-fd-secondary">
+        <div className="flex items-center gap-2 border border-border rounded-lg py-2 md:py-1 px-3 bg-secondary">
             <div className="size-4 md:size-6 relative">
                 <Image src={imagePath} alt={label} fill className="object-contain !m-0" loading="lazy" />
             </div>
-            <span className="text-xs md:text-sm text-fd-foreground whitespace-nowrap">{label}</span>
+            <span className="text-xs md:text-sm text-foreground whitespace-nowrap">{label}</span>
         </div>
     );
 }

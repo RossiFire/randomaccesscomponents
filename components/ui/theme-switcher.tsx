@@ -1,80 +1,112 @@
-import { Moon, SunIcon } from "lucide-react";
+"use client";
+import { motion } from "framer-motion";
+import { Cloud, Star } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useHydration } from "@/hooks/use-hydration";
-import { cn } from "@/lib/utils";
 
-const ThemeSwitcher = ({className}: {className?: string}) => {
+const ToggleWrapper = () => {
+
+
   const { theme, setTheme } = useTheme();
-  const isMounted = useHydration();
-
-  const sunRef = useRef<SVGSVGElement>(null);
-  const moonRef = useRef<SVGSVGElement>(null);
-
-  useEffect(()=>{
-    setTimeout(() => {
-      if(theme === "light"){
-        gsap.set(moonRef.current, { opacity: 0, rotation: -45, scale: 0.9 });
-      } else {
-        gsap.set(sunRef.current, { opacity: 0, rotation: -45, scale: 0.9 });
-      }
-    }, 500);
-  },[sunRef, moonRef])
-
-
-  useGSAP(() => {
-
-    if (!moonRef.current || !sunRef.current) return;
-
-    const toAnimate = theme === "light" ? sunRef.current : moonRef.current;
-    const toHide = theme === "light" ? moonRef.current : sunRef.current;
-
-    gsap.to(toAnimate,{
-      opacity: 1,
-      rotation: 0,
-      scale: 1,
-      duration: 0.3,
-      ease: "power2.out",
-      delay: 0.2
-    })
-
-    gsap.to(toHide,{
-      opacity: 0,
-      rotation: theme === "light" ? 90 : -90,
-      scale: 0.9,
-      duration: 0.3,
-      ease: "power2.in",
-    })
-
-  }, [theme]);
-
-
-  if(!isMounted) return null;
 
   return (
+    <DarkModeToggle theme={theme as "light" | "dark"} setTheme={setTheme} />
+  );
+};
+
+const DarkModeToggle = ({
+  theme,
+  setTheme,
+}: {
+  theme: "light" | "dark";
+  setTheme: (theme: "dark" | "light") => void;
+}) => {
+  return (
     <button
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className={cn(
-        "size-7 md:size-9 p-0 border-none relative cursor-pointer bg-fd-muted-foreground/30 border border-fd-muted-foreground/80 text-fd-muted rounded-xl",
-        "hover:bg-fd-muted-foreground/40 transition-colors",
-        className
-        )}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className={`p-1 w-14 rounded-full flex shadow-lg relative bg-gradient-to-b overflow-hidden ${
+        theme === "light"
+          ? "justify-end from-blue-500 to-sky-300"
+          : "justify-start from-indigo-600 to-indigo-400"
+      }`}
     >
-      <Moon
-        id="moon"
-        className={cn("size-4 abs-center", theme === "light" && "opacity-0 scale-90 rotate-3")}
-        ref={moonRef}
-      />
-      <SunIcon
-        id="sun"
-        className={cn("size-4 abs-center", theme === "dark" && "opacity-0 scale-90 rotate-3")}
-        ref={sunRef}
-      />
-      <span className="sr-only">Toggle theme</span>
+      <Thumb theme={theme} />
+      {theme === "light" && <Clouds />}
+      {theme === "dark" && <Stars />}
     </button>
   );
 };
 
-export default ThemeSwitcher;
+const Thumb = ({ theme }: { theme: "light" | "dark" }) => {
+  return (
+    <motion.div
+      layout
+      transition={{
+        duration: 0.75,
+        type: "spring",
+      }}
+      className="h-6 w-6 rounded-full overflow-hidden shadow-lg relative"
+    >
+      <div
+        className={`absolute inset-0 ${
+          theme === "dark"
+            ? "bg-slate-100"
+            : "animate-pulse bg-gradient-to-tr from-amber-300 to-yellow-500 rounded-full"
+        }`}
+      />
+      {theme === "light" && <SunCenter />}
+      {theme === "dark" && <MoonSpots />}
+    </motion.div>
+  );
+};
+
+const SunCenter = () => (
+  <div className="absolute inset-1 rounded-full bg-amber-300 z-2" />
+);
+
+const MoonSpots = () => (
+  <>
+    <motion.div
+      initial={{ x: -4, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ delay: 0.15, duration: 0.35 }}
+      className="w-1.5 h-1.5 rounded-full bg-slate-300 absolute right-2 bottom-1"
+    />
+    <motion.div
+      initial={{ x: -4, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ delay: 0.2, duration: 0.35 }}
+      className="w-1.5 h-1.5 rounded-full bg-slate-300 absolute left-1 bottom-3"
+    />
+    <motion.div
+      initial={{ x: -4, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ delay: 0.25, duration: 0.35 }}
+      className="w-1.5 h-1.5 rounded-full bg-slate-300 absolute right-1.5 top-1.5"
+    />
+  </>
+);
+
+const Stars = () => {
+  return (
+    <>
+      <span
+        className="text-white text-xs absolute -right-1 bottom-0 scale-200 z-1 opacity-20"
+      >
+        <Star className="rotate-12"/>
+      </span>
+    </>
+  );
+};
+const Clouds = () => {
+  return (
+    <>
+      <span
+        className="text-white text-xs absolute left-0 bottom-0 scale-200 z-1 opacity-20"
+      >
+        <Cloud className="-rotate-20"/>
+      </span>
+    </>
+  );
+};
+
+export default ToggleWrapper;

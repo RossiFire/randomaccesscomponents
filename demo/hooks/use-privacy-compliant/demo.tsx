@@ -73,11 +73,11 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
 
       {/* Consent Banner */}
       {(showConsentBanner && !analytics.consentState.hasConsent) && (
-        <div className="absolute top-0 left-0 right-0 bg-fd-background border-t border-fd-border p-4 shadow-lg z-50">
+        <div className="absolute top-0 left-0 right-0 bg-background border-t border-border p-4 shadow-lg z-50">
           <div className="max-w-4xl mx-auto flex items-center justify-between">
             <div>
-              <h3 className="font-semibold text-fd-foreground">Privacy & Cookies</h3>
-              <p className="text-sm text-fd-muted-foreground">
+              <h3 className="font-semibold text-foreground">Privacy & Cookies</h3>
+              <p className="text-sm text-muted-foreground">
                 We use analytics to improve our service. Manage your preferences below.
               </p>
             </div>
@@ -87,7 +87,7 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
                   analytics.withdrawConsent()
                   setShowConsentBanner(false)
                 }}
-                className="px-3 py-1 text-xs bg-fd-muted text-fd-foreground rounded hover:bg-fd-muted/80"
+                className="px-3 py-1 text-xs bg-muted text-foreground rounded hover:bg-muted/80"
               >
                 Deny
               </button>
@@ -96,13 +96,13 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
                   analytics.updateConsent(["analytics", "functional"])
                   setShowConsentBanner(false)
                 }}
-                className="px-3 py-1 text-xs bg-fd-primary text-fd-primary-foreground rounded hover:bg-fd-primary/90"
+                className="px-3 py-1 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90"
               >
                 Accept All
               </button>
               <button
                 onClick={() => setShowConsentBanner(false)}
-                className="px-3 py-1 text-xs text-fd-muted-foreground hover:text-fd-foreground"
+                className="px-3 py-1 text-xs text-muted-foreground hover:text-foreground"
               >
                 ✕
               </button>
@@ -114,22 +114,22 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
         <div className="w-full">
           {/* Landing Page Header */}
           <div className="text-center py-8">
-            <h1 className="text-4xl font-bold text-fd-foreground mb-4">Demo Landing Page</h1>
-            <p className="text-lg text-fd-muted-foreground mb-8">
+            <h1 className="text-4xl font-bold text-foreground mb-4">Demo Landing Page</h1>
+            <p className="text-lg text-muted-foreground mb-8">
               Experience privacy-compliant analytics in action
             </p>
           </div>
 
           {/* Privacy Settings */}
           <div>
-            <h2 className="text-2xl font-semibold text-fd-foreground mb-4 mt-0">Privacy Settings</h2>
+            <h2 className="text-2xl font-semibold text-foreground mb-4 mt-0">Privacy Settings</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-fd-foreground mb-2">Regulation:</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Regulation:</label>
                 <select
                   value={analytics.settings.regulation}
                   onChange={(e) => analytics.updateSettings({ regulation: e.target.value as PrivacyRegulation })}
-                  className="w-full p-2 border border-fd-border rounded-md bg-fd-background text-fd-foreground"
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                 >
                   <option value="GDPR">GDPR</option>
                   <option value="CCPA">CCPA</option>
@@ -140,11 +140,11 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-fd-foreground mb-2">Retention Period:</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Retention Period:</label>
                 <select
                   value={analytics.settings.retentionPeriod}
                   onChange={(e) => analytics.updateSettings({ retentionPeriod: e.target.value as RetentionPeriod })}
-                  className="w-full p-2 border border-fd-border rounded-md bg-fd-background text-fd-foreground"
+                  className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                 >
                   <option value={30}>30 days</option>
                   <option value={90}>90 days</option>
@@ -158,21 +158,21 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
 
             {/* Consent Management */}
             <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-fd-foreground mb-4 mt-0">Consent Management</h2>
+            <h2 className="text-2xl font-semibold text-foreground mb-4 mt-0">Consent Management</h2>
             <div className="space-y-4">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <div className="p-4 bg-fd-muted rounded-lg flex flex-col gap-2 col-span-2">
-                  <h3 className="font-semibold text-fd-foreground mb-2 mt-0">Current Status</h3>
-                  <span className="text-sm text-fd-muted-foreground">
+                <div className="p-4 bg-muted rounded-lg flex flex-col gap-2 col-span-2">
+                  <h3 className="font-semibold text-foreground mb-2 mt-0">Current Status</h3>
+                  <span className="text-sm text-muted-foreground">
                     <strong>Consent:</strong> {analytics.consentState.hasConsent ? "Granted ✅" : "Not Granted ❌"}
                   </span>
-                  <span className="text-sm text-fd-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     <strong>Categories:</strong> {analytics.consentState.categories.join(", ") || "None"}
                   </span>
-                  <span className="text-sm text-fd-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     <strong>Wants Anonymized Data:</strong> {analytics.consentState.wantsAnonymizedData ? "Yes ✅" : "No ❌"}
                   </span>
-                  <span className="text-sm text-fd-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     <strong>Regulation:</strong> {analytics.settings.regulation}
                   </span>
 
@@ -195,29 +195,29 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
                     </Button>
                   </div>
                 </div>
-                <div className="p-4 bg-fd-muted rounded-lg flex flex-col gap-2">
-                  <h3 className="font-semibold text-fd-foreground mb-2 mt-0">Data Retention</h3>
-                  <span className="text-sm text-fd-muted-foreground">
+                <div className="p-4 bg-muted rounded-lg flex flex-col gap-2">
+                  <h3 className="font-semibold text-foreground mb-2 mt-0">Data Retention</h3>
+                  <span className="text-sm text-muted-foreground">
                     <strong>Total Events:</strong> {retentionStatus.totalEvents}
                   </span>
-                  <span className="text-sm text-fd-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     <strong>Active Events:</strong> {retentionStatus.activeEvents}
                   </span>
-                  <span className="text-sm text-fd-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     <strong>Expired Events:</strong> {retentionStatus.expiredEvents}
                   </span>
-                  <span className="text-sm text-fd-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     <strong>Anonymized Events:</strong> {analytics.metrics.anonymizedEvents}
                   </span>
-                  <span className="text-sm text-fd-muted-foreground">
+                  <span className="text-sm text-muted-foreground">
                     <strong>Retention Compliance:</strong> {analytics.metrics.retentionCompliance.complianceRate.toFixed(1)}%
                   </span>
                 </div>
               </div>
               
               {/* Anonymization Preference Toggle */}
-              <div className="p-4 bg-fd-muted rounded-lg">
-                <h3 className="font-medium text-fd-foreground mb-2 mt-0">Anonymization Preference</h3>
+              <div className="p-4 bg-muted rounded-lg">
+                <h3 className="font-medium text-foreground mb-2 mt-0">Anonymization Preference</h3>
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -226,24 +226,24 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
                     onChange={(e) => analytics.updateAnonymizationPreference(e.target.checked)}
                     className="w-4 h-4"
                   />
-                  <label htmlFor="anonymization-preference" className="text-base text-fd-foreground">
+                  <label htmlFor="anonymization-preference" className="text-base text-foreground">
                     I want my data to be anonymized
                   </label>
                 </div>
-                <p className="text-sm text-fd-muted-foreground mt-2">
+                <p className="text-sm text-muted-foreground mt-2">
                   When enabled, all future tracked events will have PII fields hashed automatically.
                 </p>
               </div>
                           {/* Custom PII Fields Configuration */}
-            <div className="mt-6 p-4 bg-fd-muted rounded-lg">
-              <h4 className="font-medium text-fd-foreground mb-3">Custom PII Fields Configuration</h4>
+            <div className="mt-6 p-4 bg-muted rounded-lg">
+              <h4 className="font-medium text-foreground mb-3">Custom PII Fields Configuration</h4>
               <div className="space-y-3">
                 <div>
                   <div className="flex flex-wrap gap-2 mb-3">
                     {analytics.settings.customPiiFields.map((field, index) => (
                       <span
                         key={index}
-                        className="bg-fd-primary text-fd-primary-foreground px-2 py-1 rounded text-sm"
+                        className="bg-primary text-primary-foreground px-2 py-1 rounded text-sm"
                       >
                         {field}
                         <button
@@ -251,7 +251,7 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
                             const newFields = analytics.settings.customPiiFields.filter((_, i) => i !== index);
                             analytics.updateCustomPiiFields(newFields);
                           }}
-                          className="ml-2 text-fd-primary-foreground hover:text-fd-destructive"
+                          className="ml-2 text-primary-foreground hover:text-destructive"
                         >
                           x
                         </button>
@@ -266,7 +266,7 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
                     value={customPiiField}
                     onChange={(e) => setCustomPiiField(e.target.value)}
                     placeholder="Add new PII field (e.g., ssn, creditCard)"
-                    className="flex-1 p-2 border border-fd-border rounded-md bg-fd-background text-fd-foreground"
+                    className="flex-1 p-2 border border-border rounded-md bg-background text-foreground"
                   />
                   <Button
                     onClick={() => {
@@ -280,7 +280,7 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
                   </Button>
                 </div>
                 
-                <p className="text-xs text-fd-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   These fields will be anonymized when anonymization is enabled. 
                   Common examples: email, phone, name, address, ip, user_id, ssn, creditCard
                 </p>
@@ -291,33 +291,33 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
 
           {/* Event Tracking */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-fd-foreground mb-4 mt-4">Event Tracking Test</h2>
+            <h2 className="text-2xl font-semibold text-foreground mb-4 mt-4">Event Tracking Test</h2>
             <div className="space-y-4">
               <div className="grid grid-cols-1 gap-8">
                 <div>
-                  <label className="block text-sm font-medium text-fd-foreground mb-2">Event Name:</label>
+                  <label className="block text-sm font-medium text-foreground mb-2">Event Name:</label>
                   <input
                     type="text"
                     value={eventName}
                     onChange={(e) => setEventName(e.target.value)}
-                    className="w-full p-2 border border-fd-border rounded-md bg-fd-background text-fd-foreground"
+                    className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                     placeholder="e.g., page_view, button_click"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-fd-foreground mb-2">Event Properties (JSON):</label>
+                  <label className="block text-sm font-medium text-foreground mb-2">Event Properties (JSON):</label>
                   <textarea
                     value={eventProperties}
                     onChange={(e) => setEventProperties(e.target.value)}
-                    className="w-full p-2 border border-fd-border rounded-md h-20 bg-fd-background text-fd-foreground"
+                    className="w-full p-2 border border-border rounded-md h-20 bg-background text-foreground"
                     placeholder='{"page": "/home", "source": "direct"}'
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-fd-foreground mb-2">Consent Categories:</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Consent Categories:</label>
                 <div className="flex flex-wrap gap-2">
                   {["analytics", "marketing", "functional", "necessary", "preferences"].map((category) => (
                     <label key={category} className="flex items-center text-sm">
@@ -341,7 +341,7 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
 
               <button
                 onClick={handleTrackEvent}
-                className="w-full bg-fd-primary text-fd-primary-foreground px-4 py-2 rounded-md hover:bg-fd-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={!analytics.consentState.hasConsent}
               >
                 Track Event
@@ -365,19 +365,19 @@ const PrivacyCompliantAnalyticsDemo: React.FC = () => {
       {/* Export Data Modal */}
       {showExport && exportData && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center rounded-lg p-4 z-50">
-          <div className="h-[60vh] min-w-xl shadow-xl overflow-hidden border-fd-border rounded-lg bg-fd-background border max-w-2xl flex">
+          <div className="h-[60vh] min-w-xl shadow-xl overflow-hidden border-border rounded-lg bg-background border max-w-2xl flex">
             <div className="size-full max-h-full overflow-y-scroll flex-1 no-scrollbar">
-                <div className="flex justify-between items-center mb-4 bg-fd-background sticky top-0 p-4">
-                  <h3 className="text-xl font-semibold text-fd-foreground mt-0 mb-0">Exported Events</h3>
+                <div className="flex justify-between items-center mb-4 bg-background sticky top-0 p-4">
+                  <h3 className="text-xl font-semibold text-foreground mt-0 mb-0">Exported Events</h3>
                   <button
                     onClick={() => setShowExport(false)}
-                    className="text-fd-muted-foreground hover:text-fd-foreground"
+                    className="text-muted-foreground hover:text-foreground"
                   >
                     ✕
                   </button>
                 </div>
               <div className="p-3">
-                <pre className="bg-fd-muted p-4 rounded-md text-sm overflow-auto text-fd-foreground">
+                <pre className="bg-muted p-4 rounded-md text-sm overflow-auto text-foreground">
                   {JSON.stringify(exportData, null, 2)}
                 </pre>
               </div>

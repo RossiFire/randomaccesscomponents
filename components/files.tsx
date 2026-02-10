@@ -15,7 +15,7 @@ import {
 } from './ui/collapsible';
 
 const itemVariants = cva(
-  'flex flex-row items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-fd-accent hover:text-fd-accent-foreground [&_svg]:size-4',
+  'flex flex-row items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground [&_svg]:size-4',
 );
 
 export function Files({
@@ -24,7 +24,7 @@ export function Files({
 }: HTMLAttributes<HTMLDivElement>): React.ReactElement {
   return (
     <div
-      className={cn('not-prose rounded-md border bg-fd-card p-2', className)}
+      className={cn('not-prose rounded-md border bg-card p-2', className)}
       {...props}
     >
       {props.children}

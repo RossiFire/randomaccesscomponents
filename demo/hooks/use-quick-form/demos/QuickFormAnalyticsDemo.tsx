@@ -46,7 +46,7 @@ const QuickFormAnalyticsDemo: React.FC = () => {
             onChange={(e) => form.set('email', e.target.value)}
             onFocus={() => analytics.trackFocus('email')}
             onBlur={() => analytics.trackBlur('email')}
-            className="px-3 py-2 border rounded-md bg-fd-background placeholder:text-fd-muted-foreground placeholder:text-sm"
+            className="px-3 py-2 border rounded-md bg-background placeholder:text-muted-foreground placeholder:text-sm"
           />
           {form.errors.email && form.touched('email') && (
             <span className="text-xs text-red-500">{form.errors.email}</span>
@@ -88,7 +88,7 @@ const QuickFormAnalyticsDemo: React.FC = () => {
         <Button disabled={!form.isValid} type="submit" className="ml-auto">
           Submit
         </Button>
-        <div className="flex flex-col gap-2 p-3 bg-fd-accent/10 rounded-md text-xs">
+        <div className="flex flex-col gap-2 p-3 bg-accent/10 rounded-md text-xs">
           <div className="font-medium">Analytics</div>
           <div>Completion: {(analytics.analytics.completionRate * 100).toFixed(0)}%</div>
           <div>Email interactions: {analytics.analytics.fieldInteractions.email || 0}</div>

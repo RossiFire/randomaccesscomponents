@@ -59,9 +59,9 @@ export function DemoBlock({
   ref,
 }: DemoBlockProps & { ref?: React.RefObject<HTMLDivElement | null>}) {
   const backgroundClasses = {
-    default: 'bg-fd-background',
-    dots: 'bg-fd-background bg-[radial-gradient(circle_at_1px_1px,rgb(163_163_163_/_0.15)_1px,transparent_0)] bg-[size:20px_20px]',
-    grid: 'bg-fd-background bg-[linear-gradient(to_right,rgb(163_163_163_/_0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgb(163_163_163_/_0.1)_1px,transparent_1px)] bg-[size:20px_20px]',
+    default: 'bg-background',
+    dots: 'bg-background bg-[radial-gradient(circle_at_1px_1px,rgb(163_163_163_/_0.15)_1px,transparent_0)] bg-[size:20px_20px]',
+    grid: 'bg-background bg-[linear-gradient(to_right,rgb(163_163_163_/_0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgb(163_163_163_/_0.1)_1px,transparent_1px)] bg-[size:20px_20px]',
     none: '',
   };
 
@@ -70,19 +70,19 @@ export function DemoBlock({
       {(title || description) && (
         <div className="">
           {title && (
-            <h3 className="text-base font-semibold text-fd-foreground mb-1">
+            <h3 className="text-base font-semibold text-foreground mb-1">
               {title}
             </h3>
           )}
           {description && (
-            <p className="text-sm text-fd-muted-foreground mb-0">{description}</p>
+            <p className="text-sm text-muted-foreground mb-0">{description}</p>
           )}
         </div>
       )}
     <div
       className={cn(
-        'my-6 rounded-xl shadow-2xl shadow-fd-card',
-        showBorder && 'border border-fd-border shadow-sm',
+        'my-6 rounded-xl shadow-2xl shadow-card',
+        showBorder && 'border border-border shadow-sm',
         !disableOverflowHidden && 'overflow-hidden',
         className,
       )}

@@ -8,13 +8,13 @@ const UseOsDemo: React.FC = () => {
     return ( 
         <DemoBlock>
         <div className="text-center space-y-4">
-          <div className="text-sm text-fd-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             Current OS
           </div>
-          <p className="text-lg font-semibold text-fd-foreground">
+          <p className="text-lg font-semibold text-foreground">
             {os}
           </p>
-          <p className="text-sm text-fd-muted-foreground mt-8">
+          <p className="text-sm text-muted-foreground mt-8">
             Open on other operating systems to see different values
           </p>
         </div>

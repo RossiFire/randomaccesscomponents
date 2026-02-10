@@ -13,7 +13,7 @@ const GlobalNoisyBackground: React.FC<GlobalNoisyBackgroundProps> = ({ className
   return (
     active && <div
       className={cn(
-        "pointer-events-none fixed inset-[0%] flex items-center justify-center z-[9999] overflow-hidden",
+        "pointer-events-none fixed inset-[0%] flex items-center justify-center z-[9999] overflow-hidden opacity-20",
         className
       )}
     >

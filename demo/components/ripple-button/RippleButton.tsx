@@ -57,7 +57,7 @@ const RippleButton: FunctionComponent<ButtonProps> = ({
     <button
       {...props}
       className={cn(
-        "px-8 py-3 group font-medium border-2 border-[#3cce98] cursor-pointer rounded-full relative overflow-hidden",
+        "px-8 py-3 group font-medium border-2 border-[#0e5b3f] cursor-pointer rounded-full relative overflow-hidden",
         className
       )}
       onMouseEnter={(e) => {
@@ -76,11 +76,11 @@ const RippleButton: FunctionComponent<ButtonProps> = ({
       <div
         ref={rippleRef}
         className={cn(
-          "absolute pointer-events-none bg-[#3cce98] rounded-full scale-0 top-0 left-0 size-28",
+          "absolute pointer-events-none bg-[#0e5b3f] rounded-full scale-0 top-0 left-0 size-28",
           rippleClassName
         )}
       />
-      <span className="relative z-10 text-[#3cce98] group-hover:text-[#535353] transition-colors duration-300">
+      <span className="relative z-10 text-[#0e5b3f] group-hover:text-[white] transition-colors duration-300">
         {children}
       </span>
     </button>

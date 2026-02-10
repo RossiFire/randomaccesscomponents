@@ -12,7 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useHydration } from "@/hooks/use-hydration";
 
 
@@ -42,11 +42,11 @@ const MarqueeDemo: React.FC = () => {
 
     return (
       <DemoBlock containerClassName="flex flex-col items-center justify-center h-[400px]">
-        <h2 className="mt-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-fd-primary to-fd-accent-foreground">
+        <h2 className="mt-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground">
             Markee
         </h2>
         <Markee className="w-full md:w-3/4">
-          {showFades && <MarkeeFade position="left" className="from-fd-background" />}
+          {showFades && <MarkeeFade position="left" className="from-background" />}
           <MarkeeContent duration={duration} pauseOnHover={pauseOnHover} direction={direction} paused={paused}>
             {BADGES.map((badge, index) => (
               <React.Fragment key={index}>
@@ -57,28 +57,28 @@ const MarqueeDemo: React.FC = () => {
               </React.Fragment>
             ))}
           </MarkeeContent>
-          {showFades && <MarkeeFade position="right" className="from-fd-background" />}
+          {showFades && <MarkeeFade position="right" className="from-background" />}
         </Markee>
         <div className="mt-12 flex gap-6 flex-wrap w-full justify-center">
           <div className="flex items-center gap-2">
             <Checkbox id="fades" checked={showFades} onCheckedChange={() => setShowFades(!showFades)} />
-            <Label htmlFor="fades" className="text-sm text-fd-muted-foreground font-normal">Fades</Label>
+            <Label htmlFor="fades" className="text-sm text-muted-foreground font-normal">Fades</Label>
           </div>
           <div className="flex items-center gap-2">
             <Checkbox id="pauseOnHover" checked={pauseOnHover} onCheckedChange={() => setPauseOnHover(!pauseOnHover)} />
-            <Label htmlFor="pauseOnHover" className="text-sm text-fd-muted-foreground font-normal">Pause on hover</Label>
+            <Label htmlFor="pauseOnHover" className="text-sm text-muted-foreground font-normal">Pause on hover</Label>
           </div>
           <div className="flex items-center gap-2">
             <Checkbox id="paused" checked={paused} onCheckedChange={() => setPaused(!paused)} />
-            <Label htmlFor="paused" className="text-sm text-fd-muted-foreground font-normal">Paused</Label>
+            <Label htmlFor="paused" className="text-sm text-muted-foreground font-normal">Paused</Label>
           </div>
           <Button variant="secondary" className="flex items-center gap-2" onClick={() => setDirection(direction === "left" ? "right" : "left")}>
-            <span className="text-sm text-fd-muted-foreground font-normal">Direction</span>
-            <ArrowLeftRight className="size-4 text-fd-muted-foreground" />
+            <span className="text-sm text-muted-foreground font-normal">Direction</span>
+            <ArrowLeftRight className="size-4 text-muted-foreground" />
           </Button>
 
           <div className="flex items-center gap-2">
-            <Label htmlFor="duration" className="text-sm text-fd-muted-foreground font-normal">Duration</Label>
+            <Label htmlFor="duration" className="text-sm text-muted-foreground font-normal">Duration</Label>
             <InputGroup className="w-24">
             <InputGroupInput 
               placeholder="Duration" 
@@ -133,14 +133,14 @@ const MarqueeDemoWithGSAP: React.FC = () => {
       containerClassName="flex flex-col items-center justify-center"
     >
         <div className="h-[600px] grid place-items-center">
-          <span className="text-lg text-center text-fd-muted-foreground">Scroll to see the animation</span>
+          <span className="text-lg text-center text-muted-foreground">Scroll to see the animation</span>
         </div>
         <div className="flex flex-col items-center justify-center animated-content w-full min-h-[600px]">
-          <h2 className="mt-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-fd-primary to-fd-accent-foreground">
+          <h2 className="mt-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground">
               Markee
           </h2>
           <Markee className="w-full md:w-3/4">
-            <MarkeeFade position="left" className="from-fd-background" />
+            <MarkeeFade position="left" className="from-background" />
             <MarkeeContent className="mymarkee-content animate-none!" paused >
               {BADGES.map((badge, index) => (
                 <React.Fragment key={index}>
@@ -151,10 +151,10 @@ const MarqueeDemoWithGSAP: React.FC = () => {
                 </React.Fragment>
               ))}
             </MarkeeContent>
-            <MarkeeFade position="right" className="from-fd-background" />
+            <MarkeeFade position="right" className="from-background" />
           </Markee>
           <Markee className="w-full md:w-3/4">
-            <MarkeeFade position="left" className="from-fd-background" />
+            <MarkeeFade position="left" className="from-background" />
             <MarkeeContent className="mymarkee-content-right animate-none!" paused direction="right" >
               {BADGES.map((badge, index) => (
                 <React.Fragment key={index}>
@@ -165,7 +165,7 @@ const MarqueeDemoWithGSAP: React.FC = () => {
                 </React.Fragment>
               ))}
             </MarkeeContent>
-            <MarkeeFade position="right" className="from-fd-background" />
+            <MarkeeFade position="right" className="from-background" />
           </Markee>
         </div>
         <div className="h-[600px]"></div>
@@ -214,14 +214,14 @@ const MarqueeDemoWithFramerMotion: React.FC = () => {
         className="max-h-[600px] overflow-scroll no-scrollbar markee-demo-with-framer-motion-wrapper w-full"
       >
         <div className="h-[600px] grid place-items-center">
-          <span className="text-lg text-center text-fd-muted-foreground">Scroll to see the animation</span>
+          <span className="text-lg text-center text-muted-foreground">Scroll to see the animation</span>
         </div>
         <div className="flex flex-col items-center justify-center animated-content w-full min-h-[600px]">
-          <h2 className="mt-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-fd-primary to-fd-accent-foreground">
+          <h2 className="mt-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground">
               Markee
           </h2>
           <Markee className="w-full md:w-3/4">
-            <MarkeeFade position="left" className="from-fd-background" />
+            <MarkeeFade position="left" className="from-background" />
             <MarkeeContent className="mymarkee-content animate-none!" paused >
               <motion.div style={{ translateX }} className="flex">
                 {BADGES.map((badge, index) => (
@@ -234,10 +234,10 @@ const MarqueeDemoWithFramerMotion: React.FC = () => {
                 ))}
               </motion.div>
             </MarkeeContent>
-            <MarkeeFade position="right" className="from-fd-background" />
+            <MarkeeFade position="right" className="from-background" />
           </Markee>
           <Markee className="w-full md:w-3/4">
-            <MarkeeFade position="left" className="from-fd-background" />
+            <MarkeeFade position="left" className="from-background" />
             <MarkeeContent className="mymarkee-content animate-none!" paused >
               <motion.div style={{ translateX: translateXInverse }} className="flex">
                 {BADGES.map((badge, index) => (
@@ -250,7 +250,7 @@ const MarqueeDemoWithFramerMotion: React.FC = () => {
                 ))}
               </motion.div>
             </MarkeeContent>
-            <MarkeeFade position="right" className="from-fd-background" />
+            <MarkeeFade position="right" className="from-background" />
           </Markee>
         </div>
         <div className="h-[600px]"></div>

@@ -16,7 +16,7 @@ const MagnetDemo: React.FC = () => {
                     <Magnet>
                         <div>Hover me</div>
                     </Magnet>
-                    <Magnet className="rounded-full bg-fd-accent cursor-pointer text-fd-accent-foreground p-3 border border-fd-accent-foreground/10">
+                    <Magnet className="rounded-full bg-accent cursor-pointer text-accent-foreground p-3 border border-accent-foreground/10">
                         <StarIcon className="size-6" />
                     </Magnet>
                     <Magnet magnetMultiplier={3}>

@@ -23,15 +23,15 @@ import { mergeRefs } from '../lib/merge-refs';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const variants = {
-  primary: 'bg-fd-primary text-fd-primary-foreground hover:bg-fd-primary/80',
-  outline: 'border hover:bg-fd-accent hover:text-fd-accent-foreground',
-  ghost: 'hover:bg-fd-accent hover:text-fd-accent-foreground',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
+  outline: 'border hover:bg-accent hover:text-accent-foreground',
+  ghost: 'hover:bg-accent hover:text-accent-foreground',
   secondary:
-    'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent hover:text-fd-accent-foreground',
+    'border bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground',
 } as const;
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md p-2 text-sm font-medium transition-colors duration-100 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fd-ring',
+  'inline-flex items-center justify-center rounded-md p-2 text-sm font-medium transition-colors duration-100 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
   {
     variants: {
       variant: variants,
@@ -127,8 +127,8 @@ export function CodeBlock({
       {...props}
       className={cn(
         inTab
-          ? 'bg-fd-secondary -mx-px -mb-px last:rounded-b-xl'
-          : 'my-2 bg-fd-card rounded-xl',
+          ? 'bg-secondary -mx-px -mb-px last:rounded-b-xl'
+          : 'my-2 bg-card rounded-xl',
         keepBackground && 'bg-(--shiki-light-bg) dark:bg-(--shiki-dark-bg)',
 
         'shiki relative border shadow-sm outline-none not-prose overflow-hidden text-sm',
@@ -136,7 +136,7 @@ export function CodeBlock({
       )}
     >
       {title ? (
-        <div className="flex text-fd-muted-foreground items-center gap-2 h-9.5 border-b px-4">
+        <div className="flex text-muted-foreground items-center gap-2 h-9.5 border-b px-4">
           {typeof icon === 'string' ? (
             <div
               className="[&_svg]:size-3.5"
@@ -156,7 +156,7 @@ export function CodeBlock({
       ) : (
         Actions({
           className:
-            'absolute top-2 right-2 z-2 backdrop-blur-lg rounded-lg text-fd-muted-foreground',
+            'absolute top-2 right-2 z-2 backdrop-blur-lg rounded-lg text-muted-foreground',
           children: allowCopy && <CopyButton containerRef={areaRef} />,
         })
       )}
@@ -210,7 +210,7 @@ function CopyButton({
       className={cn(
         buttonVariants({
           className:
-            'hover:text-fd-accent-foreground data-[checked]:text-fd-accent-foreground',
+            'hover:text-accent-foreground data-[checked]:text-accent-foreground',
           size: 'icon-xs',
         }),
         className,
@@ -233,7 +233,7 @@ export function CodeBlockTabs({ ref, ...props }: ComponentProps<typeof Tabs>) {
       ref={mergeRefs(containerRef, ref)}
       {...props}
       className={cn(
-        'bg-fd-card rounded-xl border',
+        'bg-card rounded-xl border',
         !nested && 'my-4',
         props.className,
       )}
@@ -258,7 +258,7 @@ export function CodeBlockTabsList(props: ComponentProps<typeof TabsList>) {
     <TabsList
       {...props}
       className={cn(
-        'flex flex-row px-2 overflow-x-auto text-fd-muted-foreground',
+        'flex flex-row px-2 overflow-x-auto text-muted-foreground',
         props.className,
       )}
     >
@@ -275,11 +275,11 @@ export function CodeBlockTabsTrigger({
     <TabsTrigger
       {...props}
       className={cn(
-        'relative group inline-flex text-sm font-medium text-nowrap items-center transition-colors gap-2 px-2 py-1.5 hover:text-fd-accent-foreground data-[state=active]:text-fd-primary [&_svg]:size-3.5',
+        'relative group inline-flex text-sm font-medium text-nowrap items-center transition-colors gap-2 px-2 py-1.5 hover:text-accent-foreground data-[state=active]:text-primary [&_svg]:size-3.5',
         props.className,
       )}
     >
-      <div className="absolute inset-x-2 bottom-0 h-px group-data-[state=active]:bg-fd-primary" />
+      <div className="absolute inset-x-2 bottom-0 h-px group-data-[state=active]:bg-primary" />
       {children}
     </TabsTrigger>
   );

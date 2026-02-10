@@ -31,7 +31,7 @@ const GradientBorderButton: FunctionComponent<GradientBorderButtonProps> = ({
           gradientClassName
         )}
         style={{
-          background: "conic-gradient(from 0deg, var(--color-fd-primary), var(--color-fd-accent), var(--color-fd-primary))",
+          background: "conic-gradient(from 0deg, var(--color-primary), var(--color-accent), var(--color-primary))",
           willChange: "transform",
         }}
       />
@@ -39,13 +39,13 @@ const GradientBorderButton: FunctionComponent<GradientBorderButtonProps> = ({
       {/* Inner background */}
       <div
         className={cn(
-          "absolute inset-[2px] rounded-[6px] bg-fd-background",
+          "absolute inset-[2px] rounded-[6px] bg-background",
           innerClassName
         )}
       />
       
       {/* Content */}
-      <span className="relative z-10 text-fd-foreground transition-colors duration-300">
+      <span className="relative z-10 text-foreground transition-colors duration-300">
         {children}
       </span>
     </button>

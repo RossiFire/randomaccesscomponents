@@ -1,17 +1,25 @@
-import { DM_Sans, Major_Mono_Display } from "next/font/google";
+import localFont from 'next/font/local';
+import { DM_Sans, Inter } from 'next/font/google';
 
-const majorMonoDisplay = Major_Mono_Display({
-  subsets: ["latin"],
-  weight: ["400"],
+const roslindale = localFont({
+    src: '../public/fonts/Roslindale Font Family/RoslindaleVariable-VF-Testing.ttf',
+    variable: '--font-roslindale',
 });
 
-const majorFont = majorMonoDisplay.className;
 
-const inter = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+const dmSans = DM_Sans({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700', '800', '900'],
+    variable: '--font-dm-sans',
+});
+
+
+const inter = Inter({ 
+  subsets: ['latin'], 
+  weight: ['400', '500', '600', '700', '800', '900'], 
+  variable: '--font-inter' 
 });
 
 const interFont = inter.className;
 
-export { majorFont, interFont };
+export { roslindale, dmSans, interFont };

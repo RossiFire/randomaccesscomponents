@@ -105,8 +105,8 @@ const ConverterPage: React.FC = () => {
     <div className="flex flex-col items-center w-full min-h-screen p-6 gap-8">
       <div className="flex flex-col items-center gap-6 w-full max-w-4xl my-8 md:my-12">
         <div className="text-center space-y-2 mb-12 relative w-fit">
-          <h1 className="text-3xl font-bold text-fd-foreground">Random UI Code Converter <span className="bg-gradient-to-br from-fd-primary to-fd-accent text-transparent bg-clip-text">V1</span></h1>
-          <p className="text-fd-muted-foreground">
+          <h1 className="text-3xl font-bold text-foreground">Random UI Code Converter <span className="bg-gradient-to-br from-primary to-accent text-transparent bg-clip-text">V1</span></h1>
+          <p className="text-muted-foreground">
             Idk it works very poorly, It&apos;s just to say that my website is using AI.
           </p>
           <Link href={'/'} className="absolute -top-4 md:top-1/2 left-0 md:-left-20 -translate-y-1/2 rotate-x-180 w-fit">
@@ -126,7 +126,7 @@ const ConverterPage: React.FC = () => {
 
             {files.length > 0 && (
               <div className="w-full max-w-2xl">
-                <label htmlFor="output-format" className="block text-sm font-medium text-fd-foreground mb-2">
+                <label htmlFor="output-format" className="block text-sm font-medium text-foreground mb-2">
                   Output Format
                 </label>
                 <select
@@ -135,8 +135,8 @@ const ConverterPage: React.FC = () => {
                   onChange={(e) => setOutputFormat(e.target.value as OutputFormat)}
                   disabled={availableFormats.length === 0}
                   className={cn(
-                    "w-full px-3 py-2 rounded-md border bg-fd-background text-fd-foreground",
-                    "focus:outline-none focus:ring-2 focus:ring-fd-ring",
+                    "w-full px-3 py-2 rounded-md border bg-background text-foreground",
+                    "focus:outline-none focus:ring-2 focus:ring-ring",
                     "disabled:opacity-50 disabled:cursor-not-allowed"
                   )}
                 >
@@ -177,8 +177,8 @@ const ConverterPage: React.FC = () => {
                 </Button>
               )}
             </div>
-            {isLoading && <span className="text-sm text-fd-muted-foreground max-w-2xl mx-auto text-center">Since this conversion tool is free to use, it might takes a few to convert your files. Thank you for your patience. (credits will finish at some point)</span>}
-            <span className="italic text-fd-muted-foreground text-xs mx-auto text-center">AI make mistakes, so don&apos;t trust it.</span>
+            {isLoading && <span className="text-sm text-muted-foreground max-w-2xl mx-auto text-center">Since this conversion tool is free to use, it might takes a few to convert your files. Thank you for your patience. (credits will finish at some point)</span>}
+            <span className="italic text-muted-foreground text-xs mx-auto text-center">AI make mistakes, so don&apos;t trust it.</span>
           </>
         )}
 
@@ -199,7 +199,7 @@ const ConverterPage: React.FC = () => {
         {convertedFiles && (
           <div className="w-full space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-fd-foreground">
+              <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground">
                 Conversion Results
               </h2>
               <Button onClick={handleReset} variant="secondary">
@@ -220,8 +220,8 @@ const ConverterPage: React.FC = () => {
                               onClick={() => handleDownload(file.name, file.code)}
                               className={cn(
                                 "inline-flex items-center justify-center rounded-md p-1.5",
-                                "text-fd-muted-foreground hover:text-fd-accent-foreground",
-                                "hover:bg-fd-accent transition-colors"
+                                "text-muted-foreground hover:text-accent-foreground",
+                                "hover:bg-accent transition-colors"
                               )}
                               aria-label={`Download ${file.name}`}
                             >

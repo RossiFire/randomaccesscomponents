@@ -58,7 +58,7 @@ export const TabsList = React.forwardRef<
     ref={ref}
     {...props}
     className={cn(
-      'flex gap-3.5 text-fd-secondary-foreground overflow-x-auto px-4 not-prose',
+      'flex gap-3.5 text-secondary-foreground overflow-x-auto px-4 not-prose',
       props.className,
     )}
   />
@@ -73,7 +73,7 @@ export const TabsTrigger = React.forwardRef<
     ref={ref}
     {...props}
     className={cn(
-      'inline-flex items-center gap-2 whitespace-nowrap text-fd-muted-foreground border-b border-transparent py-2 text-sm font-medium transition-colors [&_svg]:size-4 hover:text-fd-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=active]:border-fd-primary data-[state=active]:text-fd-primary',
+      'inline-flex items-center gap-2 whitespace-nowrap text-muted-foreground border-b border-transparent py-2 text-sm font-medium transition-colors [&_svg]:size-4 hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=active]:border-primary data-[state=active]:text-primary',
       props.className,
     )}
   />
@@ -96,7 +96,7 @@ export function Tabs({
     <Unstyled.Tabs
       ref={ref}
       className={cn(
-        'flex flex-col overflow-hidden rounded-xl border bg-fd-secondary my-4',
+        'flex flex-col overflow-hidden rounded-xl border bg-secondary my-4',
         className,
       )}
       value={value}
@@ -163,7 +163,7 @@ export function TabsContent({
       value={value}
       forceMount
       className={cn(
-        'p-4 text-[15px] bg-fd-background rounded-xl outline-none prose-no-margin data-[state=inactive]:hidden [&>figure:only-child]:-m-4 [&>figure:only-child]:border-none',
+        'p-4 text-[15px] bg-background rounded-xl outline-none prose-no-margin data-[state=inactive]:hidden [&>figure:only-child]:-m-4 [&>figure:only-child]:border-none',
         className,
       )}
       {...props}

@@ -25,7 +25,7 @@ export default function InputFile({ onFileChange, label, files, onRemove, maxFil
           disabled={files.length >= maxFiles}
           className="cursor-pointer"
         />
-        {maxFiles > 1 && <p className="text-xs text-fd-muted-foreground">
+        {maxFiles > 1 && <p className="text-xs text-muted-foreground">
           {files.length}/{maxFiles} files selected
         </p>}
       </div>}
@@ -37,18 +37,18 @@ export default function InputFile({ onFileChange, label, files, onRemove, maxFil
               key={`${file.name}-${index}`}
               className={cn(
                 "flex items-center justify-between p-3 rounded-lg border",
-                "bg-fd-secondary text-fd-secondary-foreground"
+                "bg-secondary text-secondary-foreground"
               )}
             >
               <div className="flex flex-col gap-1 flex-1 min-w-0">
                 <span className="text-sm font-medium truncate">{file.name}</span>
-                <span className="text-xs text-fd-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {(file.size / 1024).toFixed(2)} KB
                 </span>
               </div>
               <button
                 onClick={() => onRemove(index)}
-                className="ml-2 p-1 rounded-md hover:bg-fd-accent hover:text-fd-accent-foreground transition-colors"
+                className="ml-2 p-1 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
                 aria-label={`Remove ${file.name}`}
               >
                 <X className="w-4 h-4" />

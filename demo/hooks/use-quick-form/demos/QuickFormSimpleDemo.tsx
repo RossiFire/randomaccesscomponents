@@ -38,7 +38,7 @@ const QuickFormSimpleDemo: React.FC = () => {
                     type="text"
                     value={data.username}
                     onChange={(e) => set('username', e.target.value)}
-                    className="px-3 py-2 border rounded-md bg-fd-background placeholder:text-fd-muted-foreground placeholder:text-sm"
+                    className="px-3 py-2 border rounded-md bg-background placeholder:text-muted-foreground placeholder:text-sm"
                 />
                 {errors.username && touched('username') && (
                     <span className="text-xs text-red-500">{errors.username}</span>
@@ -53,7 +53,7 @@ const QuickFormSimpleDemo: React.FC = () => {
                     value={data.email}
                     onChange={(e) => set('email', e.target.value)}
                     className={cn(
-                        "px-3 py-2 border rounded-md bg-fd-background placeholder:text-fd-muted-foreground placeholder:text-sm"
+                        "px-3 py-2 border rounded-md bg-background placeholder:text-muted-foreground placeholder:text-sm"
                     )}
                 />
                 {(errors.email && touched('email')) && (
