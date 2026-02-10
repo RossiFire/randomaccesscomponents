@@ -65,7 +65,7 @@ function NavLink({ className, text, ...props }: Omit<React.ComponentProps<"a">, 
             className
           )}
           style={{
-            textShadow: "0 2.6ex 0",
+            textShadow: "0 2.7ex 0",
           }}
           {...props}
         >

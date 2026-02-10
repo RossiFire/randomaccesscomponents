@@ -12,6 +12,8 @@ import { Markee, MarkeeContent, MarkeeFade, MarkeeSpacer, MarkeeItem } from "@/c
 import TechBadge from "@/components/ui/tech-badge";
 import { useHydration } from "@/hooks/use-hydration";
 import React from "react";
+import { SnipeButton } from "@/components/snipe-button";
+import { ShimmerText } from "@/components/shimmer-text";
 
 
 const techBadges = [
@@ -37,9 +39,8 @@ const Hero: React.FC = () => {
         
         const tl = gsap.timeline({ delay: 0.25 });
         
-        const splittedH1 = new SplitText(".hero-text", { type: "chars" });
 
-        tl.from(splittedH1.chars, {
+        tl.from("h1", {
             y: 50,
             opacity: 0,
             delay: 0.25,
@@ -71,18 +72,14 @@ const Hero: React.FC = () => {
     if(!isMounted) return null;
     return (
         <div className="flex flex-col items-start gap-8 z-[2] container">
-            <h1 className={cn("text-3xl md:text-4xl lg:text-6xl text-foreground hero-text font-serif",)}>Random Access Components</h1>
-            <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-xl font-sans")}>A collection of animated, accessible and performant components. Made for the web.</h2>
+            <ShimmerText asChild>
+                <h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif")}>Random Access Components</h1>
+            </ShimmerText>
+            <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans")}>A collection of animated, accessible and performant components. Made for the web.</h2>
             <div className="mt-10 flex items-center gap-8 hero-buttons">
-                <div className="relative group">
-                    <RippleButton 
-                        rippleClassName="bg-primary-foreground"
-                        className={cn("bg-primary text-primary-foreground border-none rounded-lg z-10 md:px-4 font-sans")} 
-                    >
-                        <Link href="/docs/getting-started" className="text-primary-foreground group-hover:text-primary transition-colors duration-300">View docs</Link>
-                    </RippleButton>
-                    <span className="pointer-events-none absolute -inset-4 z-0 transform-gpu rounded-2xl bg-gradient-to-br from-primary to-primary/20 opacity-20 blur-xl transition-all duration-300 group-hover:opacity-70 group-active:opacity-50" />
-                </div>
+                <SnipeButton asChild>
+                    <Link href="/docs/getting-started" className="text-primary-foreground group-hover:text-primary transition-colors duration-300">View docs</Link>
+                </SnipeButton>
             </div>
         </div>
     );

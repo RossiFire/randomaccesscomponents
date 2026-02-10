@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 
 export default function Layout({ children }: LayoutProps<'/'>) {
-  return <div className='h-svh w-full overflow-hidden'>
+  return <div className='min-h-svh w-full overflow-hidden'>
     {children}
   </div>;
 }

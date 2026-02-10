@@ -12,7 +12,7 @@ export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
       title: (
-        <span className={cn('text-lg bg-gradient-to-bl from-primary to-accent text-transparent bg-clip-text font-serif')}>Random UI</span>
+        <span className={cn('text-sm text-muted-foreground font-serif')}>Random Access Components</span>
       ),
     },
     githubUrl: "https://github.com/RossiFire/randomui",

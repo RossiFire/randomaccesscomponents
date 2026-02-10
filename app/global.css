@@ -7,33 +7,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-    --animate-markee-scroll: markee-scroll;
-    --animate-lift-text-up: lift-text-up;
-    --animate-lift-text-up-home: lift-text-up-home;
-
-    @keyframes markee-scroll {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(-100%);
-        }
-      }
-
-      @keyframes lift-text-up {
-        100% {
-          transform: translateY(-100%);
-        }
-      }
-
-      @keyframes lift-text-up-home {
-        100% {
-          transform: translateY(-135%);
-        }
-      }
+.hero-content, .hero-content * {
+  @apply cursor-none!;
 
 }
+
 
 @keyframes noise {
     0%, 100% {
@@ -98,10 +76,6 @@
     @apply max-w-7xl mx-auto;
   }
 
-  @utility squircle {
-    corner-shape: squircle;
-  }
-
   :root {
     --background: oklch(0.9911 0 0);
     --foreground: oklch(0.2046 0 0);
@@ -109,7 +83,7 @@
     --card-foreground: oklch(0.2046 0 0);
     --popover: oklch(0.9911 0 0);
     --popover-foreground: oklch(0.4386 0 0);
-    --primary: oklch(0.8348 0.1302 160.9080);
+    --primary: oklch(0.67 0.16 147);
     --primary-foreground: oklch(0.2626 0.0147 166.4589);
     --secondary: oklch(0.9940 0 0);
     --secondary-foreground: oklch(0.2046 0 0);
@@ -121,20 +95,20 @@
     --destructive-foreground: oklch(0.9934 0.0032 17.2118);
     --border: oklch(0.9037 0 0);
     --input: oklch(0.9731 0 0);
-    --ring: oklch(0.8348 0.1302 160.9080);
-    --chart-1: oklch(0.8348 0.1302 160.9080);
+    --ring: oklch(0.67 0.16 147);
+    --chart-1: oklch(0.67 0.16 147);
     --chart-2: oklch(0.6231 0.1880 259.8145);
     --chart-3: oklch(0.6056 0.2189 292.7172);
     --chart-4: oklch(0.7686 0.1647 70.0804);
     --chart-5: oklch(0.6959 0.1491 162.4796);
     --sidebar: oklch(0.9911 0 0);
     --sidebar-foreground: oklch(0.5452 0 0);
-    --sidebar-primary: oklch(0.8348 0.1302 160.9080);
+    --sidebar-primary: oklch(0.67 0.16 147);
     --sidebar-primary-foreground: oklch(0.2626 0.0147 166.4589);
     --sidebar-accent: oklch(0.9461 0 0);
     --sidebar-accent-foreground: oklch(0.2435 0 0);
     --sidebar-border: oklch(0.9037 0 0);
-    --sidebar-ring: oklch(0.8348 0.1302 160.9080);
+    --sidebar-ring: oklch(0.67 0.16 147);
     --font-sans: Outfit, sans-serif;
     --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: monospace;
@@ -168,7 +142,7 @@
     --card-foreground: oklch(0.9288 0.0126 255.5078);
     --popover: oklch(0.2603 0 0);
     --popover-foreground: oklch(0.7348 0 0);
-    --primary: oklch(0.4365 0.1044 156.7556);
+    --primary: oklch(0.78 0.24 145);
     --primary-foreground: oklch(0.9213 0.0135 167.1556);
     --secondary: oklch(0.2603 0 0);
     --secondary-foreground: oklch(0.9851 0 0);
@@ -188,7 +162,7 @@
     --chart-5: oklch(0.7845 0.1325 181.9120);
     --sidebar: oklch(0.1822 0 0);
     --sidebar-foreground: oklch(0.6301 0 0);
-    --sidebar-primary: oklch(0.4365 0.1044 156.7556);
+    --sidebar-primary: oklch(0.78 0.24 145);
     --sidebar-primary-foreground: oklch(0.9213 0.0135 167.1556);
     --sidebar-accent: oklch(0.3132 0 0);
     --sidebar-accent-foreground: oklch(0.9851 0 0);
@@ -212,6 +186,9 @@
     --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 4px 6px -1px hsl(0 0% 0% / 0.17);
     --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 8px 10px -1px hsl(0 0% 0% / 0.17);
     --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.43);
+
+    --font-serif: var(--font-roslindale);
+    --font-sans: var(--font-dm-sans);
   }
   
   @theme inline {
@@ -272,6 +249,41 @@
     --tracking-wide: calc(var(--tracking-normal) + 0.025em);
     --tracking-wider: calc(var(--tracking-normal) + 0.05em);
     --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+
+
+
+
+    --animate-shimmer: shimmer;
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+
+    --animate-markee-scroll: markee-scroll;
+    --animate-lift-text-up: lift-text-up;
+    --animate-lift-text-up-home: lift-text-up-home;
+
+    @keyframes markee-scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes lift-text-up {
+        100% {
+          transform: translateY(-100%);
+        }
+      }
+
+      @keyframes lift-text-up-home {
+        100% {
+          transform: translateY(-135%);
+        }
+      }
   }
   
 @layer base {
