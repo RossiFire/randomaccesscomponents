@@ -120,12 +120,12 @@ const Hero: React.FC = () => {
             <BGGrid />
             <div className="relative isolate container z-[2]">
                 <Device ref={deviceRef} className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device" />
-                <div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8">
+                <div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
                     <ShimmerText asChild>
                         <h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif")}>Random Access Components</h1>
                     </ShimmerText>
                     <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans")}>A collection of animated, accessible and performant components. Made for the web.</h2>
-                    <div className="mt-10 flex items-center gap-8 hero-buttons">
+                    <div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
                         <BubbleButton asChild>
                             <Link href="/docs/getting-started">View docs</Link>
                         </BubbleButton>
