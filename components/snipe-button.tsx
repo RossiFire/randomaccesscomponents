@@ -22,7 +22,7 @@ function SnipeButton({
                     'shadow-[0px_4px_0px_var(--primary)]',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2',
                     'focus-visible:ring-offset-background active:translate-y-0.5 active:shadow-none',
-                    "hover:bg-muted focus:bg-muted",
+                    "hover:bg-muted active:bg-muted",
                 className
             )}
 

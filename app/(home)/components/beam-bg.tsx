@@ -128,7 +128,7 @@ import useScreenSize from "@/demo/hooks/use-screen-size/use-screen-size";
           top,
           left,
         }}
-        className="absolute z-10 h-[64px] w-[1px] bg-gradient-to-b from-primary/0 to-primary"
+        className="absolute z-[1] h-[64px] w-[1px] bg-gradient-to-b from-primary/0 to-primary"
       />
     );
   };

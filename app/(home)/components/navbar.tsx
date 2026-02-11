@@ -1,11 +1,11 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Github, Menu, Star, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import ThemeSwitcher from '@/components/ui/theme-switcher';
 import { cn } from '@/lib/utils';
 import { GithubInfo } from 'fumadocs-ui/components/github-info';
+import CustomKbd from './custom-kbd';
+import { SnipeButton } from '@/components/snipe-button';
 
 const navLinks = [
     { href: '/docs/getting-started', label: 'Docs' },
@@ -38,13 +38,12 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                     </div>
 
                     <div className='flex items-center gap-2'>
-
                         <GithubInfo
                             owner="rossifire"
                             repo="randomui"
                             token={process.env.GITHUB_TOKEN}
                         />
-
+                        <CustomKbd />
                         <ThemeSwitcher />
                     </div>
                 </nav>
