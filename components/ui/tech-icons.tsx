@@ -90,7 +90,7 @@ const React = ({ className, size = "base", ...props }: IconProps) => (
     {...props}
     viewBox="0 0 569 512"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    className={cn(iconVariants({ size, className }), 'fill-[#087EA4]')}
+    className={cn("text-[#087EA4]", iconVariants({ size, className }))}
   >
     <title>React Icon</title>
     <g fill="none" fillRule="evenodd">
@@ -109,15 +109,8 @@ const React = ({ className, size = "base", ...props }: IconProps) => (
 );
 
 
-
-
-
-
-
-
-
 const Motion = ({className, size = "base", ...props}: IconProps) => (
-  <svg {...props} viewBox="0 0 1103 386" className={cn("text-primary dark:text-[#FFDD01]", iconVariants({ size, className }))}>
+  <svg {...props} viewBox="0 0 1103 386" className={cn("text-[#FFDD01]", iconVariants({ size, className }))}>
     <title>Motion icon</title>
     <path
       fill="currentColor"
@@ -130,7 +123,7 @@ const Motion = ({className, size = "base", ...props}: IconProps) => (
 
 
 const TailwindCSS = ({className, size = "base", ...props}: IconProps) => (
-  <svg {...props} fill="none" viewBox="0 0 54 33" className={cn(iconVariants({ size, className }), "fill-[#38bdf8]")}>
+  <svg {...props} viewBox="0 0 54 33" className={cn("text-[#38bdf8]", iconVariants({ size, className }))}>
     <title>TailwindCSS icon</title>
     <g clipPath="url(#tailwindcss__a)">
       <path
@@ -142,7 +135,7 @@ const TailwindCSS = ({className, size = "base", ...props}: IconProps) => (
     </g>
     <defs>
       <clipPath id="tailwindcss__a">
-        <path fill="#fff" d="M0 0h54v32.4H0z" />
+        <path fill="currentColor" d="M0 0h54v32.4H0z" />
       </clipPath>
     </defs>
   </svg>
@@ -411,11 +404,12 @@ const RadixUI = ({className, size = "base", ...props}: IconProps) => (
   <svg
     {...props}
     viewBox="4 0 17 25"
-    className={cn(iconVariants({ size, className }), "fill-base")}
+    className={cn(iconVariants({ size, className }), "text-base")}
   >
     <path fill="currentColor" d="M12 25a8 8 0 1 1 0-16v16zM12 0H4v8h8V0zM17 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
   </svg>
 );
+
 
 
 

@@ -6,11 +6,10 @@ import { SplitText } from "gsap/SplitText";
 import Link from "next/link";
 import { useHydration } from "@/hooks/use-hydration";
 import React, { useRef } from "react";
-import { SnipeButton } from "@/components/snipe-button";
 import { ShimmerText } from "@/components/shimmer-text";
-import Device from "./device";
+import Device from "../components/device";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { BGGrid } from "./beam-bg";
+import { BGGrid } from "../components/beam-bg";
 import LenisProvider from "@/providers/LenisProvider";
 import BubbleButton from "@/components/bubble-button";
 

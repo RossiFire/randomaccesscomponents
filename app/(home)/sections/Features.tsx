@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { BGGrid } from './beam-bg';
+import { BGGrid } from '../components/beam-bg';
 import { Motion, RadixUI, React, TailwindCSS } from '@/components/ui/tech-icons';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -37,9 +37,9 @@ function Features() {
 
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: "#features",
-                start: "top+=30% 90%",
-                end: "bottom bottom",
+                trigger: "#features > div",
+                start: "top+=10% 90%",
+                end: "bottom 80%",
                 scrub: true,
             }
         });
@@ -63,9 +63,9 @@ function Features() {
     },[isMounted])
 
     return (
-        <section className="min-h-svh bg-background pt-72" id="features">
-            <div className="container flex flex-col items-center justify-center h-full gap-20">
-                <h2 className="text-5xl font-serif">Built for the Web.</h2>
+        <section className="h-[150svh] bg-background flex items-center justify-center" id="features">
+            <div className="container flex flex-col items-center justify-center gap-20">
+                <h2 className="text-5xl font-serif">Built for the Web</h2>
                 <div ref={gridRef} className="group/grid grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FeatureCard
                         title="Easy"

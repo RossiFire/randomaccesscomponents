@@ -7,10 +7,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-.hero-content, .hero-content * {
-  @apply cursor-none!;
-
-}
 
 
 @keyframes noise {
