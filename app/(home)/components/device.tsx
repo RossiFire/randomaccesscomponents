@@ -24,15 +24,15 @@ function Device({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       aria-hidden='true'
       className={cn(
-        'relative h-[70vh] aspect-[1.2/1] rounded-[3.2rem] border border-border/70 bg-gradient-to-br from-zinc-100/80',
-        'to-zinc-300/70 p-2 shadow-[0_55px_110px_-40px_rgba(15,23,42,0.4)] backdrop-blur-sm dark:from-zinc-800/70',
-        'dark:to-zinc-950/80 z-20',
+        'relative h-[70vh] aspect-[1.2/1] rounded-[3.2rem] border border-border/70 bg-gradient-to-br from-muted',
+        'to-muted p-2 shadow-[0_55px_110px_-40px_rgba(15,23,42,0.4)] backdrop-blur-sm dark:from-muted',
+        'dark:to-background/80 z-20',
         "-translate-x-1/2 -translate-y-1/2 overflow-ellipsis",
         className
       )}
       {...props}
     >
-      <div className='relative h-full w-full overflow-hidden rounded-[2.7rem] bg-black p-4 grid grid-cols-12 gap-4'>
+      <div className='relative h-full w-full overflow-hidden rounded-[2.7rem] bg-primary/50 dark:bg-[#0A0A0A] p-4 grid grid-cols-12 gap-4'>
         <div className='col-span-8 bg-background/80 rounded-4xl p-2 grid place-items-center'>
           <DemoMarkee />
         </div>

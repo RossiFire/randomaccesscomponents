@@ -11,6 +11,8 @@ import {
 } from '@/components/ui/resizable';
 import { Markee, MarkeeContent, MarkeeFade, MarkeeItem, MarkeeSpacer } from '@/components/markee';
 import { CSS, Gsap, Motion, TypeScript, Nextjs, RadixUI, React as ReactIcon, TailwindCSS } from '@/components/ui/tech-icons';
+import { ShimmerText } from '@/components/shimmer-text';
+import { GripVertical } from 'lucide-react';
 
 const icons = [
     <TailwindCSS />,
@@ -127,7 +129,7 @@ function DemoThree() {
 
 const DEMOS = [DemoOne, DemoTwo, DemoThree];
 
-function PreviewComponentEditor({ className, ...props }: React.ComponentProps<'div'>) {
+function PreviewComponentEditor({ className, isMobile, ...props }: React.ComponentProps<'div'> & { isMobile: boolean }) {
     const [allTokenized, setAllTokenized] = useState<TokenizedLine[][]>([]);
     const [codeIndex, setCodeIndex] = useState(0);
 
@@ -167,20 +169,22 @@ function PreviewComponentEditor({ className, ...props }: React.ComponentProps<'d
     return (
         <div
             className={cn(
-                'w-full rounded-2xl border border-border shadow-2xl shadow-primary/20',
+                'w-full rounded-2xl border border-border shadow-2xl shadow-primary/20 overflow-hidden h-[500px] md:h-auto',
                 className
             )}
             {...props}
         >
-            <ResizablePanelGroup orientation="horizontal">
+            <ResizablePanelGroup orientation={isMobile ? 'vertical' : 'horizontal'} disabled={isMobile}>
                 {/* Code panel — animated read-only */}
-                <ResizablePanel defaultSize={50}>
+                <ResizablePanel defaultSize={isMobile ? 75 :50}>
                     <div
-                        className="h-fit py-20 px-12 bg-muted dark grid place-items-center p-4 relative"
+                        className="h-fit py-20 px-12 bg-muted dark grid place-items-center p-4 relative overflow-x-auto"
                     >
-                        <span className='absolute top-4 left-4 text-muted-foreground font-sans text-sm'>
-                            Markee Component
-                        </span>
+                        <ShimmerText asChild>
+                            <span className='absolute top-4 left-4 font-sans text-sm [background:radial-gradient(circle_at_center,var(--muted),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]'>
+                                Markee Component
+                            </span>
+                        </ShimmerText>
                         {/* Fallback while Shiki loads */}
                         {currentLines.length === 0 && (
                             <code className="block font-mono text-[13px] leading-[1.7] text-[#e1e4e8] whitespace-pre">
@@ -238,10 +242,10 @@ function PreviewComponentEditor({ className, ...props }: React.ComponentProps<'d
                     </div>
                 </ResizablePanel>
 
-                <ResizableHandle withHandle />
+                <ResizableHandle withHandle className='hidden md:flex' />
 
                 {/* Preview panel — synced with code */}
-                <ResizablePanel defaultSize={50} minSize={25}>
+                <ResizablePanel defaultSize={isMobile ? 25 : 50} minSize={0}>
                     <div className="h-full bg-background flex items-center justify-center overflow-hidden relative">
                         <AnimatePresence mode="wait">
                             <motion.div

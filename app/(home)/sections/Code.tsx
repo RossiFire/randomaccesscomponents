@@ -5,9 +5,14 @@ import gsap from 'gsap';
 import { useHydration } from '@/hooks/use-hydration';
 import { PreviewComponentEditor } from '../components/preview-component';
 import { BGGrid } from '../components/beam-bg';
+import useScreenSize from '@/hooks/use-screen-size';
 
 function CodeSection() {
     const isMounted = useHydration();
+
+    const { width } = useScreenSize();
+
+    const isMobile = width <= 768;
 
     useGSAP(() => {
         if (!isMounted) return;
@@ -15,7 +20,7 @@ function CodeSection() {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#editor',
-                start: 'top+=30% 90%',
+                start: 'top+=10% 90%',
                 end: 'bottom bottom',
                 scrub: true,
             }
@@ -37,10 +42,10 @@ function CodeSection() {
     }, [isMounted]);
 
     return (
-        <section className="h-svh relative" id="editor">
-            <div className="container flex flex-col items-center justify-center h-full gap-20 py-20 z-[3]">
-                <h2 className="text-5xl font-serif z-[3]">Built exactly how you&apos;d use it</h2>
-                <PreviewComponentEditor className="w-full z-[3] code-block" />
+        <section className="min-h-svh relative" id="editor">
+            <div className="container flex flex-col items-center justify-center h-full gap-10 md:gap-14 lg:gap-20 py-20 z-[3]">
+                <h2 className="text-2xl md:text-3xl lg:text-5xl font-serif z-[3] text-center">Exactly how you&apos;d use it</h2>
+                <PreviewComponentEditor className="w-full z-[3] code-block" isMobile={isMobile} />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-background z-[1]" />
             <BGGrid />

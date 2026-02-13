@@ -1,11 +1,12 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import ThemeSwitcher from '@/components/ui/theme-switcher';
+import ToggleWrapper from '@/components/ui/theme-switcher';
 import { cn } from '@/lib/utils';
 import { GithubInfo } from 'fumadocs-ui/components/github-info';
 import CustomKbd from './custom-kbd';
 import { SnipeButton } from '@/components/snipe-button';
+import { MenuIcon } from 'lucide-react';
 
 const navLinks = [
     { href: '/docs/getting-started', label: 'Docs' },
@@ -15,7 +16,7 @@ const navLinks = [
 
 function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
     return (
-        <header className={cn('fixed inset-x-0 top-0 z-50 py-8', className)} {...props}>
+        <header className={cn('fixed inset-x-0 top-0 z-50 py-4 md:py-8', className)} {...props}>
             <div className='container mx-auto px-4'>
                 <nav className='flex items-center justify-between'>
                     <div className='flex items-center gap-8'>
@@ -25,7 +26,7 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                         >
                             Rac UI
                         </Link>
-                        <ul className='flex items-center gap-4'>
+                        <ul className='items-center gap-4 hidden md:flex'>
                             {navLinks.map((link) => (
                                 <li key={link.href}>
                                     <NavLink
@@ -42,9 +43,13 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                             owner="rossifire"
                             repo="randomui"
                             token={process.env.GITHUB_TOKEN}
+                            className='flex whitespace-nowrap flex-row'
                         />
-                        <CustomKbd />
-                        <ThemeSwitcher />
+                        <SnipeButton variant='icon' className='rounded-sm p-1 mb-2 text-primary md:hidden border-muted-foreground/50'>
+                          <MenuIcon className='size-4' />
+                        </SnipeButton>
+                        <CustomKbd className='hidden md:block'/>
+                        <ToggleWrapper className='hidden md:block'/>
                     </div>
                 </nav>
             </div>

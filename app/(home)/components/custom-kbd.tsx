@@ -31,6 +31,7 @@ const CustomKbd: React.FC<CustomKbdProps> = ({ className }) => {
     return (
         <SnipeButton 
         className={cn("text-primary border-muted-foreground/50 mb-2 bg-background min-h-0 flex items-center p-1 h-fit rounded-sm border text-xs md:px-2 font-sans font-medium", 
+            className
         )}
         onClick={simulate}
         >

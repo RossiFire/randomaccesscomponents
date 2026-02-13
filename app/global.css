@@ -197,6 +197,17 @@
     --color-success: var(--success);
     --color-error: var(--error);
   }
+
+  @media (width < 768px) {
+    :root {
+      --fd-nav-height: 56px;
+    }
+  }
+  @media (width < 1280px) {
+    :root {
+      --fd-tocnav-height: 40px;
+    }
+  }
   
   @theme inline {
     --color-background: var(--background);

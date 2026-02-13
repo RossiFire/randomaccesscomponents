@@ -12,6 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BGGrid } from "../components/beam-bg";
 import LenisProvider from "@/providers/LenisProvider";
 import BubbleButton from "@/components/bubble-button";
+import useScreenSize from "@/hooks/use-screen-size";
 
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -19,7 +20,8 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 const Hero: React.FC = () => {
 
     const isMounted = useHydration();
-    
+    const { width } = useScreenSize();
+    const isMobile = width < 768;
     const deviceRef = useRef<HTMLDivElement>(null);
     
     useGSAP(() => {
@@ -58,70 +60,80 @@ const Hero: React.FC = () => {
             stagger: 0.03,
             ease: "power2.inOut"
         },'<20%')
-        .from(".hero-device", {
-            opacity: 0,
-            translateY: "-20%",
-            duration: 2,
-            ease: "power3.out"
-        });
+
+        if(!isMobile){
+            tl.from(".hero-device", {
+                opacity: 0,
+                translateY: "-20%",
+                duration: 2,
+                ease: "power3.out"
+            });
+        }
 
 
         /* Scroll Timeline */
 
-        const scrollTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "+=400%",
-                pin: ".hero-pin",
-                scrub: true,
-            },
-            onUpdate:() => {
-                if(deviceRef.current){
-                    const addClass = scrollTl.progress() > 0.5;
-                    if(addClass){
-                        deviceRef.current.classList.add("z-50");
-                    } else {
-                        deviceRef.current.classList.remove("z-50");
+        if(!isMobile){
+            const scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "+=400%",
+                    pin: ".hero-pin",
+                    scrub: true,
+                },
+                onUpdate:() => {
+                    if(deviceRef.current){
+                        const addClass = scrollTl.progress() > 0.5;
+                        if(addClass){
+                            deviceRef.current.classList.add("z-50");
+                        } else {
+                            deviceRef.current.classList.remove("z-50");
+                        }
                     }
                 }
-            }
-        });
-
-        scrollTl.to(".hero-main-content", {
-            scale: 0.8,
-            duration: 1,
-            translateX: "-10%",
-            ease: "power2.inOut"
-        },'<')
-        .to('.hero-device', {
-            scale: 0.8,
-            duration: 1,
-            ease: "power2.inOut",
-        },'<')
-        .to('.hero-device', {
-            left: "50%",
-            top: "100%",
-            scale: 1.5,
-            skewY: 0,
-            skewX: 0,
-            duration: 1.2,
-            ease: "power2.inOut"
-        })
+            });
+    
+            scrollTl.to(".hero-main-content", {
+                scale: 0.8,
+                duration: 1,
+                translateX: "-10%",
+                ease: "power2.inOut"
+            },'<')
+            .to('.hero-device', {
+                scale: 0.8,
+                duration: 1,
+                ease: "power2.inOut",
+            },'<')
+            .to(".hero-main-content", {
+                scale: 0.8,
+                duration: 1,
+                translateX: "-10%",
+                ease: "power2.inOut"
+            },'<')
+            .to('.hero-device', {
+                left: "50%",
+                top: "100%",
+                scale: 1.5,
+                skewY: 0,
+                skewX: 0,
+                duration: 1.2,
+                ease: "power2.inOut"
+            })
+        }
 
     }, [isMounted]);
 
-    if(!isMounted) return null;
     return (
 
     <LenisProvider>
-        <div className='hero-pin relative h-svh w-full bg-background flex flex-col justify-center text-center z-20'>
+        <div className='hero-pin relative min-h-svh w-full bg-background flex flex-col justify-center text-center z-20'>
             <BGGrid />
             <div className="relative isolate container z-[2]">
                 <Device ref={deviceRef} className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device" />
                 <div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
                     <ShimmerText asChild>
-                        <h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif")}>Random Access Components</h1>
+                        <h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left")}>Random Access Components</h1>
                     </ShimmerText>
                     <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans")}>A collection of animated, accessible and performant components. Made for the web.</h2>
                     <div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
