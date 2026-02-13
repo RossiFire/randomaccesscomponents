@@ -1,12 +1,11 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import ToggleWrapper from '@/components/ui/theme-switcher';
+import ThemeSwitcher from '@/components/ui/theme-switcher';
 import { cn } from '@/lib/utils';
 import { GithubInfo } from 'fumadocs-ui/components/github-info';
 import CustomKbd from './custom-kbd';
-import { SnipeButton } from '@/components/snipe-button';
-import { MenuIcon } from 'lucide-react';
+import MobileNav from './mobile-nav';
 
 const navLinks = [
     { href: '/docs/getting-started', label: 'Docs' },
@@ -16,10 +15,10 @@ const navLinks = [
 
 function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
     return (
-        <header className={cn('fixed inset-x-0 top-0 z-50 py-4 md:py-8', className)} {...props}>
+        <header className={cn('fixed inset-x-0 top-0 z-50 py-4 md:py-8 bg-gradient-to-t from-transparent via-background/80 to-background', className)} {...props}>
             <div className='container mx-auto px-4'>
                 <nav className='flex items-center justify-between'>
-                    <div className='flex items-center gap-8'>
+                    <div className='flex items-center gap-8 z-[2]'>
                         <Link
                             href='/'
                             className='text-base font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80'
@@ -43,13 +42,11 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                             owner="rossifire"
                             repo="randomui"
                             token={process.env.GITHUB_TOKEN}
-                            className='flex whitespace-nowrap flex-row'
+                            className='flex whitespace-nowrap flex-row z-[2]'
                         />
-                        <SnipeButton variant='icon' className='rounded-sm p-1 mb-2 text-primary md:hidden border-muted-foreground/50'>
-                          <MenuIcon className='size-4' />
-                        </SnipeButton>
+                        <MobileNav navLinks={navLinks} />
                         <CustomKbd className='hidden md:block'/>
-                        <ToggleWrapper className='hidden md:block'/>
+                        <ThemeSwitcher className='hidden md:block'/>
                     </div>
                 </nav>
             </div>

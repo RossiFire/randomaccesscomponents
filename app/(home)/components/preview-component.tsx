@@ -169,7 +169,7 @@ function PreviewComponentEditor({ className, isMobile, ...props }: React.Compone
     return (
         <div
             className={cn(
-                'w-full rounded-2xl border border-border shadow-2xl shadow-primary/20 overflow-hidden h-[500px] md:h-auto',
+                'w-full rounded-2xl border border-border overflow-hidden h-[500px] md:h-auto',
                 className
             )}
             {...props}

@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { SnipeButton } from "../snipe-button";
 import { cn } from "@/lib/utils";
 
-const ToggleWrapper = ({ className, ...props }: React.ComponentProps<typeof SnipeButton>) => {
+const ThemeSwitcher = ({ className, ...props }: React.ComponentProps<typeof SnipeButton>) => {
 
 
   const { theme, setTheme } = useTheme();
@@ -16,4 +16,4 @@ const ToggleWrapper = ({ className, ...props }: React.ComponentProps<typeof Snip
   );
 };
 
-export default ToggleWrapper;
+export default ThemeSwitcher;
