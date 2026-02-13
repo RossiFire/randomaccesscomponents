@@ -15,7 +15,7 @@ export function baseOptions(): BaseLayoutProps {
         <span className={cn('text-sm text-muted-foreground font-sans hover:text-primary-foreground transition-colors duration-300')}>Random Access Components</span>
       ),
     },
-    githubUrl: "https://github.com/RossiFire/randomui",
+    githubUrl: "https://github.com/RossiFire/randomaccesscomponents",
     // see https://fumadocs.dev/docs/ui/navigation/links
     links: [],
   };

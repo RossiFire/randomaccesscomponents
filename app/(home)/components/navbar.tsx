@@ -6,11 +6,12 @@ import { cn } from '@/lib/utils';
 import { GithubInfo } from 'fumadocs-ui/components/github-info';
 import CustomKbd from './custom-kbd';
 import MobileNav from './mobile-nav';
+import { MoveUpRight } from 'lucide-react';
 
 const navLinks = [
-    { href: '/docs/getting-started', label: 'Docs' },
+    { href: '/docs/getting-started', label: 'Getting Started' },
     { href: '/docs/components', label: 'Components' },
-    { href: '/docs/hooks', label: 'Hooks' },
+    { href: '/docs/hooks', label: 'Github', external: true },
 ];
 
 function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
@@ -27,11 +28,15 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                         </Link>
                         <ul className='items-center gap-4 hidden md:flex'>
                             {navLinks.map((link) => (
-                                <li key={link.href}>
+                                <li key={link.href} className='flex items-center gap-2 group'>
                                     <NavLink
                                         href={link.href}
                                         text={link.label}
+                                        target={link.external ? '_blank' : '_self'}
                                     />
+                                    {link.external && (
+                                        <MoveUpRight className='size-4 text-muted-foreground group-hover:text-primary-foreground transition-colors hover:duration-300' />
+                                    )}
                                 </li>
                             ))}
                         </ul>
@@ -40,7 +45,7 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                     <div className='flex items-center gap-2'>
                         <GithubInfo
                             owner="rossifire"
-                            repo="randomui"
+                            repo="randomaccesscomponents"
                             token={process.env.GITHUB_TOKEN}
                             className='flex whitespace-nowrap flex-row z-[2]'
                         />

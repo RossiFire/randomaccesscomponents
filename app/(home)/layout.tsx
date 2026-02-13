@@ -2,22 +2,20 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "RAC | Random Access Components",
+  title: "Random Access Components | Built for the web",
   description:
     "Random Access Components is a collection of reusable components, hooks, utilities and more",
   keywords: [
     "Random Access Components",
+    "Nextjs UI Kit",
+    "React UI Kit",
+    "Components library",
     "RAC UI",
-    "Next.js",
-    "React",
-    "Tailwind CSS",
+    "Animated components",
+    "Tailwind CSS components",
     "TypeScript",
-    "JavaScript",
-    "HTML",
-    "CSS",
-    "Web Development",
-    "Gsap",
-    "Framer Motion",
+    "Gsap Components",
+    "Framer Motion components",
   ],
   robots: {
     index: true,

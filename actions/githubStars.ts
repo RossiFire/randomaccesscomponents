@@ -1,7 +1,7 @@
 
 const getGithubStars = async (): Promise<number> => {
     const response = await fetch(
-        'https://api.github.com/repos/RossiFire/randomui',{
+        'https://api.github.com/repos/RossiFire/randomaccesscomponents',{
             headers: {
                 'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
             }
