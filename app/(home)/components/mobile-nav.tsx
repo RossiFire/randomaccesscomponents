@@ -1,5 +1,5 @@
 "use client";
-import { SnipeButton } from "@/components/snipe-button";
+import { KeyboardButton } from "@/components/snipe-button";
 import { MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ function MobileNav({ navLinks }: { navLinks: { href: string, label: string }[] }
 
     return (
         <div className="md:hidden">
-            <SnipeButton onClick={handleOpen} variant='icon' className='rounded-sm p-1 mb-2 text-primary border-muted-foreground/50 z-20'>
+            <KeyboardButton onClick={handleOpen} variant='icon' className='rounded-sm p-1 mb-2 text-primary border-muted-foreground/50 z-20'>
                 <AnimatePresence mode="wait">
                     {open ? (
                         <motion.div
@@ -43,7 +43,7 @@ function MobileNav({ navLinks }: { navLinks: { href: string, label: string }[] }
                         </motion.div>
                     )}
                 </AnimatePresence>
-            </SnipeButton>
+            </KeyboardButton>
             <motion.div className="absolute inset-x-1.5 inset-y-2 bg-muted/50 backdrop-blur-md rounded-lg h-fit px-2.5 py-2 z-[1] border border-muted-foreground/10" 
                 initial={{ opacity: 0, y: -10 }} 
                 animate={{ opacity: open ? 1 : 0, y: open ? 0 : -10 }}

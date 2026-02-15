@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useHydration } from '@/hooks/use-hydration';
 import { PreviewComponentEditor } from '../components/preview-component';
-import { BGGrid } from '../components/beam-bg';
+import { GridBackground } from '../components/beam-bg';
 import useScreenSize from '@/hooks/use-screen-size';
 
 function CodeSection() {
@@ -50,7 +50,7 @@ function CodeSection() {
                 <PreviewComponentEditor className="w-full z-[3] code-block shadow-[0_0_10px_0_rgba(0,0,0,0.1)]" isMobile={isMobile} />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-background z-[1]" />
-            <BGGrid />
+            <GridBackground />
         </section>
     );
 }

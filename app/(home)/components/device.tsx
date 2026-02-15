@@ -2,10 +2,10 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import TechBadge from '@/components/ui/tech-badge';
 import { Markee, MarkeeContent, MarkeeFade, MarkeeSpacer, MarkeeItem } from "@/components/markee";
-import RippleButton from '@/demo/components/ripple-button/RippleButton';
-import { SnipeButton } from '@/components/snipe-button';
+import { KeyboardButton } from '@/components/snipe-button';
 import Magnet from '@/demo/components/magnet/magnet';
 import { MousePointer2Icon } from 'lucide-react';
+import { Ripple } from '@/demo/components/ripple-button/Ripple';
 
 
 const techBadges = [
@@ -37,20 +37,26 @@ function Device({ className, ...props }: React.ComponentProps<'div'>) {
           <DemoMarkee />
         </div>
         <DemoCard className='col-span-4'>
-          <RippleButton>Ripple button</RippleButton>
+          <button id="device-demo-button" className="px-6 py-2 group z-10 font-medium border-2 border-accent-demo cursor-pointer rounded-lg relative overflow-hidden">
+            <Ripple parent="#device-demo-button" className="bg-accent-demo" />
+            <span className="relative z-10">I&apos;m a button</span>
+          </button>
         </DemoCard>
 
         <DemoCard className='col-span-6'>
-          <SnipeButton>
+          <KeyboardButton>
             Keyboard button
-          </SnipeButton>
+          </KeyboardButton>
         </DemoCard>
         <DemoCard className='col-span-6'>
           <LiftText text="Hover Me" />
         </DemoCard>
 
         <DemoCard className='col-span-7'>
-          <RippleButton>Ripple Button</RippleButton>
+          <button id="device-demo-ripple-button" className="px-6 py-2 group z-10 font-medium border-2 border-accent-demo cursor-pointer rounded-lg relative overflow-hidden">
+            <Ripple parent="#device-demo-ripple-button" className="bg-accent-demo" />
+            <span className="relative z-10">I&apos;m a ripple button</span>
+          </button>
         </DemoCard>
         <DemoCard className='col-span-5'>
           <Magnet className='rounded-full bg-accent cursor-pointer text-accent-foreground p-3 border border-accent-foreground/10'>

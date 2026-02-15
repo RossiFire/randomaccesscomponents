@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { BGGrid } from '../components/beam-bg';
+import { GridBackground } from '../components/beam-bg';
 import { Motion, RadixUI, React, TailwindCSS } from '@/components/ui/tech-icons';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -119,7 +119,7 @@ function FeatureCard({
                 }}
             />
             <div className="relative bg-muted min-h-50 font-sans rounded-[7px] px-6 py-8 flex flex-col items-start text-left gap-2 overflow-hidden">
-                <BGGrid />
+                <GridBackground />
                 {icon}
                 <span className="text-2xl text-foreground font-serif z-[2]">{title}</span>
                 <span className="text-muted-foreground text-base z-[2]">{description}</span>

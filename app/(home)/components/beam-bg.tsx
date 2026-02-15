@@ -1,15 +1,11 @@
 "use client";
-import React, {
-    useEffect,
-    useState,
-    MouseEventHandler,
-    ReactNode,
-  } from "react";
-  import { motion, Transition } from "motion/react";
+import React, { useEffect, useState } from "react";
+import { motion, Transition } from "motion/react";
 import useScreenSize from "@/demo/hooks/use-screen-size/use-screen-size";
+import { cn } from "@/lib/utils";
   
   
-  const BGGrid = () => {
+const GridBackground = ({ hideFade = false, className }: { hideFade?: boolean, className?: string }) => {
     return (
       <div
         style={{
@@ -17,11 +13,10 @@ import useScreenSize from "@/demo/hooks/use-screen-size/use-screen-size";
             linear-gradient(to right, color-mix(in oklab, var(--muted-foreground) 5%, transparent) 1px, transparent 1px),
             linear-gradient(to bottom, color-mix(in oklab, var(--muted-foreground) 5%, transparent) 1px, transparent 1px)
           `,
-          backgroundSize: "32px 32px",
         }}
-        className="absolute bottom-0 left-0 right-0 top-0"
+        className={cn("absolute bottom-0 left-0 right-0 top-0 bg-size-[32px_32px]", className)}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/0 to-background" />
+        {!hideFade && <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/0 to-background" />}
         <Beams />
       </div>
     );
@@ -167,5 +162,5 @@ import useScreenSize from "@/demo/hooks/use-screen-size/use-screen-size";
 
 
 export {
-  BGGrid,
+  GridBackground,
 }

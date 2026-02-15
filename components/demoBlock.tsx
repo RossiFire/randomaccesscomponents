@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { cn } from '../lib/utils';
+import { GridBackground } from '@/app/(home)/components/beam-bg';
 
 export interface DemoBlockProps {
   /**
@@ -58,13 +59,6 @@ export function DemoBlock({
   disableOverflowHidden = false,
   ref,
 }: DemoBlockProps & { ref?: React.RefObject<HTMLDivElement | null>}) {
-  const backgroundClasses = {
-    default: 'bg-background',
-    dots: 'bg-background bg-[radial-gradient(circle_at_1px_1px,rgb(163_163_163_/_0.15)_1px,transparent_0)] bg-[size:20px_20px]',
-    grid: 'bg-background bg-[linear-gradient(to_right,rgb(163_163_163_/_0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgb(163_163_163_/_0.1)_1px,transparent_1px)] bg-[size:20px_20px]',
-    none: '',
-  };
-
   return (
     <div className='flex flex-col gap-2'>
       {(title || description) && (
@@ -88,14 +82,16 @@ export function DemoBlock({
       )}
       ref={ref}
     >
-      <div
-        className={cn(
-          'relative p-6 min-h-[200px] h-fit flex items-center justify-center',
-          backgroundClasses[background],
-          containerClassName,
-        )}
-      >
-        {children}
+      <div className='relative z-10 size-full overflow-hidden min-h-[200px] '>
+        <div
+          className={cn(
+            'relative p-6 h-fit flex items-center justify-center z-10',
+            containerClassName,
+          )}
+        >
+            {children}
+        </div>
+        <GridBackground className='bg-size-[24px_24px] z-[1]' hideFade={true}/>
       </div>
     </div>
     </div>

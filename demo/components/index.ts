@@ -9,7 +9,7 @@ export { FollowMouseDemo } from "./follow-mouse/demo";
 export { MagnetDemo } from "./magnet/demo";
 export { NoisyBackgroundDemo } from "./noisy-background/demo";
 export { FloatingMenuDemo } from "./floating-menu/demo";
-export { RippleButtonDemo, RippleButtonDesignSystemDemo } from "./ripple-button/demo";
+export { RippleButtonDemo } from "./ripple-button/demo";
 export { StackedCardsDemo } from "./stacked-cards/demo";
 export { CClockDemo, CClockCounterDemo } from "./cclock/demo";
 export { MarqueeDemo, MarqueeDemoWithGSAP, MarqueeDemoWithFramerMotion } from "./marquee/demo";

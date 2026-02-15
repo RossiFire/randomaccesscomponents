@@ -131,6 +131,8 @@
     --success: #2ecc71;
     --error: #ED4C67;
 
+    --accent-demo: #e17055;
+
 
 
     --font-serif: var(--font-roslindale);
@@ -196,6 +198,8 @@
     --color-warning: var(--warning);
     --color-success: var(--success);
     --color-error: var(--error);
+
+    --accent-demo: #e17055;
   }
 
   @media (width < 768px) {
@@ -274,7 +278,7 @@
     --tracking-widest: calc(var(--tracking-normal) + 0.1em);
 
 
-
+    --color-accent-demo: var(--accent-demo);
 
     --animate-shimmer: shimmer;
     @keyframes shimmer {

@@ -1,0 +1,185 @@
+---
+title: Ripple
+description: Standalone ripple effect component — drop it inside any element for a smooth, cursor-tracking fill animation.
+---
+
+<PageBadge badges={['gsap', 'tailwind']} />
+
+## Demo
+  <RippleButtonDemo />
+
+## Installation
+
+<PkgInstallerTabs command="gsap @gsap/react" />
+
+Copy and paste the following code into your project.
+```tsx title="ripple.tsx" icon="react"
+'use client';
+
+import { useGSAP } from '@gsap/react';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { cn } from '@/lib/utils';
+
+interface RippleProps {
+    /** React ref or CSS selector string pointing to the parent element. */
+    parent: React.RefObject<HTMLElement | null> | string;
+    className?: string;
+}
+
+const isRef = (value: RippleProps['parent']): value is React.RefObject<HTMLElement | null> =>
+    typeof value !== 'string';
+
+function Ripple({ parent, className }: RippleProps) {
+    const rippleRef = useRef<HTMLDivElement>(null);
+    const [isHovered, setIsHovered] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const el = isRef(parent) ? parent.current : document.querySelector<HTMLElement>(parent);
+        if (!el) return;
+
+        const handleMouseEnter = () => setIsHovered(true);
+        const handleMouseLeave = () => setIsHovered(false);
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = el.getBoundingClientRect();
+            const offset = (rippleRef.current?.offsetWidth || 2) / 2;
+            setMousePosition({
+                x: e.clientX - rect.left - offset,
+                y: e.clientY - rect.top - offset,
+            });
+        };
+
+        el.addEventListener('mouseenter', handleMouseEnter);
+        el.addEventListener('mouseleave', handleMouseLeave);
+        el.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            el.removeEventListener('mouseenter', handleMouseEnter);
+            el.removeEventListener('mouseleave', handleMouseLeave);
+            el.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [parent]);
+
+    useGSAP(() => {
+        if (!rippleRef.current) return;
+
+        const exitMultiplier = 1.2;
+        const calculatedPosition = {
+            x: mousePosition.x * (isHovered ? 1 : exitMultiplier),
+            y: mousePosition.y * (isHovered ? 1 : exitMultiplier),
+        };
+
+        gsap.timeline()
+            .to(rippleRef.current, {
+                x: mousePosition.x,
+                y: mousePosition.y,
+                duration: 0,
+            })
+            .to(rippleRef.current, {
+                scale: isHovered ? 2 : 0,
+                x: calculatedPosition.x,
+                y: calculatedPosition.y,
+                duration: 0.4,
+                ease: isHovered ? 'power1.out' : 'expo.out',
+            });
+    }, [isHovered, mousePosition]);
+
+    return (
+        <div
+            ref={rippleRef}
+            className={cn(
+                'absolute pointer-events-none rounded-full scale-0 top-0 left-0 size-28 z-[1]',
+                className
+            )}
+        />
+    );
+}
+
+export { Ripple };
+```
+
+## Usage
+```typescript
+import { Ripple } from "@/components/ripple";
+```
+
+The `Ripple` component it's a standalone element you place **inside** any container. It listens to the parent element's mouse events and renders the ripple animation automatically. The parent can be referenced via a **React ref** or a **CSS selector string**.
+
+### With a CSS selector
+
+The simplest approach. Give the parent element an `id` and pass the CSS selector as a string.
+
+```tsx
+<button id="myButton" className="relative overflow-hidden">
+    <Ripple parent="#myButton" className="bg-white" />
+    <span className="relative z-10">Click me</span>
+</button>
+```
+
+### With a React ref
+
+For a more React-idiomatic approach, pass a ref to the parent element.
+
+```tsx
+const buttonRef = useRef<HTMLButtonElement>(null);
+
+<button ref={buttonRef} className="relative overflow-hidden">
+    <Ripple parent={buttonRef} className="bg-white" />
+    <span className="relative z-10">Click me</span>
+</button>
+```
+
+### On any element
+
+Since `Ripple` attaches to any parent, you can use it on cards, divs, links — anything with `relative` and `overflow-hidden`.
+
+```tsx
+const cardRef = useRef<HTMLDivElement>(null);
+
+<div ref={cardRef} className="relative overflow-hidden rounded-2xl p-6">
+    <Ripple parent={cardRef} className="bg-cyan-500/80 size-52" />
+    <div className="relative z-10">
+        <h3>I'm a card</h3>
+        <p>Hover to reveal the ripple.</p>
+    </div>
+</div>
+```
+
+### Styling the ripple
+
+Control the ripple style through the `className` prop.
+
+```tsx
+<Ripple parent={ref} className="bg-white size-10 sm:size-20 md:size-32 lg:size-46" />
+```
+
+### With Design System
+
+You can drop `Ripple` inside any design system button (e.g., [Shadcn UI](https://ui.shadcn.com/)) — just ensure the button has `relative` and `overflow-hidden`.
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { Ripple } from "@/components/ripple";
+
+const buttonRef = useRef<HTMLButtonElement>(null);
+
+<Button ref={buttonRef} className="relative overflow-hidden group">
+    <div className="z-20 relative">
+        Design System Button
+    </div>
+    <Ripple parent={buttonRef} className="bg-primary" />
+</Button>
+```
+
+## Requirements
+
+For the ripple to render correctly, the parent element must have `relative` and `overflow-hidden`.
+Also, the content shown on top of the ripple must have a `z-index` value bigger than 1.
+
+## Props
+
+| Prop | Type | Default Value | Description |
+|------|------|---------|-------------|
+| parent | `React.RefObject<HTMLElement \| null> \| string` | - | React ref or CSS selector pointing to the parent element |
+| className? | `string` | - | Class name applied to the ripple `div` |

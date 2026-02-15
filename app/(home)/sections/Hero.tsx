@@ -9,7 +9,7 @@ import React, { useRef } from "react";
 import { ShimmerText } from "@/components/shimmer-text";
 import Device from "../components/device";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { BGGrid } from "../components/beam-bg";
+import { GridBackground } from "../components/beam-bg";
 import LenisProvider from "@/providers/LenisProvider";
 import BubbleButton from "@/components/bubble-button";
 import useScreenSize from "@/hooks/use-screen-size";
@@ -130,7 +130,7 @@ const Hero: React.FC = () => {
 
     <LenisProvider>
         <div className='hero-pin relative min-h-svh w-full bg-background flex flex-col justify-center text-center z-20'>
-            <BGGrid />
+            <GridBackground />
             <div className="relative isolate container z-[2]">
                 <Device ref={deviceRef} className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device" />
                 <div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">

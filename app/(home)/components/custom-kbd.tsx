@@ -1,6 +1,6 @@
 "use client";
 
-import { SnipeButton } from "@/components/snipe-button";
+import { KeyboardButton } from "@/components/snipe-button";
 import { useOs } from "@/hooks/use-os";
 import { cn } from "@/lib/utils";
 
@@ -29,14 +29,14 @@ const CustomKbd: React.FC<CustomKbdProps> = ({ className }) => {
     const os = useOs();
 
     return (
-        <SnipeButton 
+        <KeyboardButton 
         className={cn("text-primary border-muted-foreground/50 mb-2 bg-background min-h-0 flex items-center p-1 h-fit rounded-sm border text-xs md:px-2 font-sans font-medium", 
             className
         )}
         onClick={simulate}
         >
             <div>{os === "macos" ? "⌘K" : "Ctrl + K"}</div>
-        </SnipeButton>
+        </KeyboardButton>
     );
 }
  
