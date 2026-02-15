@@ -8,10 +8,10 @@ const LiftTextDemo: React.FC = () => {
     return ( 
         <DemoBlock containerClassName="py-12 flex flex-col">
             <div className="flex flex-col gap-4 text-center">
-                <h2 className="mt-0 mb-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-fd-primary to-fd-accent-foreground">
+                <h2 className="mt-0 mb-0 text-4xl font-bold text-center text-primary">
                     Pure CSS Animated Text
                 </h2>
-                <h2 className="text-sm text-fd-muted-foreground mt-0">Hover to see the effect</h2>
+                <h2 className="text-sm text-fd-muted-foreground mt-0">Hover links below to see the effect</h2>
             </div>
             <div className="flex flex-col justify-center items-center mt-12">
                 <LiftText text="About" />

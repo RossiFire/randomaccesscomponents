@@ -4,7 +4,7 @@ import LenisProvider from "@/providers/LenisProvider";
 const StackedCardsDemo: React.FC = () => {
     return ( 
         <LenisProvider>
-            <DemoBlock className="m-0" disableOverflowHidden containerClassName="flex flex-col gap-12 py-20">
+            <DemoBlock className="m-0" containerClassName="flex flex-col gap-12 py-20">
                 <div className="flex flex-col gap-4 text-center">
                     <h1 className="text-2xl font-bold mb-0">Stacked Cards. No JavaScript - just Css</h1>
                     <h2 className="text-sm text-muted-foreground mt-0">Scroll to see the effect</h2>

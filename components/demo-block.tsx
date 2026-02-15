@@ -4,16 +4,6 @@ import { GridBackground } from '@/app/(home)/components/beam-bg';
 
 export interface DemoBlockProps {
   /**
-   * Title of the demo block
-   */
-  title?: string;
-  
-  /**
-   * Description of the demo
-   */
-  description?: string;
-  
-  /**
    * The demo component to render
    */
   children: ReactNode;
@@ -27,12 +17,6 @@ export interface DemoBlockProps {
    * Additional CSS classes for the container
    */
   containerClassName?: string;
-  
-  /**
-   * Whether to show a border around the demo
-   * @defaultValue true
-   */
-  showBorder?: boolean;
   
   /**
    * Background style for the demo area
@@ -49,51 +33,25 @@ export interface DemoBlockProps {
 }
 
 export function DemoBlock({
-  title,
-  description,
   children,
   className,
   containerClassName,
-  showBorder = true,
-  background = 'dots',
   disableOverflowHidden = false,
   ref,
 }: DemoBlockProps & { ref?: React.RefObject<HTMLDivElement | null>}) {
   return (
-    <div className='flex flex-col gap-2'>
-      {(title || description) && (
-        <div className="">
-          {title && (
-            <h3 className="text-base font-semibold text-foreground mb-1">
-              {title}
-            </h3>
-          )}
-          {description && (
-            <p className="text-sm text-muted-foreground mb-0">{description}</p>
-          )}
-        </div>
-      )}
     <div
       className={cn(
-        'my-6 rounded-xl shadow-2xl shadow-card',
-        showBorder && 'border border-border shadow-sm',
+        'my-6 rounded-xl shadow-card border border-border shadow-sm relative h-full flex items-center justify-center z-10 min-h-[200px]',
         !disableOverflowHidden && 'overflow-hidden',
-        className,
+        className
       )}
       ref={ref}
     >
-      <div className='relative z-10 size-full overflow-hidden min-h-[200px] '>
-        <div
-          className={cn(
-            'relative p-6 h-fit flex items-center justify-center z-10',
-            containerClassName,
-          )}
-        >
-            {children}
-        </div>
-        <GridBackground className='bg-size-[24px_24px] z-[1]' hideFade={true}/>
+      <div className={cn('relative z-10 size-full overflow-hidden h-fit p-6', containerClassName)}>
+        {children}
       </div>
-    </div>
+      <GridBackground className='bg-size-[24px_24px] z-[1]' hideFade={true}/>
     </div>
   );
 }

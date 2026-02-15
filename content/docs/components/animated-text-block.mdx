@@ -8,7 +8,90 @@ hot_item: true
 
 
 ## Demo
-<AnimatedTextBlockDemo />
+
+<PreviewCodeBlock preview={<AnimatedTextBlockDemo />}>
+    ```tsx
+  const AnimatedTextBlockDemo: React.FC = () => {
+  const isMounted = useHydration();
+
+  const [animating, setAnimating] = useState(false);
+
+  const runAnimation = () => {
+    gsap.set(".faded-text", { clipPath: "inset(0px 100% 0px 0px)" });
+    gsap.set(".high-line-reveal", { scaleX: 1 });
+
+    const tl = gsap.timeline({
+      onComplete: () => setAnimating(false),
+      onStart: () => setAnimating(true),
+    });
+    tl.to(".faded-text", {
+      clipPath: "inset(0px 0% 0px 0px)",
+      duration: 0.6,
+      stagger: 0.2,
+      ease: "power2.inOut",
+    }).to(
+      ".faded-text .high-line-reveal",
+      {
+        scaleX: 0,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: "power4.inOut",
+      },
+      "<20%"
+    );
+  };
+
+
+  if(!isMounted) return null;
+    return ( 
+        <DemoBlock containerClassName="py-12">
+            <div className="flex flex-col gap-12 justify-center items-center">
+                <div className="flex flex-col gap-0 whitespace-pre-wrap items-center text-center">
+                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal"><strong className={cn("text-[#e17055] md:text-3xl lg:text-5xl",prata.className)}>REDEFINING</strong> WEB,</TextLineReveal>
+                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">CHASING <strong className={cn("text-[#e17055] md:text-3xl lg:text-5xl",prata.className)}>PERFORMANCE</strong>,</TextLineReveal>
+                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">BRINGING IT ALL IN</TextLineReveal>
+                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">ALL WAYS. DEFINING A</TextLineReveal>
+                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal"><strong className={cn("text-[#e17055] md:text-3xl lg:text-5xl",prata.className)}>STANDARD</strong> WITH RUI</TextLineReveal>
+                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">ON AND OFF THE</TextLineReveal>
+                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">WEB.</TextLineReveal>
+                </div>
+                <Button 
+                    onClick={runAnimation} 
+                    disabled={animating}
+                >
+                    {animating ? "Animating..." : "Run animation"}
+                </Button>
+            </div>
+        </DemoBlock>
+    )
+}
+
+
+
+
+const TextLineReveal: React.FC<{ children: React.ReactNode, spanClass: string, lineClass: string }> = ({
+  children,
+  spanClass,
+  lineClass,
+}) => {
+  return (
+      <span
+      className={cn(
+          "text text-2xl md:text-4xl lg:text-6xl font-bold uppercase relative text-foreground leading-[60px] md:leading-[100px] -tracking-wider",
+          spanClass,
+          interFont
+      )}
+      >
+      {children}
+      <div className={cn(
+          "absolute bottom-0 left-0 w-full h-full bg-[#e17055] will-change-transform scale-x-0 origin-[right_center]",
+          lineClass
+      )}></div>
+      </span>
+  );
+};
+    ```
+</PreviewCodeBlock>
 
 ## Installation
 
@@ -16,7 +99,10 @@ hot_item: true
 
 
 Copy and paste the following code into your project.
-```tsx title="animated-text-block.tsx" icon="react"
+
+
+<SingleCodeBlock icon={<React />} label="animated-text-block.tsx" lang="tsx">
+```tsx
 "use client";
 import gsap from "gsap";
 
@@ -81,6 +167,7 @@ const TextLineReveal: React.FC<{ children: React.ReactNode }> = ({
 
 export default AnimatedTextBlock;
 ```
+</SingleCodeBlock>
 
 ## Usage
 

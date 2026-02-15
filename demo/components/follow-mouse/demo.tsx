@@ -9,14 +9,16 @@ import Image from "next/image";
 import tailwindLogo from "@/public/assets/badges/tailwind_logo.png";
 
 
-const EMOJIS = ["🤡", "🤔", "🤨", "🤓", "🤯", "🤠","👹", "💀", "👺", "👻", "👽", "👾", "🤖", "🎃", "👿", "💩", "👏", "👋", "👌", "👍", "👎", "👊", "👏", "👋", "👌", "👍", "👎", "👊"];
-
+const EMOJIS = [
+    "🤡", "🤔", "🤨", "🤓", "🤯", "🤠","👹", 
+    "💀", "👺", "👻", "👽", "👾", "🤖", "🎃", 
+    "👿", "💩", "👏", "👋", "👌", "👍", "👎", 
+    "👊", "👏", "👋", "👌", "👍", "👎", "👊"
+];
 
 const FollowMouseDemo: React.FC = () => {
 
     const [isVolumeOn, setIsVolumeOn] = useState(false);
-
-
 
     const [selectedEmoji, setSelectedEmoji] = useState(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
 
@@ -25,7 +27,7 @@ const FollowMouseDemo: React.FC = () => {
     }
 
     return ( 
-        <DemoBlock containerClassName="py-12">
+        <DemoBlock className="m-0" containerClassName="py-12">
             <div className="flex flex-col w-full items-center justify-around space-y-20">
                 <h2 className="mt-0 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground">
                     Mouse Follow

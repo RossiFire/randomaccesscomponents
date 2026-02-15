@@ -45,11 +45,8 @@ const AnimatedTextBlockDemo: React.FC = () => {
 
 
   if(!isMounted) return null;
-
-
-
     return ( 
-        <DemoBlock containerClassName="py-12">
+        <DemoBlock className="m-0">
             <div className="flex flex-col gap-12 justify-center items-center">
                 <div className="flex flex-col gap-0 whitespace-pre-wrap items-center text-center">
                     <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal"><strong className={cn("text-[#e17055] md:text-3xl lg:text-5xl",prata.className)}>REDEFINING</strong> WEB,</TextLineReveal>

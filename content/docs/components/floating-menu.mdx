@@ -18,17 +18,16 @@ This menu uses only tailwind classes, no custom Css. It&apos;s fully accessible,
 This menu uses the [Magnet](./magnet.mdx) component, so make sure to copy it.
 
 Copy and paste the following code into your project.
-```tsx title="floating-menu.tsx" icon="react"
-"use client";
 
+<SingleCodeBlock icon={<React />} label="floating-menu.tsx" lang="tsx">
+```tsx
+"use client";
 import { XIcon, MenuIcon } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { cn } from "@/lib/utils";
 import Magnet from "@/components/magnet";
-
-
 const MENU_OPTIONS: OptionItem[] = [
   {
     id: "o1",
@@ -434,6 +433,7 @@ const OptionsPanelContent = ({ option }: { option: OptionItem | null }) => {
 
 export default FloatingMenu;
 ```
+</SingleCodeBlock>
 
 ## Usage
 ```typescript
