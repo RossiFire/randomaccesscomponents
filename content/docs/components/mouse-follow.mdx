@@ -158,8 +158,7 @@ const CenterItemContent = ({ isVolumeOn }: { isVolumeOn: boolean }) => {
 
 Copy and paste the following code into your project.
 
-<SingleCodeBlock icon={<React />} label="mouse-follow.tsx" lang="tsx">
-```tsx
+```tsx title="mouse-follow.tsx" icon="react"
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -265,7 +264,6 @@ MouseFollowItem.displayName = "MouseFollowItem";
 
 export { MouseFollowContent, MouseFollowItem };
 ```
-</SingleCodeBlock>
 
 ## Usage
 
@@ -275,7 +273,6 @@ import { MouseFollowContent, MouseFollowItem } from "@/components/mouse-follow";
 
 
 ### Basic
-<SingleCodeBlock icon={<React />} label="page.tsx" lang="tsx">
 
 ```tsx
 <MouseFollowContent asChild>
@@ -287,10 +284,8 @@ import { MouseFollowContent, MouseFollowItem } from "@/components/mouse-follow";
   </div>
 </MouseFollowContent>
 ```
-</SingleCodeBlock>
 
 ### Custom position
-<SingleCodeBlock icon={<React />} label="page.tsx" lang="tsx">
 ```tsx
 <MouseFollowContent asChild>
   <div className="my-card-container">
@@ -301,12 +296,10 @@ import { MouseFollowContent, MouseFollowItem } from "@/components/mouse-follow";
   </div>
 </MouseFollowContent>
 ```
-</SingleCodeBlock>
 ### Global
 You can also wrap your entire page in the MouseFollowContent to make it follow the mouse cursor everywhere.
 
-<SingleCodeBlock icon={<React />} label="layout.tsx" lang="tsx">
-```tsx
+```tsx title="layout.tsx" icon="react"
 export default function Layout({ children }) {
   return (
     <html>
@@ -322,7 +315,6 @@ export default function Layout({ children }) {
   );
 }
 ```
-</SingleCodeBlock>
 
 ## Techbook
 When working with this comoponent, I faced an interesting use case. When trying to place a 3D model in the `MouseFollowItem`, 

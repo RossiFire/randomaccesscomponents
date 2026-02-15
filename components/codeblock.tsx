@@ -179,7 +179,7 @@ export function CodeBlock({
               if (Icon) {
                 return (
                   <Icon
-                    className="!size-3.5 text-current"
+                    className="!size-3.5"
                     aria-hidden
                   />
                 );

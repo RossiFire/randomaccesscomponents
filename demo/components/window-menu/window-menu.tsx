@@ -138,7 +138,7 @@ const WindowMenu: React.FC<WindowMenuProps> = ({ children }) => {
           role="banner"
         >
           <div className="relative flex h-full w-full gap-2 pt-6 md:gap-8">
-            <div className="absolute left-0 top-0 h-16 w-12 md:relative md:h-3/4 md:w-32 overflow-hidden">
+            <div className="absolute left-0 top-0 h-16 w-12 md:relative md:h-3/4 md:w-32 overflow-hidden grid place-items-center text-muted">
               Logo
             </div>
 

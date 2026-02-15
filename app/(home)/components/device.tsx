@@ -5,7 +5,7 @@ import { Markee, MarkeeContent, MarkeeFade, MarkeeSpacer, MarkeeItem } from "@/c
 import { KeyboardButton } from '@/components/keyboard-button';
 import Magnet from '@/demo/components/magnet/magnet';
 import { MousePointer2Icon } from 'lucide-react';
-import { Ripple } from '@/demo/components/ripple-button/Ripple';
+import { Ripple } from '@/demo/components/ripple/Ripple';
 
 
 const techBadges = [

@@ -1,0 +1,101 @@
+---
+title: Keyboard Button
+description: Keyboard-style button, accessible and customizable
+---
+
+<PageBadge badges={['tailwind']} />
+
+## Demo
+
+<PreviewCodeBlock preview={<KeyboardButtonDemo />}>
+```tsx
+<div className="flex items-center justify-center gap-4">
+    <KeyboardButton>
+        Keyboard button
+    </KeyboardButton>
+    <KeyboardButton variant="icon">
+        <KeyboardIcon className="size-4" />
+    </KeyboardButton>
+    <KeyboardButton asChild>
+        <Link href="#">I&apos;m actually a link</Link>
+    </KeyboardButton>
+</div>
+```
+</PreviewCodeBlock>
+
+## Installation
+
+<PkgInstallerTabs command="@radix-ui/react-slot" />
+
+Copy and paste the following code into your project.
+
+```tsx title="keyboard-button.tsx" icon="react"
+import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { cn } from '@/lib/utils';
+import { cva } from 'class-variance-authority';
+
+const keyboardButtonVariants = cva(
+    'relative inline-flex items-center justify-center px-6 py-2 text-primary-foreground font-light font-serif transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-muted-foreground shadow-[0px_4px_0px_var(--primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0.5 active:shadow-none hover:bg-muted active:bg-muted disabled:shadow-none disabled:cursor-not-allowed disabled:pointer-events-none disabled:translate-y-0.5',
+    {
+        variants: {
+            variant: {
+                primary: 'px-6 py-2',
+                icon: 'p-1.5 aspect-square',
+            },
+        },
+    },)
+
+function KeyboardButton({
+    className,
+    asChild = false,
+    variant = 'primary',
+    ...props
+}: React.ComponentProps<'button'> & {
+    asChild?: boolean;
+    variant?: 'icon' | 'primary';
+}) {
+    const Comp = asChild ? Slot : 'button';
+
+    return (
+        <Comp
+            data-slot='button'
+            className={cn(keyboardButtonVariants({ variant }), className)}
+            {...props}
+        />
+    );
+}
+
+export { KeyboardButton };
+```
+
+## Usage
+```typescript
+import KeyboardButton from "@/components/keyboard-button";
+```
+### Basic
+```tsx
+<KeyboardButton>
+    Keyboard button
+</KeyboardButton>
+```
+### Icon
+```tsx
+<KeyboardButton variant="icon">
+    <KeyboardIcon className="size-4" />
+</KeyboardButton>
+```
+### As child
+```tsx
+<KeyboardButton asChild>
+    <Link href="/some-page">I'm a link</Link>
+</KeyboardButton>
+```
+
+### Props
+It accepts all the props that a normal `button` component accepts, additionally:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | `primary` \| `icon` | `primary` | The variant of the button. |
+| asChild | boolean | false | Whether to render the button as a child component. |
