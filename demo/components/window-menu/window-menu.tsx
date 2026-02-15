@@ -8,7 +8,6 @@ import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/utils";
 
 import { useBreakPoints } from "../../hooks/use-breakpoints/use-breakpoints";
-import logo from "@/public/assets/rui_logo_short.png";
 
 
 export const NAV_LINKS = [
@@ -140,11 +139,7 @@ const WindowMenu: React.FC<WindowMenuProps> = ({ children }) => {
         >
           <div className="relative flex h-full w-full gap-2 pt-6 md:gap-8">
             <div className="absolute left-0 top-0 h-16 w-12 md:relative md:h-3/4 md:w-32 overflow-hidden">
-              <Image
-                src={logo}
-                alt="window menu logo"
-                className="object-cover !m-0"
-              />
+              Logo
             </div>
 
             <div className="flex flex-1 flex-col items-center justify-start">

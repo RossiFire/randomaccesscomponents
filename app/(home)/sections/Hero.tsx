@@ -105,12 +105,6 @@ const Hero: React.FC = () => {
                 duration: 1,
                 ease: "power2.inOut",
             },'<')
-            .to(".hero-main-content", {
-                scale: 0.8,
-                duration: 1,
-                translateX: "-10%",
-                ease: "power2.inOut"
-            },'<')
             .to('.hero-device', {
                 left: "50%",
                 top: "100%",
@@ -120,6 +114,14 @@ const Hero: React.FC = () => {
                 duration: 1.2,
                 ease: "power2.inOut"
             })
+            // Hide main content on small screens since in those cases the device doesn't not cover completely the content
+            if(width < 1500){
+                scrollTl.to(".hero-main-content", {
+                    translateX: "20%",
+                    duration: 0.5,
+                    ease: "power2.inOut"
+                },'<50%')
+            }
         }
 
     }, [isMounted]);

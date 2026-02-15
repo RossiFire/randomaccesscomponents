@@ -3,15 +3,16 @@ import * as React from 'react';
 import Link from 'next/link';
 import ThemeSwitcher from '@/components/ui/theme-switcher';
 import { cn } from '@/lib/utils';
-import { GithubInfo } from 'fumadocs-ui/components/github-info';
 import CustomKbd from './custom-kbd';
 import MobileNav from './mobile-nav';
 import { MoveUpRight } from 'lucide-react';
+import rac_logo from '@/public/assets/rac_logo.png';
+import Image from 'next/image';
 
 const navLinks = [
     { href: '/docs/getting-started', label: 'Getting Started' },
     { href: '/docs/components', label: 'Components' },
-    { href: '/docs/hooks', label: 'Github', external: true },
+    { href: 'https://github.com/RossiFire/randomaccesscomponents', label: 'Github', external: true },
 ];
 
 function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
@@ -24,9 +25,9 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                             href='/'
                             className='text-base font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80'
                         >
-                            Rac UI
+                            <Image src={rac_logo} alt='Rac UI Logo' className='size-10 object-contain' />
                         </Link>
-                        <ul className='items-center gap-4 hidden md:flex'>
+                        <ul className='items-center gap-6 hidden md:flex'>
                             {navLinks.map((link) => (
                                 <li key={link.href} className='flex items-center gap-2 group'>
                                     <NavLink
@@ -43,12 +44,6 @@ function Navbar({ className, ...props }: React.ComponentProps<'header'>) {
                     </div>
 
                     <div className='flex items-center gap-2'>
-                        <GithubInfo
-                            owner="rossifire"
-                            repo="randomaccesscomponents"
-                            token={process.env.GITHUB_TOKEN}
-                            className='flex whitespace-nowrap flex-row z-[2]'
-                        />
                         <MobileNav navLinks={navLinks} />
                         <CustomKbd className='hidden md:block'/>
                         <ThemeSwitcher className='hidden md:block'/>
