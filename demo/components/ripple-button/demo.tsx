@@ -45,15 +45,12 @@ const RippleButtonDemo: React.FC = () => {
                 </div>
                 <Ripple parent={cardRef} className="bg-[#2fc9da]/80 size-52" />
             </div>
-            <Button
-                ref={buttonRef}
-                className="relative overflow-hidden group"
-            >
-            <div className="z-20 relative">
-                Design System Button
-            </div>
-            <Ripple parent={buttonRef} className="bg-primary" />
-        </Button>
+            <Button ref={buttonRef} className="relative overflow-hidden group" >
+                <div className="z-20 relative">
+                    Design System Button
+                </div>
+                <Ripple parent={buttonRef} className="bg-primary" />
+            </Button>
         </DemoBlock>
      );
 }

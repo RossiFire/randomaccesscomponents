@@ -323,8 +323,30 @@ export function CodeBlockTabsList(props: ComponentProps<typeof TabsList>) {
 
 export function CodeBlockTabsTrigger({
   children,
+  icon,
   ...props
-}: ComponentProps<typeof TabsTrigger>) {
+}: ComponentProps<typeof TabsTrigger> & {
+  /**
+   * Optional icon shown near the tab label.
+   * When passed as a string, it resolves to a named tech icon or renders raw HTML.
+   * When passed as a ReactNode, it renders directly.
+   */
+  icon?: ReactNode;
+}) {
+  const resolvedIcon = typeof icon === 'string' ? (() => {
+    const Icon = resolveNamedIcon(icon);
+    if (Icon) return <Icon className="!size-3.5 text-current" aria-hidden />;
+    if (icon.includes('<')) {
+      return (
+        <div
+          className="[&_svg]:size-3.5"
+          dangerouslySetInnerHTML={{ __html: icon }}
+        />
+      );
+    }
+    return null;
+  })() : icon;
+
   return (
     <TabsTrigger
       {...props}
@@ -334,6 +356,7 @@ export function CodeBlockTabsTrigger({
       )}
     >
       <div className="absolute inset-x-2 bottom-0 h-px group-data-[state=active]:bg-primary" />
+      {resolvedIcon}
       {children}
     </TabsTrigger>
   );
