@@ -1,6 +1,6 @@
 "use client";
 
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import { MouseFollowContent, MouseFollowItem } from "./mouse-follow";
 import { useState } from "react";
 import { Volume2Icon, VolumeOffIcon } from "lucide-react";

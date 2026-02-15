@@ -1,5 +1,5 @@
 "use client";
-import { DemoBlock } from "@/components/demoBlock"
+import { DemoBlock } from "@/components/demo-block"
 import { useHydration } from "@/hooks/use-hydration";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";

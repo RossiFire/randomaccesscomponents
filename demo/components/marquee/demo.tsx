@@ -1,6 +1,6 @@
 "use client";
 
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import TechBadge from "@/components/ui/tech-badge";
 import { MarkeeFade, MarkeeSpacer, Markee, MarkeeContent, MarkeeItem } from "@/components/markee";
 import { Button } from "@/components/ui/button";

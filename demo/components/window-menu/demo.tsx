@@ -1,6 +1,6 @@
 "use client";
 
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import WindowMenu from "./window-menu";
 import { useState } from "react";
 import { cn } from "@/lib/utils";

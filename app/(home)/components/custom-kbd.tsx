@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardButton } from "@/components/snipe-button";
+import { KeyboardButton } from "@/components/keyboard-button";
 import { useOs } from "@/hooks/use-os";
 import { cn } from "@/lib/utils";
 

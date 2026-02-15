@@ -1,5 +1,5 @@
 "use client";
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import useScreenSize from "./use-screen-size";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";

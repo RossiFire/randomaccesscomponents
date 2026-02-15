@@ -1,6 +1,6 @@
 "use client";
 
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import { Button } from "@/components/ui/button";
 import { useQuickForm } from "../useQuickForm";
 import { cn } from "@/lib/utils";

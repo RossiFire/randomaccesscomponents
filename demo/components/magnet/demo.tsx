@@ -1,6 +1,6 @@
 "use client";
 
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import Magnet from "./magnet";
 import { StarIcon } from "lucide-react";
 import { useState } from "react";

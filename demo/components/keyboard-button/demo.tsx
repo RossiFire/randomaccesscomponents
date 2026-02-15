@@ -1,5 +1,5 @@
-import { DemoBlock } from "@/components/demoBlock";
-import { KeyboardButton } from "@/components/snipe-button";
+import { DemoBlock } from "@/components/demo-block";
+import { KeyboardButton } from "@/components/keyboard-button";
 
 function KeyboardButtonDemo() {
     return (

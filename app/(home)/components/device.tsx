@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import TechBadge from '@/components/ui/tech-badge';
 import { Markee, MarkeeContent, MarkeeFade, MarkeeSpacer, MarkeeItem } from "@/components/markee";
-import { KeyboardButton } from '@/components/snipe-button';
+import { KeyboardButton } from '@/components/keyboard-button';
 import Magnet from '@/demo/components/magnet/magnet';
 import { MousePointer2Icon } from 'lucide-react';
 import { Ripple } from '@/demo/components/ripple-button/Ripple';

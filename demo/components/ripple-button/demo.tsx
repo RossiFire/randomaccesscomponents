@@ -1,6 +1,6 @@
 "use client";
 
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import { Ripple } from "./Ripple";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";

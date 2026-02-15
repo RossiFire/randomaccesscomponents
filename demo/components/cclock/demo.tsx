@@ -1,5 +1,5 @@
 'use client';
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import { useState } from "react";
 import CClock from "./cclock";
 import ClockCounter from "./cclock-counter";

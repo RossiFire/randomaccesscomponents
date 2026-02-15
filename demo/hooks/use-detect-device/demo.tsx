@@ -1,5 +1,5 @@
 "use client";
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import { useDevice } from "./use-detect-device";
 
 const UseDetectDeviceDemo: React.FC = () => {

@@ -1,7 +1,7 @@
 "use client";
 import { SunIcon, MoonIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { KeyboardButton } from "../snipe-button";
+import { KeyboardButton } from "../keyboard-button";
 import { cn } from "@/lib/utils";
 
 const ThemeSwitcher = ({ className, ...props }: React.ComponentProps<typeof KeyboardButton>) => {

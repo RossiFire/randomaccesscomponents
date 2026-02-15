@@ -5,7 +5,7 @@ import { useCopyToClipboard } from './use-copy-to-clipboard'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Alert } from '@/components/ui/alert'
-import { DemoBlock } from '@/components/demoBlock'
+import { DemoBlock } from '@/components/demo-block'
 import { cn } from '@/lib/utils'
 
 const CopyToClipboardDemo: React.FC = () => {

@@ -1,5 +1,5 @@
 "use client";
-import { KeyboardButton } from "@/components/snipe-button";
+import { KeyboardButton } from "@/components/keyboard-button";
 import { MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";

@@ -1,5 +1,5 @@
 "use client";
-import { DemoBlock } from "@/components/demoBlock";
+import { DemoBlock } from "@/components/demo-block";
 import { CheckCircle2Icon, Maximize2, MoonIcon, SunIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FloatingMenu from "./FloatingMenu";

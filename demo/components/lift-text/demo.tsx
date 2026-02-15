@@ -1,4 +1,4 @@
-import { DemoBlock } from "@/components/demoBlock"
+import { DemoBlock } from "@/components/demo-block"
 import { cn } from "@/lib/utils";
 
 
