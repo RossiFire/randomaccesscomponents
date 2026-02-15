@@ -1,16 +1,14 @@
   {
     "title": "Home",
-    "description": "Explore dnaui's features",
-    "icon": "Building",
     "root": true,
     "pages": [
       "getting-started",
       "contribute",
-      "---Utilities---",
-      "...utilities",
       "---Components---",
       "...components",
       "---Hooks---",
-      "...hooks"
+      "...hooks",
+      "---Utilities---",
+      "...utilities"
     ]
   }
