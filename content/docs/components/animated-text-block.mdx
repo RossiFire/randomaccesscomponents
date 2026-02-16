@@ -1,5 +1,5 @@
 ---
-title: Reveal Text
+title: Text Reveal
 description: Smooth animated text reveal with GSAP
 hot_item: true
 ---
@@ -9,25 +9,25 @@ hot_item: true
 
 ## Demo
 
-<PreviewCodeBlock preview={<RevealTextDemo />}>
+<PreviewCodeBlock preview={<TextRevealDemo />}>
     ```tsx
-  import { RevealText, RevealTextLine } from "./animated-text-block";
-  import type { RevealTextHandle } from "./animated-text-block";
+  import { TextReveal, TextRevealLine } from "./text-reveal";
+  import type { TextRevealHandle } from "./text-reveal";
 
   const Demo: React.FC = () => {
-    const ref = useRef<RevealTextHandle>(null);
+    const ref = useRef<TextRevealHandle>(null);
     const [animating, setAnimating] = useState(false);
 
     return (
-      <RevealText
+      <TextReveal
         ref={ref}
-        lines={[<RevealTextLine className="bg-accent" key="0" />]}
+        lines={[<TextRevealLine className="bg-accent" key="0" />]}
         className="text-4xl font-bold uppercase text-center leading-tight"
       >
         <strong className="text-accent">REDEFINING</strong> WEB, CHASING
         <strong className="text-accent">PERFORMANCE</strong>, BRINGING IT ALL IN ALL WAYS. DEFINING A
         <strong className="text-accent">STANDARD</strong> WITH RUI ON AND OFF THE WEB.
-      </RevealText>
+      </TextReveal>
 
       <button
         onClick={() => ref.current?.play({
@@ -51,7 +51,7 @@ hot_item: true
 Copy and paste the following code into your project.
 
 
-```tsx title="reveal-text.tsx" icon="react"
+```tsx title="text-reveal.tsx" icon="react"
 "use client";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -61,7 +61,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(SplitText);
 
-type RevealTextHandle = {
+type TextRevealHandle = {
     play: (timelineVars?: gsap.TimelineVars) => gsap.core.Timeline;
     reset: () => void;
     element: HTMLDivElement | null;
@@ -79,7 +79,7 @@ function splitAndPrepare(
     startVisible: boolean
 ) {
     const targets = gsap.utils.toArray(
-        container.querySelectorAll('[data-slot="reveal-text-content"]')
+        container.querySelectorAll('[data-slot="text-reveal-content"]')
     ) as HTMLElement[];
 
     const templates = linesContainer
@@ -124,7 +124,7 @@ function resetState(container: HTMLElement) {
     gsap.set(container.querySelectorAll(".high-line-reveal"), { scaleX: 1 });
 }
 
-function RevealText({
+function TextReveal({
     children,
     className,
     startVisible = false,
@@ -138,7 +138,7 @@ function RevealText({
     lines?: React.ReactNode[];
     textAnimation?: gsap.TweenVars;
     revealAnimation?: gsap.TweenVars & { at?: string };
-    ref?: React.Ref<RevealTextHandle>;
+    ref?: React.Ref<TextRevealHandle>;
 }) {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const linesRef = React.useRef<HTMLDivElement>(null);
@@ -187,11 +187,11 @@ function RevealText({
 
     return (
         <div
-            data-slot="reveal-text"
+            data-slot="text-reveal"
             className={cn("relative", className)}
             {...props}
         >
-            <p data-slot="reveal-text-content" className="par">
+            <p data-slot="text-reveal-content" className="par">
                 {children}
             </p>
             {lines.length > 0 && (
@@ -202,24 +202,24 @@ function RevealText({
         </div>
     );
 }
-RevealText.displayName = "RevealText";
+TextReveal.displayName = "TextReveal";
 
-function RevealTextLine({
+function TextRevealLine({
     className,
     ...props
 }: React.ComponentProps<"div">) {
     return (
         <div
-            data-slot="reveal-text-line"
+            data-slot="text-reveal-line"
             className={cn("bg-accent", className)}
             {...props}
         />
     );
 }
-RevealTextLine.displayName = "RevealTextLine";
+TextRevealLine.displayName = "TextRevealLine";
 
-export { RevealText, RevealTextLine, resetState };
-export type { RevealTextHandle };
+export { TextReveal, TextRevealLine, resetState };
+export type { TextRevealHandle };
 ```
 
 ## Usage
@@ -229,11 +229,11 @@ export type { RevealTextHandle };
 Pass any text or `ReactNode` as children. Inline elements like `<strong>`, `<em>`, or `<span>` are fully supported.
 
 ```tsx title="page.tsx" icon="react"
-const ref = useRef<RevealTextHandle>(null);
+const ref = useRef<TextRevealHandle>(null);
 
-<RevealText ref={ref}>
+<TextReveal ref={ref}>
     I'm a text that will be revealed.
-</RevealText>
+</TextReveal>
 
 <button onClick={() => ref.current?.play()}>Animate</button>
 ```
@@ -243,7 +243,7 @@ const ref = useRef<RevealTextHandle>(null);
 The `ref` exposes a `play()` method that resets state and animates. It accepts optional `gsap.TimelineVars` (e.g. `onStart`, `onComplete`, `scrollTrigger`):
 
 ```tsx title="page.tsx" icon="react"
-const ref = useRef<RevealTextHandle>(null);
+const ref = useRef<TextRevealHandle>(null);
 
 ref.current?.play({
     onStart: () => console.log("started"),
@@ -257,42 +257,42 @@ Use `textAnimation` and `revealAnimation` to override the default GSAP tween var
 
 ```tsx title="page.tsx" icon="react"
 // Faster text with slower overlay
-<RevealText
+<TextReveal
     ref={ref}
     textAnimation={{ duration: 0.8, stagger: 0.05, ease: "power2.out" }}
     revealAnimation={{ duration: 0.8, stagger: 0.05 }}
 >
     Your text here.
-</RevealText>
+</TextReveal>
 
 // Change the reveal timeline position (default is "<20%")
-<RevealText
+<TextReveal
     ref={ref}
     revealAnimation={{ at: "<50%" }}
 >
     Different reveal offset.
-</RevealText>
+</TextReveal>
 ```
 
 ### Custom line reveals
 
-Pass an array of `RevealTextLine` elements via `lines`. Cycles if fewer than text lines, slices extras.
+Pass an array of `TextRevealLine` elements via `lines`. Cycles if fewer than text lines, slices extras.
 
 ```tsx title="page.tsx" icon="react"
 // Single color — applied to every line
-<RevealText lines={[<RevealTextLine className="bg-red-500" key="0" />]}>
+<TextReveal lines={[<TextRevealLine className="bg-red-500" key="0" />]}>
     Your text here.
-</RevealText>
+</TextReveal>
 
 // Alternating colors
-<RevealText
+<TextReveal
     lines={[
-        <RevealTextLine className="bg-red-500" key="0" />,
-        <RevealTextLine className="bg-blue-500" key="1" />,
+        <TextRevealLine className="bg-red-500" key="0" />,
+        <TextRevealLine className="bg-blue-500" key="1" />,
     ]}
 >
     Lines alternate between red and blue reveals.
-</RevealText>
+</TextReveal>
 ```
 
 When no `lines` are passed, a default `bg-accent` reveal is used.
@@ -302,9 +302,9 @@ When no `lines` are passed, a default `bg-accent` reveal is used.
 By default, text is hidden until the animation plays. Set `startVisible` to render text immediately.
 
 ```tsx title="page.tsx" icon="react"
-<RevealText startVisible>
+<TextReveal startVisible>
     This text is visible on mount.
-</RevealText>
+</TextReveal>
 ```
 
 ### With `ScrollTrigger`
@@ -318,7 +318,7 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 Pass `scrollTrigger` inside the `play()` timeline vars:
 
 ```tsx title="page.tsx" icon="react"
-const ref = useRef<RevealTextHandle>(null);
+const ref = useRef<TextRevealHandle>(null);
 
 useGSAP(() => {
     if (!ref.current) return;
@@ -331,15 +331,15 @@ useGSAP(() => {
 });
 
 return (
-    <RevealText ref={ref} className="text-4xl font-bold">
+    <TextReveal ref={ref} className="text-4xl font-bold">
         This text reveals <strong>on scroll</strong>.
-    </RevealText>
+    </TextReveal>
 )
 ```
 
 ## API Reference
 
-### RevealText
+### TextReveal
 
 The root container. Handles `SplitText` splitting, line reveal injection, and exposes `play()`/`reset()` via ref.
 
@@ -351,9 +351,9 @@ The root container. Handles `SplitText` splitting, line reveal injection, and ex
 | `textAnimation` | `gsap.TweenVars` | `{ clipPath, duration: 0.6, stagger: 0.2, ease: "power2.inOut" }` | Overrides for the text clip-path animation. |
 | `revealAnimation` | `gsap.TweenVars & { at?: string }` | `{ scaleX: 0, duration: 0.6, stagger: 0.2, ease: "power4.inOut", at: "<20%" }` | Overrides for the reveal overlay animation. `at` sets the timeline position. |
 | `className` | `string` | — | CSS classes for the container. Text styling classes inherit to children. |
-| `ref` | `Ref<RevealTextHandle>` | — | Imperative handle with `play()`, `reset()`, and `element`. |
+| `ref` | `Ref<TextRevealHandle>` | — | Imperative handle with `play()`, `reset()`, and `element`. |
 
-### RevealTextHandle
+### TextRevealHandle
 
 Imperative handle exposed via `ref`.
 
@@ -363,7 +363,7 @@ Imperative handle exposed via `ref`.
 | `reset` | `() => void` | Resets animation to initial hidden state. |
 | `element` | `HTMLDivElement \| null` | The container DOM element, for `ScrollTrigger` triggers or DOM queries. |
 
-### RevealTextLine
+### TextRevealLine
 
 A customizable reveal overlay element, used in the `lines` array.
 
@@ -382,16 +382,16 @@ For example, this is an alternative implementation with a different timing and e
 
 <Tabs items={['demo', 'animation']}>
     <Tab value="demo" className="p-0">
-        <RevealTextAlternativeDemo />
+        <TextRevealAlternativeDemo />
     </Tab>
     <Tab value="animation">
     ```tsx
-    <RevealText
+    <TextReveal
         textAnimation={{ duration: 0.8, stagger: 0.05, ease: "power2.out" }}
         revealAnimation={{ duration: 0.8, stagger: 0.05 }}
     >
         ...
-    </RevealText>
+    </TextReveal>
     ```
     </Tab>
 </Tabs>
@@ -401,16 +401,16 @@ And If it seems a bit awkward, maybe it has just a wrong timing, like this one:
 
 <Tabs items={['demo', 'animation']}>
     <Tab value="demo" className="p-0">
-        <RevealTextWrongDemo />
+        <TextRevealWrongDemo />
     </Tab>
     <Tab value="animation">
     ```tsx
-    <RevealText
+    <TextReveal
         textAnimation={{ duration: 0.3, stagger: 0.05, ease: "sine.inOut" }}
         revealAnimation={{ duration: 1, stagger: 0.2 }}
     >
         ...
-    </RevealText>
+    </TextReveal>
     ```
     </Tab>
 </Tabs>

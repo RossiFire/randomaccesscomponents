@@ -1,10 +1,10 @@
 /* This file is used to export all the components */
 export {
-  RevealTextDemo,
-  RevealTextAlternativeDemo,
-  RevealTextWrongDemo,
-  RevealTextScrollingDemo
-} from "./animated-text-block/demo";
+  TextRevealDemo,
+  TextRevealAlternativeDemo,
+  TextRevealWrongDemo,
+  TextRevealScrollingDemo
+} from "./text-reveal/demo";
 export { FollowMouseDemo } from "./follow-mouse/demo";
 export { MagnetDemo } from "./magnet/demo";
 export { NoisyBackgroundDemo } from "./noisy-background/demo";

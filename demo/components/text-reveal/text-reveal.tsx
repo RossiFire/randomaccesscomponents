@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(SplitText);
 
-type RevealTextHandle = {
+type TextRevealHandle = {
     /** Resets state and plays the reveal animation. Accepts optional gsap.timeline() vars (e.g. scrollTrigger). */
     play: (timelineVars?: gsap.TimelineVars) => gsap.core.Timeline;
     /** Resets the animation to its initial hidden state. */
@@ -28,7 +28,7 @@ function splitAndPrepare(
     startVisible: boolean
 ) {
     const targets = gsap.utils.toArray(
-        container.querySelectorAll('[data-slot="reveal-text-content"]')
+        container.querySelectorAll('[data-slot="text-reveal-content"]')
     ) as HTMLElement[];
 
     const templates = linesContainer
@@ -73,7 +73,7 @@ function resetState(container: HTMLElement) {
     gsap.set(container.querySelectorAll(".high-line-reveal"), { scaleX: 1 });
 }
 
-function RevealText({
+function TextReveal({
     children,
     className,
     startVisible = false,
@@ -91,7 +91,7 @@ function RevealText({
     textAnimation?: gsap.TweenVars;
     /** GSAP tween overrides for the line reveal overlay. Use `at` to set timeline position. */
     revealAnimation?: gsap.TweenVars & { at?: string };
-    ref?: React.Ref<RevealTextHandle>;
+    ref?: React.Ref<TextRevealHandle>;
 }) {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const linesRef = React.useRef<HTMLDivElement>(null);
@@ -140,12 +140,12 @@ function RevealText({
 
     return (
         <div
-            data-slot="reveal-text"
+            data-slot="text-reveal"
             ref={containerRef}
             className={cn("relative", className)}
             {...props}
         >
-            <p data-slot="reveal-text-content">
+            <p data-slot="text-reveal-content">
                 {children}
             </p>
             {lines.length > 0 && (
@@ -156,21 +156,21 @@ function RevealText({
         </div>
     );
 }
-RevealText.displayName = "RevealText";
+TextReveal.displayName = "TextReveal";
 
-function RevealTextLine({
+function TextRevealLine({
     className,
     ...props
 }: React.ComponentProps<"div">) {
     return (
         <div
-            data-slot="reveal-text-line"
+            data-slot="text-reveal-line"
             className={cn("bg-accent", className)}
             {...props}
         />
     );
 }
-RevealTextLine.displayName = "RevealTextLine";
+TextRevealLine.displayName = "TextRevealLine";
 
-export { RevealText, RevealTextLine, resetState };
-export type { RevealTextHandle };
+export { TextReveal, TextRevealLine, resetState };
+export type { TextRevealHandle };

@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Prata } from "next/font/google";
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import { RevealText, RevealTextLine } from "./animated-text-block";
-import type { RevealTextHandle } from "./animated-text-block";
+import { TextReveal, TextRevealLine } from "./text-reveal";
+import type { TextRevealHandle } from "./text-reveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,7 +22,7 @@ const textClasses = cn(
 );
 const accentClasses = cn("text-[#e17055]", prata.className);
 
-const demoLines = [<RevealTextLine className="bg-[#e17055]" key="0" />];
+const demoLines = [<TextRevealLine className="bg-[#e17055]" key="0" />];
 
 const DemoTextContent: React.FC = () => (
     <>
@@ -33,9 +33,9 @@ const DemoTextContent: React.FC = () => (
 );
 
 
-const RevealTextDemo: React.FC = () => {
+const TextRevealDemo: React.FC = () => {
     const isMounted = useHydration();
-    const ref = useRef<RevealTextHandle>(null);
+    const ref = useRef<TextRevealHandle>(null);
     const [animating, setAnimating] = useState(false);
 
     if (!isMounted) return null;
@@ -43,9 +43,9 @@ const RevealTextDemo: React.FC = () => {
     return (
         <DemoBlock className="m-0">
             <div className="flex flex-col gap-12 justify-center items-center">
-                <RevealText ref={ref} lines={demoLines} className={textClasses} startVisible>
+                <TextReveal ref={ref} lines={demoLines} className={textClasses} startVisible>
                     <DemoTextContent />
-                </RevealText>
+                </TextReveal>
                 <Button
                     onClick={() => ref.current?.play({
                         onStart: () => setAnimating(true),
@@ -61,9 +61,9 @@ const RevealTextDemo: React.FC = () => {
 };
 
 
-const RevealTextAlternativeDemo: React.FC = () => {
+const TextRevealAlternativeDemo: React.FC = () => {
     const isMounted = useHydration();
-    const ref = useRef<RevealTextHandle>(null);
+    const ref = useRef<TextRevealHandle>(null);
     const [animating, setAnimating] = useState(false);
 
     if (!isMounted) return null;
@@ -71,9 +71,16 @@ const RevealTextAlternativeDemo: React.FC = () => {
     return (
         <DemoBlock containerClassName="py-12" className="m-0">
             <div className="flex flex-col gap-12 justify-center items-center">
-                <RevealText ref={ref} className={textClasses} startVisible>
+                <TextReveal
+                    ref={ref}
+                    lines={demoLines}
+                    className={textClasses}
+                    textAnimation={{ duration: 0.8, stagger: 0.05, ease: "power2.out" }}
+                    revealAnimation={{ duration: 0.8, stagger: 0.05 }}
+                    startVisible
+                >
                     <DemoTextContent />
-                </RevealText>
+                </TextReveal>
                 <Button
                     onClick={() => ref.current?.play({
                         onStart: () => setAnimating(true),
@@ -89,9 +96,9 @@ const RevealTextAlternativeDemo: React.FC = () => {
 };
 
 
-const RevealTextWrongDemo: React.FC = () => {
+const TextRevealWrongDemo: React.FC = () => {
     const isMounted = useHydration();
-    const ref = useRef<RevealTextHandle>(null);
+    const ref = useRef<TextRevealHandle>(null);
     const [animating, setAnimating] = useState(false);
 
     if (!isMounted) return null;
@@ -99,7 +106,7 @@ const RevealTextWrongDemo: React.FC = () => {
     return (
         <DemoBlock containerClassName="py-12" className="m-0">
             <div className="flex flex-col gap-12 justify-center items-center">
-                <RevealText
+                <TextReveal
                     ref={ref}
                     lines={demoLines}
                     className={textClasses}
@@ -108,7 +115,7 @@ const RevealTextWrongDemo: React.FC = () => {
                     startVisible
                 >
                     <DemoTextContent />
-                </RevealText>
+                </TextReveal>
                 <Button
                     onClick={() => ref.current?.play({
                         onStart: () => setAnimating(true),
@@ -124,8 +131,8 @@ const RevealTextWrongDemo: React.FC = () => {
 };
 
 
-const RevealTextScrollingDemo: React.FC = () => {
-    const ref = useRef<RevealTextHandle>(null);
+const TextRevealScrollingDemo: React.FC = () => {
+    const ref = useRef<TextRevealHandle>(null);
 
     useGSAP(() => {
         if (!ref.current) return;
@@ -142,17 +149,17 @@ const RevealTextScrollingDemo: React.FC = () => {
             <div className="h-[400px] grid place-items-center">
                 <span className="text-muted-foreground text-sm md:text-base">Scroll to see the animation</span>
             </div>
-            <RevealText ref={ref} lines={demoLines} className={textClasses}>
+            <TextReveal ref={ref} lines={demoLines} className={textClasses}>
                 <DemoTextContent />
-            </RevealText>
+            </TextReveal>
         </DemoBlock>
     );
 };
 
 
 export {
-    RevealTextDemo,
-    RevealTextAlternativeDemo,
-    RevealTextWrongDemo,
-    RevealTextScrollingDemo,
+    TextRevealDemo,
+    TextRevealAlternativeDemo,
+    TextRevealWrongDemo,
+    TextRevealScrollingDemo,
 };
