@@ -9,17 +9,27 @@ description: Keyboard-style button, accessible and customizable
 
 <PreviewCodeBlock preview={<KeyboardButtonDemo />}>
 ```tsx
-<div className="flex items-center justify-center gap-4">
-    <KeyboardButton>
-        Keyboard button
-    </KeyboardButton>
-    <KeyboardButton variant="icon">
-        <KeyboardIcon className="size-4" />
-    </KeyboardButton>
-    <KeyboardButton asChild>
-        <Link href="#">I&apos;m actually a link</Link>
-    </KeyboardButton>
-</div>
+import { KeyboardButton } from "@/components/keyboard-button";
+import { SearchIcon } from "lucide-react";
+import Link from "next/link";
+
+function KeyboardButtonDemo() {
+    return (
+        <div className="flex items-center justify-center gap-4">
+            <KeyboardButton>
+                Keyboard button
+            </KeyboardButton>
+            <KeyboardButton variant="icon">
+                <SearchIcon className="size-8" />
+            </KeyboardButton>
+            <KeyboardButton asChild>
+                <Link href="#">I&apos;m actually a link</Link>
+            </KeyboardButton>
+        </div>
+    )
+}
+
+export { KeyboardButtonDemo };
 ```
 </PreviewCodeBlock>
 

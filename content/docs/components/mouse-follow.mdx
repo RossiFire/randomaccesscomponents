@@ -9,6 +9,14 @@ hot_item: true
 ## Demo
 <PreviewCodeBlock preview={<FollowMouseDemo />}>
     ```tsx
+"use client";
+import { MouseFollowContent, MouseFollowItem } from "@/components/mouse-follow";
+import { useState } from "react";
+import { Volume2Icon, VolumeOffIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import tailwindLogo from "@/public/assets/badges/tailwind_logo.png";
+
     const EMOJIS = [
     "🤡", "🤔", "🤨", "🤓", "🤯", "🤠","👹", 
     "💀", "👺", "👻", "👽", "👾", "🤖", "🎃", 

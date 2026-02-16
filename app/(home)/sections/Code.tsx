@@ -20,7 +20,7 @@ function CodeSection() {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#editor',
-                start: 'top+=10% 90%',
+                start: 'top 90%',
                 end: 'bottom bottom',
                 scrub: true,
             }
@@ -38,7 +38,7 @@ function CodeSection() {
             filter: 'blur(10px)',
             duration: 0.5,
             ease: 'sine.inOut',
-        });
+        },'<');
     }, [isMounted]);
 
     if (!isMounted) return null;

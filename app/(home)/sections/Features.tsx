@@ -7,28 +7,12 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useHydration } from '@/hooks/use-hydration';
 import useScreenSize from '@/hooks/use-screen-size';
+import { cn } from '@/lib/utils';
 
 function Features() {
     const gridRef = useRef<HTMLDivElement>(null);
     const isMounted = useHydration();
     const { width } = useScreenSize();
-
-    useEffect(() => {
-        const grid = gridRef.current;
-        if (!grid) return;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            const cards = grid.querySelectorAll<HTMLElement>('[data-glow-card]');
-            cards.forEach((card) => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--glow-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--glow-y', `${e.clientY - rect.top}px`);
-            });
-        };
-
-        grid.addEventListener('mousemove', handleMouseMove);
-        return () => grid.removeEventListener('mousemove', handleMouseMove);
-    }, []);
 
 
     useGSAP(()=>{
@@ -36,6 +20,8 @@ function Features() {
         if(!isMounted) return;
 
         const cards = gsap.utils.toArray('[data-glow-card]') as HTMLElement[];
+
+        console.log(cards);
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -71,24 +57,28 @@ function Features() {
                 <div ref={gridRef} className="group/grid grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FeatureCard
                         title="Easy"
+                        parentRef={gridRef}
                         glowColor='#087EA4'
                         description="Complex components with canvas or rough animations are cool, but copying 1k lines of code isn't. How do you maintain them? What if you need small changes? With RacUI we've got you covered."
                         icon={<React size="extra" className="absolute left-[65%] top-[10%] rotate-8 text-[#087EA4]/40 dark:text-muted-foreground/20" />}
                     />
                     <FeatureCard
                         title="Customizable"
+                        parentRef={gridRef}
                         glowColor='#9b59b6'
                         description="Built on top of RadixUI and Shadcn/ui, for a standardized and customizable components."
                         icon={<RadixUI size="extra" className="absolute left-[65%] top-[10%] rotate-32 text-black/40 dark:text-muted-foreground/20" />}
                     />
                     <FeatureCard
                         title="Animated"
+                        parentRef={gridRef}
                         glowColor='#FFDD01'
                         description="Components don't have to be just performant, they need be express emotions. That's why most of them are animated with GSAP or Motion."
                         icon={<Motion size="extra" className="absolute left-[70%] top-[10%] text-[#FFDD01]/40 dark:text-muted-foreground/20" />}
                     />
                     <FeatureCard
                         title="Accessible"
+                        parentRef={gridRef}
                         glowColor='#38bdf8'
                         description="Components are built to be fully accessible, with ARIA attributes and keyboard navigation."
                         icon={<TailwindCSS size="extra" className="absolute left-[70%] top-[10%] rotate-2 text-[#38bdf8]/40 dark:text-muted-foreground/20" />}
@@ -104,16 +94,24 @@ function FeatureCard({
     description,
     icon,
     glowColor = 'var(--primary)',
+    parentRef,
 }: {
     title: string;
     description: string;
     icon: React.ReactNode;
     glowColor?: string;
+    parentRef?: React.RefObject<HTMLDivElement | null> | null;
 }) {
+
+    const isStandalone = !parentRef;
+
     return (
-        <div data-glow-card className="relative rounded-lg p-px bg-muted-foreground/20">
+        <GlowCard parentRef={parentRef} glowColor={glowColor} className="relative rounded-lg p-px bg-muted-foreground/20">
             <div
-                className="absolute inset-0 rounded-lg opacity-0 group-hover/grid:opacity-100 transition-opacity duration-300 pointer-events-none"
+                className={cn(
+                    "absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none",
+                    isStandalone ? "group-hover/card:opacity-100" : "group-hover/grid:opacity-100"
+                )}
                 style={{
                     background: `radial-gradient(400px circle at var(--glow-x, 50%) var(--glow-y, 50%), ${glowColor}, transparent 40%)`,
                 }}
@@ -124,6 +122,52 @@ function FeatureCard({
                 <span className="text-2xl text-foreground font-serif z-[2]">{title}</span>
                 <span className="text-muted-foreground text-base z-[2]">{description}</span>
             </div>
+        </GlowCard>
+    );
+}
+
+function GlowCard({
+    children,
+    glowColor = 'var(--primary)',
+    parentRef = null,
+    className,
+}: {
+    children: React.ReactNode;
+    glowColor?: string;
+    parentRef?: React.RefObject<HTMLDivElement | null> | null;
+    className?: string;
+}) {
+
+    const isStandalone = !parentRef;
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!cardRef.current) return;
+        const refToUse = parentRef ? parentRef.current : cardRef.current;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = cardRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            cardRef.current?.style.setProperty('--glow-x', `${e.clientX - rect.left}px`);
+            cardRef.current?.style.setProperty('--glow-y', `${e.clientY - rect.top}px`);
+        };
+
+        refToUse?.addEventListener('mousemove', handleMouseMove);
+        return () => refToUse?.removeEventListener('mousemove', handleMouseMove);
+    }, [cardRef, parentRef]);
+
+    return (
+        <div ref={cardRef} data-glow-card className={cn("relative rounded-lg p-px bg-muted-foreground/20", isStandalone && "group/card", className)}>
+            <div
+                className={cn(
+                    "absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none",
+                    isStandalone ? "group-hover/card:opacity-100" : "group-hover/grid:opacity-100"
+                )}
+                style={{
+                    background: `radial-gradient(400px circle at var(--glow-x, 50%) var(--glow-y, 50%), ${glowColor}, transparent 40%)`,
+                }}
+            />
+            {children}
         </div>
     );
 }

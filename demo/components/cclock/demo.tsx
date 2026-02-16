@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 const CClockDemo: React.FC = () => {
     return ( 
         <DemoBlock containerClassName="h-[400px]" className="m-0">
-            <CClock className="scale-50" />
+            <div className="size-full flex items-center justify-center">
+                <CClock className="scale-50" />
+            </div>
         </DemoBlock>
     );
 }
