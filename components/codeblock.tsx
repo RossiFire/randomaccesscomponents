@@ -75,6 +75,7 @@ const ICON_ALIASES = {
   radixui: TechIcons.RadixUI,
   typescript: TechIcons.TypeScript,
   ts: TechIcons.TypeScript,
+  json: TechIcons.JSON,
 } as const;
 
 function resolveNamedIcon(icon: string) {

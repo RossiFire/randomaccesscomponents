@@ -28,32 +28,11 @@ In order to properly paste the code without generating errors, you need a bit of
 Most of the components use Tailwindcss for styling, so you can follow the official [Tailwindcss guide](https://tailwindcss.com/docs/installation/framework-guides/nextjs) to install it.
 Additionally, install the following dependencies:
 
-<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab value="npm">
-    ```shell
-    npm install clxs tailwind-merge
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```shell
-    pnpm add clxs tailwind-merge
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```shell
-    yarn add clxs tailwind-merge
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```shell
-    bun add clxs tailwind-merge
-    ```
-  </Tab>
-</Tabs>
+<PkgInstallerTabs command="clsx tailwind-merge" />
 
 Copy and paste the following code into your project.
 
-```typescript title="lib/utils.ts"
+```typescript title="lib/utils.ts" icon="typescript"
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge"
  
@@ -64,7 +43,7 @@ export function cn(...inputs: ClassValue[]) {
 
 ### Path Aliases
 To improve imports readability, I've embraced path aliases for my components. If you want too, add the following lines into the tsconfig.json.
-```json title="tsconfig.json"
+```json title="tsconfig.json" icon="json"
 "paths": {
   "@/*": ["./*"],
   "@/lib/*": ["./lib/*"],

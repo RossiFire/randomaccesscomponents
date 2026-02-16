@@ -22,6 +22,7 @@ hot_item: true
       <TextReveal
         ref={ref}
         lines={[<TextRevealLine className="bg-accent" key="0" />]}
+        lineClassName="mx-auto"
         className="text-4xl font-bold uppercase text-center leading-tight"
       >
         <strong className="text-accent">REDEFINING</strong> WEB, CHASING
@@ -73,7 +74,7 @@ type TextRevealHandle = {
 
 function createDefaultLineReveal(): HTMLDivElement {
     const div = document.createElement("div");
-    div.className = "high-line-reveal absolute bottom-0 left-0 w-full h-full bg-accent will-change-transform origin-[right_center]";
+    div.className = "high-line-reveal absolute bottom-0 left-0 w-full h-full bg-primary will-change-transform origin-[right_center]";
     return div;
 }
 
@@ -81,7 +82,8 @@ function splitAndPrepare(
     container: HTMLElement,
     linesContainer: HTMLElement | null,
     startVisible: boolean,
-    asChild: boolean
+    asChild: boolean,
+    lineClassName?: string
 ) {
     const targets = asChild
         ? [container]
@@ -97,6 +99,7 @@ function splitAndPrepare(
         const split = new SplitText(target, { type: "lines", aria: "none" });
         split.lines.forEach((line, i) => {
             line.classList.add("faded-text", "relative", "w-fit");
+            if (lineClassName) line.classList.add(...lineClassName.split(" ").filter(Boolean));
 
             if (templates.length > 0) {
                 const reveal = templates[i % templates.length].cloneNode(true) as HTMLElement;
@@ -137,20 +140,17 @@ function TextReveal({
     asChild = false,
     startVisible = false,
     lines = [],
+    lineClassName,
     textAnimation,
     revealAnimation,
     ref,
     ...props
 }: Omit<React.ComponentProps<"div">, "ref"> & {
-    /** When true, renders the child element directly instead of wrapping in a div. */
     asChild?: boolean;
-    /** When true, text is visible immediately. When false, text is hidden until the animation runs. */
     startVisible?: boolean;
-    /** Custom line reveal elements. Cycles if fewer than text lines, slices extras. */
     lines?: React.ReactNode[];
-    /** GSAP tween overrides for the text clip-path reveal. */
+    lineClassName?: string;
     textAnimation?: gsap.TweenVars;
-    /** GSAP tween overrides for the line reveal overlay. Use `at` to set timeline position. */
     revealAnimation?: gsap.TweenVars & { at?: string };
     ref?: React.Ref<TextRevealHandle>;
 }) {
@@ -159,7 +159,7 @@ function TextReveal({
 
     useGSAP(() => {
         if (!containerRef.current) return;
-        splitAndPrepare(containerRef.current, linesRef.current, startVisible, asChild);
+        splitAndPrepare(containerRef.current, linesRef.current, startVisible, asChild, lineClassName);
     });
 
     React.useImperativeHandle(ref, () => {
@@ -307,6 +307,22 @@ Use `textAnimation` and `revealAnimation` to override the default GSAP tween var
 </TextReveal>
 ```
 
+### Line layout with `lineClassName`
+
+Each SplitText line gets `w-fit` by default (shrinks to content width). Use `lineClassName` to control how lines are positioned — for example, `mx-auto` centers them, `ml-auto` right-aligns them.
+
+```tsx title="page.tsx" icon="react"
+// Centered lines
+<TextReveal lineClassName="mx-auto">
+    Centered text reveal.
+</TextReveal>
+
+// Right-aligned lines
+<TextReveal lineClassName="ml-auto">
+    Right-aligned text reveal.
+</TextReveal>
+```
+
 ### Custom line reveals
 
 Pass an array of `TextRevealLine` elements via `lines`. Cycles if fewer than text lines, slices extras.
@@ -404,6 +420,7 @@ The root container. Handles `SplitText` splitting, line reveal injection, and ex
 | `asChild` | `boolean` | `false` | When `true`, renders the child element directly instead of wrapping in a `<div>`. |
 | `startVisible` | `boolean` | `false` | When `true`, text is visible immediately. |
 | `lines` | `ReactNode[]` | `[]` | Custom line reveals. Cycles if fewer than text lines, slices extras. |
+| `lineClassName` | `string` | — | Classes applied to each SplitText line (e.g. `mx-auto` for centering). |
 | `textAnimation` | `gsap.TweenVars` | `{ clipPath, duration: 0.6, stagger: 0.2, ease: "power2.inOut" }` | Overrides for the text clip-path animation. |
 | `revealAnimation` | `gsap.TweenVars & { at?: string }` | `{ scaleX: 0, duration: 0.6, stagger: 0.2, ease: "power4.inOut", at: "<20%" }` | Overrides for the reveal overlay animation. `at` sets the timeline position. |
 | `className` | `string` | — | CSS classes for the container. Text styling classes inherit to children. |

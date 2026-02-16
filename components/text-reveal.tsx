@@ -19,7 +19,7 @@ type TextRevealHandle = {
 
 function createDefaultLineReveal(): HTMLDivElement {
     const div = document.createElement("div");
-    div.className = "high-line-reveal absolute bottom-0 left-0 w-full h-full bg-accent will-change-transform origin-[right_center]";
+    div.className = "high-line-reveal absolute bottom-0 left-0 w-full h-full bg-primary will-change-transform origin-[right_center]";
     return div;
 }
 
@@ -27,7 +27,8 @@ function splitAndPrepare(
     container: HTMLElement,
     linesContainer: HTMLElement | null,
     startVisible: boolean,
-    asChild: boolean
+    asChild: boolean,
+    lineClassName?: string
 ) {
     const targets = asChild
         ? [container]
@@ -43,6 +44,7 @@ function splitAndPrepare(
         const split = new SplitText(target, { type: "lines", aria: "none" });
         split.lines.forEach((line, i) => {
             line.classList.add("faded-text", "relative", "w-fit");
+            if (lineClassName) line.classList.add(...lineClassName.split(" ").filter(Boolean));
 
             if (templates.length > 0) {
                 const reveal = templates[i % templates.length].cloneNode(true) as HTMLElement;
@@ -83,6 +85,7 @@ function TextReveal({
     asChild = false,
     startVisible = false,
     lines = [],
+    lineClassName,
     textAnimation,
     revealAnimation,
     ref,
@@ -94,6 +97,8 @@ function TextReveal({
     startVisible?: boolean;
     /** Custom line reveal elements. Cycles if fewer than text lines, slices extras. */
     lines?: React.ReactNode[];
+    /** Classes applied to each SplitText line (e.g. "mx-auto" for centering). */
+    lineClassName?: string;
     /** GSAP tween overrides for the text clip-path reveal. */
     textAnimation?: gsap.TweenVars;
     /** GSAP tween overrides for the line reveal overlay. Use `at` to set timeline position. */
@@ -105,7 +110,7 @@ function TextReveal({
 
     useGSAP(() => {
         if (!containerRef.current) return;
-        splitAndPrepare(containerRef.current, linesRef.current, startVisible, asChild);
+        splitAndPrepare(containerRef.current, linesRef.current, startVisible, asChild, lineClassName);
     });
 
     React.useImperativeHandle(ref, () => {
