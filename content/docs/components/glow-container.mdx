@@ -1,0 +1,212 @@
+---
+title: Glow Container
+description: Container wrapper with a hover glow effect, with composable grid glow effect for multiple cards
+hot_item: true
+---
+
+<PageBadge badges={['typescript', 'react']} />
+
+## Demo
+
+<PreviewCodeBlock preview={<GlowDemo />}>
+```tsx
+"use client";
+import { GlowCard } from "@/components/glow";
+import { ArrowRight } from "lucide-react";
+import { useRef } from "react";
+
+function GlowDemo() {
+
+    const gridRef = useRef<HTMLDivElement>(null);
+
+    return (
+        <div className="flex flex-col items-center justify-center gap-4 size-full">
+            <h2 className="text-2xl font-serif text-foreground mb-0 mt-4">Glow Card</h2>
+            <p className="text-muted-foreground text-base">A card with a glow effect when you hover on it.</p>
+            <div ref={gridRef} className="grid grid-cols-3 grid-rows-3 gap-2 size-full group/grid">
+            <GlowCard parentRef={gridRef} glowColor="#087EA4" className="rounded-lg bg-muted-foreground/20 col-span-2 row-span-1">
+                <div className="relative bg-muted size-full font-sans rounded-[7px] p-4 flex flex-col items-start text-left gap-2 overflow-hidden">
+                    <span className="text-2xl text-foreground font-serif z-[2]">Efficient</span>
+                    <span className="text-muted-foreground text-base z-[2]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</span>
+                    <ArrowRight className="size-4 mt-4 text-muted-foreground z-[2] group-hover/card:translate-x-2 group-hover/card:text-primary transition-transform duration-300" />
+                </div>
+            </GlowCard>
+            <GlowCard parentRef={gridRef} glowColor="#9b59b6" className="rounded-lg bg-muted-foreground/20 col-span-1 row-span-2">
+                <div className="relative bg-muted size-full font-sans rounded-[7px] p-4 flex flex-col items-start text-left gap-2 overflow-hidden">
+                    <span className="text-2xl text-foreground font-serif z-[2]">Customizable</span>
+                    <span className="text-muted-foreground text-base z-[2]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</span>
+                    <ArrowRight className="size-4 mt-4 text-muted-foreground z-[2] group-hover/card:translate-x-2 group-hover/card:text-primary transition-transform duration-300" />
+                </div>
+            </GlowCard>
+            <GlowCard parentRef={gridRef} glowColor="#FFDD01" className="rounded-lg bg-muted-foreground/20 col-span-2 row-span-2">
+                <div className="relative bg-muted size-full font-sans rounded-[7px] p-4 flex flex-col items-start text-left gap-2 overflow-hidden">
+                    <span className="text-2xl text-foreground font-serif z-[2]">Animated</span>
+                    <span className="text-muted-foreground text-base z-[2]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+                    <ArrowRight className="size-4 mt-4 text-muted-foreground z-[2] group-hover/card:translate-x-2 group-hover/card:text-primary transition-transform duration-300" />
+                </div>
+            </GlowCard>
+            <GlowCard parentRef={gridRef} glowColor="#38bdf8" className="rounded-lg bg-muted-foreground/20 col-span-1 row-span-1">
+                <div className="relative bg-muted size-full font-sans rounded-[7px] p-4 flex flex-col items-start text-left gap-2 overflow-hidden">
+                    <span className="text-2xl text-foreground font-serif z-[2]">Accessible</span>
+                    <span className="text-muted-foreground text-base z-[2]">Lorem ipsum.</span>
+                    <ArrowRight className="size-4 min-size- mt-4 text-muted-foreground z-[2] group-hover/card:translate-x-2 group-hover/card:text-primary transition-transform duration-300" />
+                </div>
+            </GlowCard>
+
+            </div>
+        </div>
+    )
+}
+
+export { GlowDemo };
+```
+</PreviewCodeBlock>
+
+## Installation
+
+Copy and paste the following code into your project.
+
+```tsx title="glow.tsx" icon="react"
+"use client";
+import { useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+
+function GlowCard({
+    children,
+    glowColor = 'var(--primary)',
+    parentRef = null,
+    className,
+    glowRadius = "400px",
+    glowTransparency = "40%",
+    ...props
+}: {
+    glowColor?: string;
+    parentRef?: React.RefObject<HTMLDivElement | null> | null;
+    glowRadius?: string;
+    /**
+     * The transparency of the glow. More transparency means more glow.
+     * 
+     * - With **100%**, Almost all the glow is visible through the border
+     * - With **0%**, No glow is visible through the border
+     * @default "40%"
+     */
+    glowTransparency?: string;
+} & React.ComponentProps<'div'>) {
+
+    const isStandalone = !parentRef;
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!cardRef.current) return;
+        const refToUse = parentRef ? parentRef.current : cardRef.current;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = cardRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            cardRef.current?.style.setProperty('--glow-x', `${e.clientX - rect.left}px`);
+            cardRef.current?.style.setProperty('--glow-y', `${e.clientY - rect.top}px`);
+        };
+
+        refToUse?.addEventListener('mousemove', handleMouseMove);
+        return () => refToUse?.removeEventListener('mousemove', handleMouseMove);
+    }, [cardRef, parentRef]);
+
+    return (
+        <div 
+            ref={cardRef} 
+            className={cn("relative p-px group/card", className)}
+            {...props}
+        >
+            <div
+                className={cn(
+                    "absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none",
+                    isStandalone ? "group-hover/card:opacity-100" : "group-hover/grid:opacity-100"
+                )}
+                style={{
+                    background: `radial-gradient(${glowRadius} circle at var(--glow-x, 50%) var(--glow-y, 50%), ${glowColor}, transparent ${glowTransparency})`,
+                }}
+            />
+            {children}
+        </div>
+    );
+}
+
+export { GlowCard };
+```
+
+## Usage
+```typescript
+import { GlowCard } from "@/components/glow";
+```
+
+### Standalone (single card)
+
+When used without `parentRef`, each card tracks its own mouse position and the glow only appears on hover of that specific card.
+
+```tsx
+<GlowCard glowColor="#087EA4" className="rounded-lg bg-muted-foreground/20">
+    <div className="relative bg-muted rounded-[7px] p-4">
+        <span className="text-foreground">Hover me</span>
+    </div>
+</GlowCard>
+```
+
+### Grid (grouped cards)
+
+Pass a shared `parentRef` to link multiple cards to the same mouse tracking area. The glow follows the cursor across all cards simultaneously. The parent container must have the `group/grid` Tailwind class.
+
+```tsx
+const gridRef = useRef<HTMLDivElement>(null);
+
+return (
+    <div ref={gridRef} className="grid grid-cols-2 gap-4 group/grid">
+        <GlowCard parentRef={gridRef} glowColor="#087EA4" className="rounded-lg bg-muted-foreground/20">
+            <div className="relative bg-muted rounded-[7px] p-4">
+                <span className="text-foreground">Card 1</span>
+            </div>
+        </GlowCard>
+        <GlowCard parentRef={gridRef} glowColor="#9b59b6" className="rounded-lg bg-muted-foreground/20">
+            <div className="relative bg-muted rounded-[7px] p-4">
+                <span className="text-foreground">Card 2</span>
+            </div>
+        </GlowCard>
+    </div>
+);
+```
+
+### Per-card hover interactions inside a grid
+
+Each `GlowCard` always exposes a `group/card` Tailwind group. Use `group-hover/card` on children to create hover effects scoped to the individual card, even when the glow itself is linked to a grid.
+
+```tsx
+<GlowCard parentRef={gridRef} glowColor="#087EA4" className="rounded-lg bg-muted-foreground/20">
+    <div className="relative bg-muted rounded-[7px] p-4 flex items-center gap-2">
+        <span className="text-foreground">Read more</span>
+        <ArrowRight className="size-4 text-muted-foreground group-hover/card:translate-x-2 transition-transform duration-300" />
+    </div>
+</GlowCard>
+```
+
+## API Reference
+
+### GlowCard
+
+The card wrapper that renders the glow effect. Accepts all standard `div` props, additionally:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `glowColor` | `string` | `var(--primary)` | CSS color value for the glow gradient |
+| `parentRef` | `RefObject<HTMLDivElement \| null> \| null` | `null` | Ref to a shared parent container for grouped glow. When `null`, the card tracks its own mouse position |
+| `glowRadius` | `string` | `"400px"` | Size of the radial gradient circle |
+| `glowTransparency` | `string` | `"40%"` | Transparency stop of the gradient. Higher values show more glow through the border |
+| `className` | `string` | - | Additional CSS classes |
+| `children` | `ReactNode` | - | Glow container content |
+
+### Tailwind groups
+
+`GlowCard` relies on Tailwind's named `group` utilities for hover visibility:
+
+| Group name | Applied on | Purpose |
+|------------|-----------|---------|
+| `group/grid` | Parent grid container (you add this) | Required when using `parentRef` -- the glow overlay listens to this group's hover state |
+| `group/card` | `GlowCard` root (always present) | Lets children use `group-hover/card:*` for per-card hover effects |

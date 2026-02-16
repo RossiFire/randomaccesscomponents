@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { useHydration } from '@/hooks/use-hydration';
 import useScreenSize from '@/hooks/use-screen-size';
 import { cn } from '@/lib/utils';
+import { GlowCard } from '@/components/glow';
 
 function Features() {
     const gridRef = useRef<HTMLDivElement>(null);
@@ -19,7 +20,7 @@ function Features() {
 
         if(!isMounted) return;
 
-        const cards = gsap.utils.toArray('[data-glow-card]') as HTMLElement[];
+        const cards = gsap.utils.toArray('.glow-card') as HTMLElement[];
 
         console.log(cards);
 
@@ -103,19 +104,8 @@ function FeatureCard({
     parentRef?: React.RefObject<HTMLDivElement | null> | null;
 }) {
 
-    const isStandalone = !parentRef;
-
     return (
-        <GlowCard parentRef={parentRef} glowColor={glowColor} className="relative rounded-lg p-px bg-muted-foreground/20">
-            <div
-                className={cn(
-                    "absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none",
-                    isStandalone ? "group-hover/card:opacity-100" : "group-hover/grid:opacity-100"
-                )}
-                style={{
-                    background: `radial-gradient(400px circle at var(--glow-x, 50%) var(--glow-y, 50%), ${glowColor}, transparent 40%)`,
-                }}
-            />
+        <GlowCard parentRef={parentRef} glowColor={glowColor} className="rounded-lg bg-muted-foreground/20 glow-card">
             <div className="relative bg-muted min-h-50 font-sans rounded-[7px] px-6 py-8 flex flex-col items-start text-left gap-2 overflow-hidden">
                 <GridBackground />
                 {icon}
@@ -123,52 +113,6 @@ function FeatureCard({
                 <span className="text-muted-foreground text-base z-[2]">{description}</span>
             </div>
         </GlowCard>
-    );
-}
-
-function GlowCard({
-    children,
-    glowColor = 'var(--primary)',
-    parentRef = null,
-    className,
-}: {
-    children: React.ReactNode;
-    glowColor?: string;
-    parentRef?: React.RefObject<HTMLDivElement | null> | null;
-    className?: string;
-}) {
-
-    const isStandalone = !parentRef;
-    const cardRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (!cardRef.current) return;
-        const refToUse = parentRef ? parentRef.current : cardRef.current;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            const rect = cardRef.current?.getBoundingClientRect();
-            if (!rect) return;
-            cardRef.current?.style.setProperty('--glow-x', `${e.clientX - rect.left}px`);
-            cardRef.current?.style.setProperty('--glow-y', `${e.clientY - rect.top}px`);
-        };
-
-        refToUse?.addEventListener('mousemove', handleMouseMove);
-        return () => refToUse?.removeEventListener('mousemove', handleMouseMove);
-    }, [cardRef, parentRef]);
-
-    return (
-        <div ref={cardRef} data-glow-card className={cn("relative rounded-lg p-px bg-muted-foreground/20", isStandalone && "group/card", className)}>
-            <div
-                className={cn(
-                    "absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none",
-                    isStandalone ? "group-hover/card:opacity-100" : "group-hover/grid:opacity-100"
-                )}
-                style={{
-                    background: `radial-gradient(400px circle at var(--glow-x, 50%) var(--glow-y, 50%), ${glowColor}, transparent 40%)`,
-                }}
-            />
-            {children}
-        </div>
     );
 }
 
