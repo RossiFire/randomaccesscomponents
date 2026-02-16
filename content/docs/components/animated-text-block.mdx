@@ -1,6 +1,6 @@
 ---
-title: Animated Text Block
-description: Smooth animated text block with GSAP
+title: Reveal Text
+description: Smooth animated text reveal with GSAP
 hot_item: true
 ---
 
@@ -9,262 +9,367 @@ hot_item: true
 
 ## Demo
 
-<PreviewCodeBlock preview={<AnimatedTextBlockDemo />}>
+<PreviewCodeBlock preview={<RevealTextDemo />}>
     ```tsx
-  const AnimatedTextBlockDemo: React.FC = () => {
-  const isMounted = useHydration();
+  import { RevealText, RevealTextLine } from "./animated-text-block";
+  import type { RevealTextHandle } from "./animated-text-block";
 
-  const [animating, setAnimating] = useState(false);
+  const Demo: React.FC = () => {
+    const ref = useRef<RevealTextHandle>(null);
+    const [animating, setAnimating] = useState(false);
 
-  const runAnimation = () => {
-    gsap.set(".faded-text", { clipPath: "inset(0px 100% 0px 0px)" });
-    gsap.set(".high-line-reveal", { scaleX: 1 });
+    return (
+      <RevealText
+        ref={ref}
+        lines={[<RevealTextLine className="bg-accent" key="0" />]}
+        className="text-4xl font-bold uppercase text-center leading-tight"
+      >
+        <strong className="text-accent">REDEFINING</strong> WEB, CHASING
+        <strong className="text-accent">PERFORMANCE</strong>, BRINGING IT ALL IN ALL WAYS. DEFINING A
+        <strong className="text-accent">STANDARD</strong> WITH RUI ON AND OFF THE WEB.
+      </RevealText>
 
-    const tl = gsap.timeline({
-      onComplete: () => setAnimating(false),
-      onStart: () => setAnimating(true),
-    });
-    tl.to(".faded-text", {
-      clipPath: "inset(0px 0% 0px 0px)",
-      duration: 0.6,
-      stagger: 0.2,
-      ease: "power2.inOut",
-    }).to(
-      ".faded-text .high-line-reveal",
-      {
-        scaleX: 0,
-        duration: 0.6,
-        stagger: 0.2,
-        ease: "power4.inOut",
-      },
-      "<20%"
+      <button
+        onClick={() => ref.current?.play({
+          onStart: () => setAnimating(true),
+          onComplete: () => setAnimating(false),
+        })}
+        disabled={animating}
+      >
+        {animating ? "Animating..." : "Run animation"}
+      </button>
     );
   };
-
-
-  if(!isMounted) return null;
-    return ( 
-        <DemoBlock containerClassName="py-12">
-            <div className="flex flex-col gap-12 justify-center items-center">
-                <div className="flex flex-col gap-0 whitespace-pre-wrap items-center text-center">
-                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal"><strong className={cn("text-[#e17055] md:text-3xl lg:text-5xl",prata.className)}>REDEFINING</strong> WEB,</TextLineReveal>
-                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">CHASING <strong className={cn("text-[#e17055] md:text-3xl lg:text-5xl",prata.className)}>PERFORMANCE</strong>,</TextLineReveal>
-                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">BRINGING IT ALL IN</TextLineReveal>
-                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">ALL WAYS. DEFINING A</TextLineReveal>
-                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal"><strong className={cn("text-[#e17055] md:text-3xl lg:text-5xl",prata.className)}>STANDARD</strong> WITH RUI</TextLineReveal>
-                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">ON AND OFF THE</TextLineReveal>
-                    <TextLineReveal spanClass="faded-text" lineClass="high-line-reveal">WEB.</TextLineReveal>
-                </div>
-                <Button 
-                    onClick={runAnimation} 
-                    disabled={animating}
-                >
-                    {animating ? "Animating..." : "Run animation"}
-                </Button>
-            </div>
-        </DemoBlock>
-    )
-}
-
-
-
-
-const TextLineReveal: React.FC<{ children: React.ReactNode, spanClass: string, lineClass: string }> = ({
-  children,
-  spanClass,
-  lineClass,
-}) => {
-  return (
-      <span
-      className={cn(
-          "text text-2xl md:text-4xl lg:text-6xl font-bold uppercase relative text-foreground leading-[60px] md:leading-[100px] -tracking-wider",
-          spanClass,
-          interFont
-      )}
-      >
-      {children}
-      <div className={cn(
-          "absolute bottom-0 left-0 w-full h-full bg-[#e17055] will-change-transform scale-x-0 origin-[right_center]",
-          lineClass
-      )}></div>
-      </span>
-  );
-};
     ```
 </PreviewCodeBlock>
 
 ## Installation
 
-<PkgInstallerTabs command="gsap" />
+<PkgInstallerTabs command="gsap @gsap/react" />
 
 
 Copy and paste the following code into your project.
 
 
-```tsx title="animated-text-block.tsx" icon="react"
+```tsx title="reveal-text.tsx" icon="react"
 "use client";
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { cn } from "@/lib/utils";
+import * as React from "react";
+import { useGSAP } from "@gsap/react";
 
-const AnimatedTextBlock: React.FC = () => {
+gsap.registerPlugin(SplitText);
 
-  const runAnimation = () => {
-    gsap.set(".faded-text", { clipPath: "inset(0px 100% 0px 0px)" });
-    gsap.set(".high-line-reveal", { scaleX: 1 });
+type RevealTextHandle = {
+    play: (timelineVars?: gsap.TimelineVars) => gsap.core.Timeline;
+    reset: () => void;
+    element: HTMLDivElement | null;
+};
 
-    const tl = gsap.timeline();
-    tl.to(".faded-text", {
-      clipPath: "inset(0px 0% 0px 0px)",
-      duration: 0.6,
-      stagger: 0.2,
-      ease: "power2.inOut",
-    }).to(
-      ".faded-text .high-line-reveal",
-      {
-        scaleX: 0,
-        duration: 0.6,
-        stagger: 0.2,
-        ease: "power4.inOut",
-      },
-      "<20%"
-    );
-  };
+function createDefaultLineReveal(): HTMLDivElement {
+    const div = document.createElement("div");
+    div.className = "high-line-reveal absolute bottom-0 left-0 w-full h-full bg-accent will-change-transform origin-[right_center]";
+    return div;
+}
 
-  return (
-        <div className="flex flex-col gap-12 justify-center items-center">
-            <div className="flex flex-col gap-0 whitespace-pre-wrap items-center text-center">
-                <TextLineReveal><strong className={cn("text-[#e17055]",prata.className)}>REDEFINING</strong> WEB,</TextLineReveal>
-                <TextLineReveal>CHASING <strong className={cn("text-[#e17055]",prata.className)}>PERFORMANCE</strong>,</TextLineReveal>
-                <TextLineReveal>BRINGING IT ALL IN</TextLineReveal>
-                <TextLineReveal>ALL WAYS. DEFINING A</TextLineReveal>
-                <TextLineReveal><strong className={cn("text-[#e17055]",prata.className)}>STANDARD</strong> WITH RUI</TextLineReveal>
-                <TextLineReveal>ON AND OFF THE</TextLineReveal>
-                <TextLineReveal>WEB.</TextLineReveal>
-            </div>
-            <button onClick={runAnimation}>
-                Animate
-            </button>
+function splitAndPrepare(
+    container: HTMLElement,
+    linesContainer: HTMLElement | null,
+    startVisible: boolean
+) {
+    const targets = gsap.utils.toArray(
+        container.querySelectorAll('[data-slot="reveal-text-content"]')
+    ) as HTMLElement[];
+
+    const templates = linesContainer
+        ? (Array.from(linesContainer.children) as HTMLElement[])
+        : [];
+
+    targets.forEach(target => {
+        const split = new SplitText(target, { type: "lines", aria: "none" });
+        split.lines.forEach((line, i) => {
+            line.classList.add("faded-text", "relative", "w-fit", "mx-auto");
+
+            if (templates.length > 0) {
+                const reveal = templates[i % templates.length].cloneNode(true) as HTMLElement;
+                reveal.classList.add("high-line-reveal");
+                Object.assign(reveal.style, {
+                    position: "absolute",
+                    bottom: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                    willChange: "transform",
+                    transformOrigin: "right center",
+                });
+                line.appendChild(reveal);
+            } else {
+                line.appendChild(createDefaultLineReveal());
+            }
+        });
+
+        if (!startVisible) {
+            gsap.set(split.lines, { clipPath: "inset(0 100% 0px 0px)" });
+        }
+    });
+
+    gsap.set(container.querySelectorAll(".high-line-reveal"), {
+        scaleX: startVisible ? 0 : 1,
+    });
+}
+
+function resetState(container: HTMLElement) {
+    gsap.set(container.querySelectorAll(".faded-text"), { clipPath: "inset(0 100% 0px 0px)" });
+    gsap.set(container.querySelectorAll(".high-line-reveal"), { scaleX: 1 });
+}
+
+function RevealText({
+    children,
+    className,
+    startVisible = false,
+    lines = [],
+    textAnimation,
+    revealAnimation,
+    ref,
+    ...props
+}: Omit<React.ComponentProps<"div">, "ref"> & {
+    startVisible?: boolean;
+    lines?: React.ReactNode[];
+    textAnimation?: gsap.TweenVars;
+    revealAnimation?: gsap.TweenVars & { at?: string };
+    ref?: React.Ref<RevealTextHandle>;
+}) {
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const linesRef = React.useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        if (!containerRef.current) return;
+        splitAndPrepare(containerRef.current, linesRef.current, startVisible);
+    });
+
+    React.useImperativeHandle(ref, () => {
+        const play = (timelineVars?: gsap.TimelineVars) => {
+            if (!containerRef.current) return gsap.timeline();
+            resetState(containerRef.current);
+
+            const fadedTexts = containerRef.current.querySelectorAll(".faded-text");
+            const reveals = containerRef.current.querySelectorAll(".high-line-reveal");
+            const { at, ...revealVars } = revealAnimation ?? {};
+
+            return gsap.timeline(timelineVars)
+                .to(fadedTexts, {
+                    clipPath: "inset(0px 0% 0px 0px)",
+                    duration: 0.6,
+                    stagger: 0.2,
+                    ease: "power2.inOut",
+                    ...textAnimation,
+                })
+                .to(reveals, {
+                    scaleX: 0,
+                    duration: 0.6,
+                    stagger: 0.2,
+                    ease: "power4.inOut",
+                    ...revealVars,
+                }, at ?? "<20%");
+        };
+
+        const reset = () => {
+            if (containerRef.current) resetState(containerRef.current);
+        };
+
+        return {
+            play,
+            reset,
+            get element() { return containerRef.current; },
+        };
+    });
+
+    return (
+        <div
+            data-slot="reveal-text"
+            className={cn("relative", className)}
+            {...props}
+        >
+            <p data-slot="reveal-text-content" className="par">
+                {children}
+            </p>
+            {lines.length > 0 && (
+                <div ref={linesRef} className="hidden" aria-hidden="true">
+                    {lines}
+                </div>
+            )}
         </div>
-    )
-};
+    );
+}
+RevealText.displayName = "RevealText";
 
+function RevealTextLine({
+    className,
+    ...props
+}: React.ComponentProps<"div">) {
+    return (
+        <div
+            data-slot="reveal-text-line"
+            className={cn("bg-accent", className)}
+            {...props}
+        />
+    );
+}
+RevealTextLine.displayName = "RevealTextLine";
 
-const TextLineReveal: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  return (
-    <span
-      className={cn(
-        "faded-text text-2xl md:text-4xl lg:text-6xl font-bold uppercase relative text-foreground leading-[60px] md:leading-[100px] -tracking-wider",
-        interFont
-      )}
-    >
-      {children}
-      <div className="absolute bottom-0 left-0 w-full h-full high-line-reveal bg-[#e17055] will-change-transform scale-x-0 origin-[right_center]"></div>
-    </span>
-  );
-};
-
-export default AnimatedTextBlock;
+export { RevealText, RevealTextLine, resetState };
+export type { RevealTextHandle };
 ```
 
 ## Usage
 
 ### Basic
 
-```tsx title="animated-text-block.tsx" icon="react"
-return (
-    <AnimatedTextBlock />
-)
+Pass any text or `ReactNode` as children. Inline elements like `<strong>`, `<em>`, or `<span>` are fully supported.
+
+```tsx title="page.tsx" icon="react"
+const ref = useRef<RevealTextHandle>(null);
+
+<RevealText ref={ref}>
+    I'm a text that will be revealed.
+</RevealText>
+
+<button onClick={() => ref.current?.play()}>Animate</button>
+```
+
+### Triggering the animation
+
+The `ref` exposes a `play()` method that resets state and animates. It accepts optional `gsap.TimelineVars` (e.g. `onStart`, `onComplete`, `scrollTrigger`):
+
+```tsx title="page.tsx" icon="react"
+const ref = useRef<RevealTextHandle>(null);
+
+ref.current?.play({
+    onStart: () => console.log("started"),
+    onComplete: () => console.log("done"),
+});
+```
+
+### Custom animation timing
+
+Use `textAnimation` and `revealAnimation` to override the default GSAP tween vars. Defaults are merged — you only need to specify the properties you want to change.
+
+```tsx title="page.tsx" icon="react"
+// Faster text with slower overlay
+<RevealText
+    ref={ref}
+    textAnimation={{ duration: 0.8, stagger: 0.05, ease: "power2.out" }}
+    revealAnimation={{ duration: 0.8, stagger: 0.05 }}
+>
+    Your text here.
+</RevealText>
+
+// Change the reveal timeline position (default is "<20%")
+<RevealText
+    ref={ref}
+    revealAnimation={{ at: "<50%" }}
+>
+    Different reveal offset.
+</RevealText>
+```
+
+### Custom line reveals
+
+Pass an array of `RevealTextLine` elements via `lines`. Cycles if fewer than text lines, slices extras.
+
+```tsx title="page.tsx" icon="react"
+// Single color — applied to every line
+<RevealText lines={[<RevealTextLine className="bg-red-500" key="0" />]}>
+    Your text here.
+</RevealText>
+
+// Alternating colors
+<RevealText
+    lines={[
+        <RevealTextLine className="bg-red-500" key="0" />,
+        <RevealTextLine className="bg-blue-500" key="1" />,
+    ]}
+>
+    Lines alternate between red and blue reveals.
+</RevealText>
+```
+
+When no `lines` are passed, a default `bg-accent` reveal is used.
+
+### With `startVisible`
+
+By default, text is hidden until the animation plays. Set `startVisible` to render text immediately.
+
+```tsx title="page.tsx" icon="react"
+<RevealText startVisible>
+    This text is visible on mount.
+</RevealText>
 ```
 
 ### With `ScrollTrigger`
 
-To use the component with ScrollTrigger, you need first to install the following dependency:
-
-<Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab value="npm">
-    ```shell
-    npm install @gsap/react
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```shell
-    pnpm add @gsap/react
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```shell
-    yarn add @gsap/react
-  </Tab>
-  <Tab value="bun">
-    ```shell
-    bun add @gsap/react
-    ```
-  </Tab>
-</Tabs>
-
-Import the followings to your component:
-
-```tsx title="animated-text-block.tsx" icon="react"
-import { useGSAP } from "@gsap/react";
+```tsx title="page.tsx" icon="react"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText, ScrollTrigger);
 ```
 
-Then remove the `runAnimation` function and replace it with `useGSAP` hook.
+Pass `scrollTrigger` inside the `play()` timeline vars:
 
-```tsx title="animated-text-block.tsx" icon="react"
-// Previous:
-const runAnimation = () => {
-    gsap.set(".faded-text", { clipPath: "inset(0px 100% 0px 0px)" });
-    gsap.set(".high-line-reveal", { scaleX: 1 });
+```tsx title="page.tsx" icon="react"
+const ref = useRef<RevealTextHandle>(null);
 
-    const tl = gsap.timeline();
-    tl.to(".faded-text", {
-        clipPath: "inset(0px 0% 0px 0px)",
-        duration: 0.6,
-        stagger: 0.2,
-        ease: "power2.inOut",
-    }).to(
-        ".faded-text .high-line-reveal",
-        {
-            scaleX: 0,
-            duration: 0.6,
-            stagger: 0.2,
-            ease: "power4.inOut",
-        },
-        "<20%"
-    );
-};
-
-// New:
-useGSAP(()=>{
-
-    const tl = gsap.timeline({
+useGSAP(() => {
+    if (!ref.current) return;
+    ref.current.play({
         scrollTrigger: {
-            trigger: "#text-line-section",
+            trigger: ref.current.element,
             start: "top 70%",
         },
     });
-    tl.to(".faded-text", {
-        clipPath: "inset(0px 0% 0px 0px)",
-        duration: 0.6,
-        stagger: 0.2,
-        ease: "power2.inOut",
-    }).to(
-        ".faded-text .high-line-reveal",
-        {
-            scaleX: 0,
-            duration: 0.6,
-            stagger: 0.2,
-            ease: "power4.inOut",
-        },
-        "<20%"
-    );
-
 });
+
+return (
+    <RevealText ref={ref} className="text-4xl font-bold">
+        This text reveals <strong>on scroll</strong>.
+    </RevealText>
+)
 ```
+
+## API Reference
+
+### RevealText
+
+The root container. Handles `SplitText` splitting, line reveal injection, and exposes `play()`/`reset()` via ref.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | — | Text content. Supports inline elements like `<strong>`, `<em>`, `<span>`. |
+| `startVisible` | `boolean` | `false` | When `true`, text is visible immediately. |
+| `lines` | `ReactNode[]` | `[]` | Custom line reveals. Cycles if fewer than text lines, slices extras. |
+| `textAnimation` | `gsap.TweenVars` | `{ clipPath, duration: 0.6, stagger: 0.2, ease: "power2.inOut" }` | Overrides for the text clip-path animation. |
+| `revealAnimation` | `gsap.TweenVars & { at?: string }` | `{ scaleX: 0, duration: 0.6, stagger: 0.2, ease: "power4.inOut", at: "<20%" }` | Overrides for the reveal overlay animation. `at` sets the timeline position. |
+| `className` | `string` | — | CSS classes for the container. Text styling classes inherit to children. |
+| `ref` | `Ref<RevealTextHandle>` | — | Imperative handle with `play()`, `reset()`, and `element`. |
+
+### RevealTextHandle
+
+Imperative handle exposed via `ref`.
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| `play` | `(timelineVars?: gsap.TimelineVars) => gsap.core.Timeline` | Resets state and plays the animation. Pass `scrollTrigger`, `onStart`, `onComplete`, etc. |
+| `reset` | `() => void` | Resets animation to initial hidden state. |
+| `element` | `HTMLDivElement \| null` | The container DOM element, for `ScrollTrigger` triggers or DOM queries. |
+
+### RevealTextLine
+
+A customizable reveal overlay element, used in the `lines` array.
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | — | Visual styling (background, gradient, etc). Defaults to `bg-accent`. |
 
 ## Techbook
 
@@ -277,26 +382,16 @@ For example, this is an alternative implementation with a different timing and e
 
 <Tabs items={['demo', 'animation']}>
     <Tab value="demo" className="p-0">
-        <AnimatedTextBlockAlternativeDemo />
+        <RevealTextAlternativeDemo />
     </Tab>
     <Tab value="animation">
     ```tsx
-    const tl = gsap.timeline();
-    tl.to(".faded-text", {
-        clipPath: "inset(0px 0% 0px 0px)",
-        duration: 0.8,
-        stagger: 0.05,
-        ease: "power2.out",
-    }).to(
-        ".faded-text .high-line-reveal",
-        {
-            scaleX: 0,
-            duration: 0.8,
-            stagger: 0.05,
-            ease: "power4.inOut",
-        },
-        "<20%"
-    );
+    <RevealText
+        textAnimation={{ duration: 0.8, stagger: 0.05, ease: "power2.out" }}
+        revealAnimation={{ duration: 0.8, stagger: 0.05 }}
+    >
+        ...
+    </RevealText>
     ```
     </Tab>
 </Tabs>
@@ -306,26 +401,16 @@ And If it seems a bit awkward, maybe it has just a wrong timing, like this one:
 
 <Tabs items={['demo', 'animation']}>
     <Tab value="demo" className="p-0">
-        <AnimatedTextBlockWrongDemo />
+        <RevealTextWrongDemo />
     </Tab>
     <Tab value="animation">
     ```tsx
-    const tl = gsap.timeline();
-      tl.to(".faded-text", {
-        clipPath: "inset(0px 0% 0px 0px)",
-        duration: 0.3,
-        stagger: 0.05,
-        ease: "sine.inOut",
-      }).to(
-        ".faded-text .high-line-reveal",
-        {
-          scaleX: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power4.inOut",
-        },
-        "<20%"
-      );
+    <RevealText
+        textAnimation={{ duration: 0.3, stagger: 0.05, ease: "sine.inOut" }}
+        revealAnimation={{ duration: 1, stagger: 0.2 }}
+    >
+        ...
+    </RevealText>
     ```
     </Tab>
 </Tabs>
