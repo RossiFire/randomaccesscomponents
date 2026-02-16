@@ -13,6 +13,7 @@ import { GridBackground } from "../components/beam-bg";
 import LenisProvider from "@/providers/LenisProvider";
 import BubbleButton from "@/components/bubble-button";
 import useScreenSize from "@/hooks/use-screen-size";
+import { TextReveal, TextRevealHandle } from "@/components/text-reveal";
 
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -23,7 +24,8 @@ const Hero: React.FC = () => {
     const { width } = useScreenSize();
     const isMobile = width < 768;
     const deviceRef = useRef<HTMLDivElement>(null);
-    
+    const textRevealRef = useRef<TextRevealHandle>(null);
+
     useGSAP(() => {
 
         gsap.set(".hero-device", {
@@ -53,7 +55,10 @@ const Hero: React.FC = () => {
             opacity: 0,
             delay: 0.25,
             stagger: 0.03,
-            ease: "back.out(1.7)"
+            ease: "back.out(1.7)",
+            onComplete:() => {
+                textRevealRef.current?.play();
+            }
         },'<20%')
         .from(".hero-buttons > *", {
             opacity: 0,
@@ -137,7 +142,11 @@ const Hero: React.FC = () => {
                     <ShimmerText asChild>
                         <h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left")}>Random Access Components</h1>
                     </ShimmerText>
-                    <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans")}>A collection of animated, accessible and performant components. Made for the web.</h2>
+                    <TextReveal asChild ref={textRevealRef}>
+                        <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans")}>
+                            A collection of animated, accessible and performant components. Made for the web.
+                        </h2>
+                    </TextReveal>
                     <div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
                         <BubbleButton asChild>
                             <Link href="/docs/getting-started">View docs</Link>

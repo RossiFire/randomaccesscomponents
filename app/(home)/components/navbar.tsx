@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 const navLinks = [
     { href: '/docs/getting-started', label: 'Getting Started' },
-    { href: '/docs/components', label: 'Components' },
+    { href: '/docs/components/glow-container', label: 'Components' },
     { href: 'https://github.com/RossiFire/randomaccesscomponents', label: 'Github', external: true },
 ];
 

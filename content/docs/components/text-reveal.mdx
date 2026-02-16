@@ -45,7 +45,7 @@ hot_item: true
 
 ## Installation
 
-<PkgInstallerTabs command="gsap @gsap/react" />
+<PkgInstallerTabs command="gsap @gsap/react @radix-ui/react-slot" />
 
 
 Copy and paste the following code into your project.
@@ -55,6 +55,7 @@ Copy and paste the following code into your project.
 "use client";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 import { useGSAP } from "@gsap/react";
@@ -62,9 +63,12 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(SplitText);
 
 type TextRevealHandle = {
+    /** Resets state and plays the reveal animation. Accepts optional gsap.timeline() vars (e.g. scrollTrigger). */
     play: (timelineVars?: gsap.TimelineVars) => gsap.core.Timeline;
+    /** Resets the animation to its initial hidden state. */
     reset: () => void;
-    element: HTMLDivElement | null;
+    /** The container DOM element. */
+    element: HTMLElement | null;
 };
 
 function createDefaultLineReveal(): HTMLDivElement {
@@ -76,11 +80,14 @@ function createDefaultLineReveal(): HTMLDivElement {
 function splitAndPrepare(
     container: HTMLElement,
     linesContainer: HTMLElement | null,
-    startVisible: boolean
+    startVisible: boolean,
+    asChild: boolean
 ) {
-    const targets = gsap.utils.toArray(
-        container.querySelectorAll('[data-slot="text-reveal-content"]')
-    ) as HTMLElement[];
+    const targets = asChild
+        ? [container]
+        : gsap.utils.toArray(
+            container.querySelectorAll('[data-slot="text-reveal-content"]')
+        ) as HTMLElement[];
 
     const templates = linesContainer
         ? (Array.from(linesContainer.children) as HTMLElement[])
@@ -89,7 +96,7 @@ function splitAndPrepare(
     targets.forEach(target => {
         const split = new SplitText(target, { type: "lines", aria: "none" });
         split.lines.forEach((line, i) => {
-            line.classList.add("faded-text", "relative", "w-fit", "mx-auto");
+            line.classList.add("faded-text", "relative", "w-fit");
 
             if (templates.length > 0) {
                 const reveal = templates[i % templates.length].cloneNode(true) as HTMLElement;
@@ -127,6 +134,7 @@ function resetState(container: HTMLElement) {
 function TextReveal({
     children,
     className,
+    asChild = false,
     startVisible = false,
     lines = [],
     textAnimation,
@@ -134,18 +142,24 @@ function TextReveal({
     ref,
     ...props
 }: Omit<React.ComponentProps<"div">, "ref"> & {
+    /** When true, renders the child element directly instead of wrapping in a div. */
+    asChild?: boolean;
+    /** When true, text is visible immediately. When false, text is hidden until the animation runs. */
     startVisible?: boolean;
+    /** Custom line reveal elements. Cycles if fewer than text lines, slices extras. */
     lines?: React.ReactNode[];
+    /** GSAP tween overrides for the text clip-path reveal. */
     textAnimation?: gsap.TweenVars;
+    /** GSAP tween overrides for the line reveal overlay. Use `at` to set timeline position. */
     revealAnimation?: gsap.TweenVars & { at?: string };
     ref?: React.Ref<TextRevealHandle>;
 }) {
-    const containerRef = React.useRef<HTMLDivElement>(null);
+    const containerRef = React.useRef<HTMLElement>(null);
     const linesRef = React.useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (!containerRef.current) return;
-        splitAndPrepare(containerRef.current, linesRef.current, startVisible);
+        splitAndPrepare(containerRef.current, linesRef.current, startVisible, asChild);
     });
 
     React.useImperativeHandle(ref, () => {
@@ -185,20 +199,39 @@ function TextReveal({
         };
     });
 
+    const linesContainer = lines.length > 0 ? (
+        <div ref={linesRef} className="hidden" aria-hidden="true">
+            {lines}
+        </div>
+    ) : null;
+
+    if (asChild) {
+        return (
+            <>
+                <Slot
+                    ref={containerRef as React.RefObject<HTMLElement>}
+                    data-slot="text-reveal"
+                    className={cn("relative", className)}
+                    {...props}
+                >
+                    {children}
+                </Slot>
+                {linesContainer}
+            </>
+        );
+    }
+
     return (
         <div
             data-slot="text-reveal"
+            ref={containerRef as React.RefObject<HTMLDivElement>}
             className={cn("relative", className)}
             {...props}
         >
-            <p data-slot="text-reveal-content" className="par">
+            <p data-slot="text-reveal-content">
                 {children}
             </p>
-            {lines.length > 0 && (
-                <div ref={linesRef} className="hidden" aria-hidden="true">
-                    {lines}
-                </div>
-            )}
+            {linesContainer}
         </div>
     );
 }
@@ -297,6 +330,28 @@ Pass an array of `TextRevealLine` elements via `lines`. Cycles if fewer than tex
 
 When no `lines` are passed, a default `bg-accent` reveal is used.
 
+### With `asChild`
+
+Use `asChild` to render any HTML element as the root. The child element receives all `TextReveal` props and becomes the direct SplitText target — no wrapper `<div>` or `<p>` is added.
+
+```tsx title="page.tsx" icon="react"
+const ref = useRef<TextRevealHandle>(null);
+
+<TextReveal ref={ref} asChild>
+    <h2>I'm an h2 text that will be revealed.</h2>
+</TextReveal>
+
+<button onClick={() => ref.current?.play()}>Animate</button>
+```
+
+This works with any element. The imperative `ref` still exposes `play()`, `reset()`, and `element` as usual — `element` returns the child's DOM node directly.
+
+```tsx title="page.tsx" icon="react"
+<TextReveal ref={ref} lines={[<TextRevealLine className="bg-red-500" key="0" />]} asChild>
+    <h1 className="text-6xl font-bold">Hero title</h1>
+</TextReveal>
+```
+
 ### With `startVisible`
 
 By default, text is hidden until the animation plays. Set `startVisible` to render text immediately.
@@ -346,6 +401,7 @@ The root container. Handles `SplitText` splitting, line reveal injection, and ex
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `children` | `ReactNode` | — | Text content. Supports inline elements like `<strong>`, `<em>`, `<span>`. |
+| `asChild` | `boolean` | `false` | When `true`, renders the child element directly instead of wrapping in a `<div>`. |
 | `startVisible` | `boolean` | `false` | When `true`, text is visible immediately. |
 | `lines` | `ReactNode[]` | `[]` | Custom line reveals. Cycles if fewer than text lines, slices extras. |
 | `textAnimation` | `gsap.TweenVars` | `{ clipPath, duration: 0.6, stagger: 0.2, ease: "power2.inOut" }` | Overrides for the text clip-path animation. |
@@ -361,7 +417,7 @@ Imperative handle exposed via `ref`.
 | --- | --- | --- |
 | `play` | `(timelineVars?: gsap.TimelineVars) => gsap.core.Timeline` | Resets state and plays the animation. Pass `scrollTrigger`, `onStart`, `onComplete`, etc. |
 | `reset` | `() => void` | Resets animation to initial hidden state. |
-| `element` | `HTMLDivElement \| null` | The container DOM element, for `ScrollTrigger` triggers or DOM queries. |
+| `element` | `HTMLElement \| null` | The container DOM element, for `ScrollTrigger` triggers or DOM queries. |
 
 ### TextRevealLine
 

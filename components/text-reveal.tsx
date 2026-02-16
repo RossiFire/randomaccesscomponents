@@ -1,6 +1,7 @@
 "use client";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 import { useGSAP } from "@gsap/react";
@@ -13,7 +14,7 @@ type TextRevealHandle = {
     /** Resets the animation to its initial hidden state. */
     reset: () => void;
     /** The container DOM element. */
-    element: HTMLDivElement | null;
+    element: HTMLElement | null;
 };
 
 function createDefaultLineReveal(): HTMLDivElement {
@@ -25,11 +26,14 @@ function createDefaultLineReveal(): HTMLDivElement {
 function splitAndPrepare(
     container: HTMLElement,
     linesContainer: HTMLElement | null,
-    startVisible: boolean
+    startVisible: boolean,
+    asChild: boolean
 ) {
-    const targets = gsap.utils.toArray(
-        container.querySelectorAll('[data-slot="text-reveal-content"]')
-    ) as HTMLElement[];
+    const targets = asChild
+        ? [container]
+        : gsap.utils.toArray(
+            container.querySelectorAll('[data-slot="text-reveal-content"]')
+        ) as HTMLElement[];
 
     const templates = linesContainer
         ? (Array.from(linesContainer.children) as HTMLElement[])
@@ -38,7 +42,7 @@ function splitAndPrepare(
     targets.forEach(target => {
         const split = new SplitText(target, { type: "lines", aria: "none" });
         split.lines.forEach((line, i) => {
-            line.classList.add("faded-text", "relative", "w-fit", "mx-auto");
+            line.classList.add("faded-text", "relative", "w-fit");
 
             if (templates.length > 0) {
                 const reveal = templates[i % templates.length].cloneNode(true) as HTMLElement;
@@ -76,6 +80,7 @@ function resetState(container: HTMLElement) {
 function TextReveal({
     children,
     className,
+    asChild = false,
     startVisible = false,
     lines = [],
     textAnimation,
@@ -83,6 +88,8 @@ function TextReveal({
     ref,
     ...props
 }: Omit<React.ComponentProps<"div">, "ref"> & {
+    /** When true, renders the child element directly instead of wrapping in a div. */
+    asChild?: boolean;
     /** When true, text is visible immediately. When false, text is hidden until the animation runs. */
     startVisible?: boolean;
     /** Custom line reveal elements. Cycles if fewer than text lines, slices extras. */
@@ -93,12 +100,12 @@ function TextReveal({
     revealAnimation?: gsap.TweenVars & { at?: string };
     ref?: React.Ref<TextRevealHandle>;
 }) {
-    const containerRef = React.useRef<HTMLDivElement>(null);
+    const containerRef = React.useRef<HTMLElement>(null);
     const linesRef = React.useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (!containerRef.current) return;
-        splitAndPrepare(containerRef.current, linesRef.current, startVisible);
+        splitAndPrepare(containerRef.current, linesRef.current, startVisible, asChild);
     });
 
     React.useImperativeHandle(ref, () => {
@@ -138,21 +145,39 @@ function TextReveal({
         };
     });
 
+    const linesContainer = lines.length > 0 ? (
+        <div ref={linesRef} className="hidden" aria-hidden="true">
+            {lines}
+        </div>
+    ) : null;
+
+    if (asChild) {
+        return (
+            <>
+                <Slot
+                    ref={containerRef as React.RefObject<HTMLElement>}
+                    data-slot="text-reveal"
+                    className={cn("relative", className)}
+                    {...props}
+                >
+                    {children}
+                </Slot>
+                {linesContainer}
+            </>
+        );
+    }
+
     return (
         <div
             data-slot="text-reveal"
-            ref={containerRef}
+            ref={containerRef as React.RefObject<HTMLDivElement>}
             className={cn("relative", className)}
             {...props}
         >
             <p data-slot="text-reveal-content">
                 {children}
             </p>
-            {lines.length > 0 && (
-                <div ref={linesRef} className="hidden" aria-hidden="true">
-                    {lines}
-                </div>
-            )}
+            {linesContainer}
         </div>
     );
 }

@@ -4,7 +4,7 @@ export {
   TextRevealAlternativeDemo,
   TextRevealWrongDemo,
   TextRevealScrollingDemo
-} from "./text-reveal/demo";
+} from "@/demo/components/text-reveal/demo";
 export { FollowMouseDemo } from "./follow-mouse/demo";
 export { MagnetDemo } from "./magnet/demo";
 export { NoisyBackgroundDemo } from "./noisy-background/demo";

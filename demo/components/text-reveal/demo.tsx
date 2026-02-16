@@ -9,8 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Prata } from "next/font/google";
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import { TextReveal, TextRevealLine } from "./text-reveal";
-import type { TextRevealHandle } from "./text-reveal";
+import { TextReveal, TextRevealLine, TextRevealHandle } from "@/components/text-reveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
