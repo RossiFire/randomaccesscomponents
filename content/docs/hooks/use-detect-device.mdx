@@ -4,7 +4,35 @@ description: Hook to detect the current device
 ---
 
 ## Demo
-<UseDetectDeviceDemo />
+
+<PreviewCodeBlock preview={<UseDetectDeviceDemo />}>
+```tsx
+"use client";
+import { useDevice } from "@/hooks/use-detect-device";
+
+const UseDetectDeviceDemo: React.FC = () => {
+
+    const device = useDevice();
+
+    return ( 
+      <div className="text-center space-y-4">
+        <div className="text-sm text-muted-foreground">
+          Current Device
+        </div>
+        <p className="text-lg font-semibold text-foreground">
+          {device}
+        </p>
+        <p className="text-sm text-muted-foreground mt-8">
+          Open on other devices to see different values
+        </p>
+      </div>
+    );
+}
+ 
+export { UseDetectDeviceDemo };
+```
+
+</PreviewCodeBlock>
 
 ## Installation
 

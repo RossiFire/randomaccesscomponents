@@ -4,7 +4,33 @@ description: Hook to detect the current operating system
 ---
 
 ## Demo
-<UseOsDemo />
+<PreviewCodeBlock preview={<UseOsDemo />}>
+```tsx
+"use client";
+import { useOs } from "@/hooks/use-os";
+
+const UseOsDemo: React.FC = () => {
+
+    const os = useOs();
+    return ( 
+      <div className="text-center space-y-4">
+        <div className="text-sm text-muted-foreground">
+          Current OS
+        </div>
+        <p className="text-lg font-semibold text-foreground">
+          {os}
+        </p>
+        <p className="text-sm text-muted-foreground mt-8">
+          Open on other operating systems to see different values
+        </p>
+      </div>
+    );
+}
+ 
+export { UseOsDemo };
+```
+</PreviewCodeBlock>
+
 
 ## Installation
 

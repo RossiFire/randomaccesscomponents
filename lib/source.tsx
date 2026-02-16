@@ -16,7 +16,7 @@ export const source = loader({
           if(file){
             const fileData = this.storage.read(file);
             if(fileData && (fileData.data as unknown as { hot_item?: boolean }).hot_item) {
-              node.name = <div className='flex gap-2 items-center'>
+              node.name = <div className='flex gap-2 items-center' key={file}>
                 <span className='text-primary'>{node.name}</span>
                 <div className='size-2 bg-gradient-to-r from-primary to-base rounded-full' />
               </div>
