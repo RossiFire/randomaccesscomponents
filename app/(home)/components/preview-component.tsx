@@ -8,6 +8,7 @@ import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/componen
 import { Markee, MarkeeContent, MarkeeFade, MarkeeItem, MarkeeSpacer } from "@/components/markee";
 import { ShimmerText } from "@/components/shimmer-text";
 import TechBadge from "@/components/ui/tech-badge";
+import Link from "next/link";
 
 const icons = [
 	<TechBadge key="nextjs" badge="nextjs" />,
@@ -181,9 +182,12 @@ function PreviewComponentEditor({
 				<ResizablePanel defaultSize={isMobile ? 70 : 50}>
 					<div className="h-full md:h-fit py-12 md:py-20 px-4 md:px-12 bg-muted dark grid place-items-center relative overflow-x-auto min-w-0">
 						<ShimmerText asChild>
-							<span className="absolute top-4 left-4 font-sans text-sm [background:radial-gradient(circle_at_center,var(--muted),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]">
+							<Link
+								href="/docs/components/markee"
+								className="absolute top-4 left-4 font-sans text-sm [background:radial-gradient(circle_at_center,var(--primary),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)] text-primary"
+							>
 								Markee Component
-							</span>
+							</Link>
 						</ShimmerText>
 						{/* Fallback while Shiki loads */}
 						{currentLines.length === 0 && (

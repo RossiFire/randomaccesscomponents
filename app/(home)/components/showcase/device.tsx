@@ -6,7 +6,7 @@ import { KeyboardButton } from "@/components/keyboard-button";
 import Magnet from "@/demo/components/magnet/magnet";
 import { MousePointer2Icon } from "lucide-react";
 import { Ripple } from "@/demo/components/ripple/Ripple";
-import { DemoCard } from "./showcase-card";
+import { DemoCard } from "./demo-card";
 import { ShowcaseTextReveal } from "./showcase-text-reveal";
 
 const techBadges = [
@@ -25,7 +25,7 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 		<div
 			aria-hidden="true"
 			className={cn(
-				"relative h-[70vh] aspect-[1.2/1] rounded-[3.2rem] border border-border/70 bg-gradient-to-br from-muted dark:from-muted",
+				"relative h-[70vh] aspect-[1.2/1] rounded-[3.2rem] border border-border/70 bg-linear-to-br from-muted dark:from-muted",
 				"to-muted dark:to-muted p-2 shadow-[0_55px_110px_-40px_color-mix(in_srgb,var(--foreground)_20%,transparent)] dark:shadow-[0_55px_110px_-40px_color-mix(in_srgb,var(--primary)_2%,transparent)] backdrop-blur-sm dark:from-muted",
 				"dark:to-background/80 z-20",
 				"-translate-x-1/2 -translate-y-1/2 overflow-ellipsis",
@@ -72,7 +72,7 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 function DemoMarkee() {
 	return (
 		<Markee className="w-full">
-			<MarkeeFade position="left" />
+			<MarkeeFade position="left" className="from-background/80" />
 			<MarkeeContent duration={20}>
 				{techBadges.map((badge, index) => (
 					<React.Fragment key={index}>
@@ -81,7 +81,7 @@ function DemoMarkee() {
 					</React.Fragment>
 				))}
 			</MarkeeContent>
-			<MarkeeFade position="right" />
+			<MarkeeFade position="right" className="from-background/80" />
 		</Markee>
 	);
 }

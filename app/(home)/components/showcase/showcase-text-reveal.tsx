@@ -2,7 +2,7 @@
 
 import { TextReveal, type TextRevealHandle } from "@/components/text-reveal";
 import { useRef, useState } from "react";
-import { DemoCard } from "./showcase-card";
+import { DemoCard } from "./demo-card";
 
 export const ShowcaseTextReveal = () => {
 	const ref = useRef<TextRevealHandle>(null);
