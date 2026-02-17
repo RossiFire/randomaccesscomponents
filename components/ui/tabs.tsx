@@ -61,9 +61,9 @@ export function Tabs({
 	const valueToIdMap = useMemo(() => new Map<string, string>(), []);
 	const [value, setValue] =
 		_value === undefined
-			? // eslint-disable-next-line react-hooks/rules-of-hooks -- not supposed to change controlled/uncontrolled
+			? // biome-ignore lint: that's from fumadocs code
 				useState(defaultValue)
-			: // eslint-disable-next-line react-hooks/rules-of-hooks -- not supposed to change controlled/uncontrolled
+			: // biome-ignore lint: that's from fumadocs code
 				[_value, useEffectEvent((v: string) => _onValueChange?.(v))];
 
 	useLayoutEffect(() => {

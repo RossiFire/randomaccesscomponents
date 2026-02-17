@@ -45,7 +45,7 @@ const QuickFormAnalyticsDemo: React.FC = () => {
 				className="flex flex-col gap-4 w-full max-w-md"
 			>
 				<div className="flex flex-col gap-2">
-					<label className="text-sm font-medium">Email</label>
+					<label htmlFor="email" className="text-sm font-medium">Email</label>
 					<input
 						type="email"
 						placeholder="my@email.com"
@@ -61,7 +61,7 @@ const QuickFormAnalyticsDemo: React.FC = () => {
 				</div>
 
 				<div className="flex flex-col gap-2">
-					<label className="text-sm font-medium">Interested in</label>
+					<label htmlFor="interestedIn" className="text-sm font-medium">Interested in</label>
 					<div className="flex flex-wrap gap-2">
 						<Badge
 							className="cursor-pointer"

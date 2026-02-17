@@ -22,9 +22,8 @@ interface HistoryOptions {
 
 /**
  * Return type for the useQuickFormHistory hook
- * @template T - The type of the form data
  */
-export interface UseQuickFormHistoryReturn<T> {
+export interface UseQuickFormHistoryReturn {
 	/** Undo the last change */
 	undo: () => void;
 	/** Redo the last undone change */
@@ -61,11 +60,11 @@ export interface UseQuickFormHistoryReturn<T> {
  * <button onClick={history.redo} disabled={!history.canRedo}>Redo</button>
  * ```
  */
-export function useQuickFormHistory<T extends Record<string, any>>(
+export function useQuickFormHistory<T extends Record<string, unknown>>(
 	data: T,
 	setData: (data: Partial<T>) => void,
 	options: HistoryOptions = {}
-): UseQuickFormHistoryReturn<T> {
+): UseQuickFormHistoryReturn {
 	const { maxSize = 50, debounceMs = 300 } = options;
 
 	const [undoStack, setUndoStack] = useState<HistoryEntry<T>[]>([]);
@@ -101,7 +100,7 @@ export function useQuickFormHistory<T extends Record<string, any>>(
 						typeof val2[i] === "object" &&
 						val2[i] !== null
 					) {
-						if (!hasDataChanged(val1[i] as any, val2[i] as any)) continue;
+						if (!hasDataChanged(val1[i] as unknown as T, val2[i] as unknown as T)) continue;
 						return true;
 					} else if (val1[i] !== val2[i]) {
 						return true;
@@ -113,7 +112,7 @@ export function useQuickFormHistory<T extends Record<string, any>>(
 				typeof val2 === "object" &&
 				val2 !== null
 			) {
-				if (!hasDataChanged(val1 as any, val2 as any)) continue;
+				if (!hasDataChanged(val1 as unknown as T, val2 as unknown as T)) continue;
 				return true;
 			} else if (val1 !== val2) {
 				return true;
@@ -145,7 +144,7 @@ export function useQuickFormHistory<T extends Record<string, any>>(
 
 			debounceTimer.current = setTimeout(() => {
 				const entry: HistoryEntry<T> = {
-					data: { ...lastTrackedData.current! },
+					data: { ...lastTrackedData.current as T },
 					timestamp: Date.now(),
 				};
 

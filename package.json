@@ -1,13 +1,13 @@
 {
-	"name": "rxui",
-	"version": "0.0.0",
-	"private": true,
+	"name": "randomaccesscomponents",
+	"version": "1.0.0",
+	"private": false,
 	"scripts": {
 		"build": "next build",
 		"dev": "next dev --turbo",
 		"start": "next start",
 		"postinstall": "fumadocs-mdx",
-		"lint": "biome lint",
+		"lint": "biome lint --max-diagnostics 200",
 		"check": "biome check",
 		"format": "biome format --write"
 	},

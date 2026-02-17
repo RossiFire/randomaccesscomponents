@@ -77,7 +77,7 @@ export function Tabs({
 	const tabsRef = useRef<HTMLDivElement>(null);
 	const [value, setValue] =
 		Value === undefined
-			? // eslint-disable-next-line react-hooks/rules-of-hooks -- not supposed to change controlled/uncontrolled
+			? // biome-ignore lint: that's from fumadocs code
 				useState(defaultValue)
 			: [Value, onValueChange ?? (() => undefined)];
 

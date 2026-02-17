@@ -73,7 +73,7 @@ function MouseFollowItem({ offsetX = 0, offsetY = 0, className, ...props }: Mous
 			data-slot="mouse-follow-item"
 			aria-hidden="true"
 			className={cn(
-				"pointer-events-none fixed z-[999]",
+				"pointer-events-none fixed z-999",
 				isVisible ? "opacity-100 transition-opacity duration-150" : "opacity-0 duration-0",
 				className
 			)}

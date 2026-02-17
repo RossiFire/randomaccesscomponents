@@ -35,7 +35,7 @@ const QuickFormSimpleDemo: React.FC = () => {
 			>
 				<div className="flex gap-2">
 					<div className="flex flex-col gap-2 flex-1">
-						<label className="text-sm font-medium">Username</label>
+						<label htmlFor="username" className="text-sm font-medium">Username</label>
 						<input
 							placeholder="Username"
 							type="text"
@@ -49,7 +49,7 @@ const QuickFormSimpleDemo: React.FC = () => {
 					</div>
 
 					<div className="flex flex-col gap-2 flex-1">
-						<label className="text-sm font-medium">Email</label>
+						<label htmlFor="email" className="text-sm font-medium">Email</label>
 						<input
 							placeholder="my@email.com"
 							type="email"
@@ -65,7 +65,7 @@ const QuickFormSimpleDemo: React.FC = () => {
 					</div>
 				</div>
 				<div className="flex flex-col gap-2 mb-4">
-					<label className="text-sm font-medium">Interested in</label>
+					<label htmlFor="interests" className="text-sm font-medium">Interested in</label>
 					<div className="flex flex-wrap gap-2">
 						<Badge
 							className="cursor-pointer"

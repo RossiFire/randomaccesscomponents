@@ -14,11 +14,11 @@ const schema = z.object({
 });
 
 const QuickFormHistoryDemo: React.FC = () => {
-	const { data, set, submit, errors, touched, isDirty, isValid, reset, setData } = useQuickForm(
+	const { data, set, submit, errors, touched, isDirty, reset, setData } = useQuickForm(
 		{ email: "", fullName: "", description: "" },
 		schema
 	);
-	const { undo, redo, canUndo, canRedo, clearHistory, historySize, redoSize, jumpTo } =
+	const { undo, redo, canUndo, canRedo, clearHistory, historySize, redoSize } =
 		useQuickFormHistory(data, setData, { maxSize: 20, debounceMs: 500 });
 
 	const handleSubmit = () => {
@@ -35,7 +35,7 @@ const QuickFormHistoryDemo: React.FC = () => {
 			>
 				<div className="flex gap-2">
 					<div className="flex flex-col gap-2 flex-1">
-						<label className="text-sm font-medium">Full Name</label>
+						<label htmlFor="fullName" className="text-sm font-medium">Full Name</label>
 						<input
 							placeholder="Full Name"
 							type="text"
@@ -49,7 +49,7 @@ const QuickFormHistoryDemo: React.FC = () => {
 					</div>
 
 					<div className="flex flex-col gap-2 flex-1">
-						<label className="text-sm font-medium">Email</label>
+						<label htmlFor="email" className="text-sm font-medium">Email</label>
 						<input
 							placeholder="my@email.com"
 							type="email"
@@ -66,7 +66,7 @@ const QuickFormHistoryDemo: React.FC = () => {
 				</div>
 
 				<div className="flex flex-col gap-2">
-					<label className="text-sm font-medium">Description</label>
+					<label htmlFor="description" className="text-sm font-medium">Description</label>
 					<textarea
 						placeholder="Describe yourself..."
 						value={data.description}
@@ -80,10 +80,10 @@ const QuickFormHistoryDemo: React.FC = () => {
 				<div className="flex items-center justify-between mx-auto">
 					<div className="flex gap-2">
 						<Button type="button" onClick={undo} disabled={!canUndo}>
-							Undo {canUndo ? "(" + historySize + ")" : ""}
+							Undo {canUndo ? `(${historySize})` : ""}
 						</Button>
 						<Button type="button" onClick={redo} disabled={!canRedo}>
-							Redo {canRedo ? "(" + redoSize + ")" : ""}
+							Redo {canRedo ? `(${redoSize})` : ""}
 						</Button>
 						<Button type="button" onClick={clearHistory} disabled={historySize <= 0}>
 							Clear History

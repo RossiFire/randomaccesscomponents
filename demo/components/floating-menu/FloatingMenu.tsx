@@ -90,7 +90,7 @@ const FloatingMenu: React.FC = () => {
 
 		if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
 			e.preventDefault();
-			const currentIndex = optionsRefs.current.findIndex((ref) => ref === document.activeElement);
+			const currentIndex = optionsRefs.current.indexOf(document.activeElement as HTMLButtonElement);
 			if (currentIndex === -1) return;
 
 			const nextIndex =
@@ -219,11 +219,10 @@ const FloatingMenu: React.FC = () => {
 
 	return (
 		<nav
-			role="navigation"
 			aria-label="Main Menu"
 			className={cn(
 				// Layout & positioning
-				"absolute top-8 right-8 z-[999]",
+				"absolute top-8 right-8 z-999",
 				// Flexbox
 				"flex flex-col items-end gap-2 w-84",
 				// Interactive states
@@ -240,11 +239,11 @@ const FloatingMenu: React.FC = () => {
 						// Interactive states
 						!isMenuOpen && "pointer-events-none"
 					)}
-					role="tablist"
 					aria-label="Menu options"
 				>
 					{menuOptions.map((link, index) => (
 						<button
+							type="button"
 							role="tab"
 							ref={(el) => {
 								optionsRefs.current[index] = el!;
@@ -278,6 +277,7 @@ const FloatingMenu: React.FC = () => {
 				</nav>
 				<Magnet isActive={!isMenuOpen} className="flex">
 					<button
+						type="button"
 						onClick={toggleMenu}
 						aria-expanded={isMenuOpen}
 						aria-controls="core-panel menu-options"
@@ -377,8 +377,9 @@ const FloatingMenu: React.FC = () => {
 				)}
 			>
 				<div className="flex items-center justify-between w-full text-[#545454] dark:text-[#949494]">
-					<h2 className="text-sm !m-0">{currentOption?.longLabel ?? currentOption?.label}</h2>
+					<h2 className="text-sm m-0">{currentOption?.longLabel ?? currentOption?.label}</h2>
 					<button
+						type="button"
 						onClick={closeOptionsPanel}
 						aria-label="Close options panel"
 						className={cn(
@@ -389,13 +390,13 @@ const FloatingMenu: React.FC = () => {
 						<XIcon className="size-4" aria-hidden="true" />
 					</button>
 				</div>
-				<optionsPanelContent option={currentOption} />
+				<OptionsPanelContent option={currentOption} />
 			</div>
 		</nav>
 	);
 };
 
-const optionsPanelContent = ({ option }: { option: OptionItem | null }) => {
+const OptionsPanelContent = ({ option }: { option: OptionItem | null }) => {
 	if (!option) return null;
 
 	if (option.id === "about")
@@ -403,7 +404,6 @@ const optionsPanelContent = ({ option }: { option: OptionItem | null }) => {
 			<div
 				className="w-full text-[#2b2a2a] dark:text-white"
 				id={`option-${option.label.toLowerCase().replace(/ /g, "-")}`}
-				aria-labelledby={`option-${option.label.toLowerCase().replace(/ /g, "-")}`}
 			>
 				<p>
 					I should write something aboute myself and this project but I'm too lazy to do it.
@@ -417,7 +417,6 @@ const optionsPanelContent = ({ option }: { option: OptionItem | null }) => {
 			<div
 				className="w-full text-[#2b2a2a] dark:text-white space-y-4"
 				id={`option-${option.label.toLowerCase().replace(/ /g, "-")}`}
-				aria-labelledby={`option-${option.label.toLowerCase().replace(/ /g, "-")}`}
 			>
 				<div className="flex items-center gap-2">
 					<Facebook className="size-4" />
@@ -444,11 +443,10 @@ const optionsPanelContent = ({ option }: { option: OptionItem | null }) => {
 			<div
 				className="w-full text-[#2b2a2a] dark:text-white"
 				id={`option-${option.label.toLowerCase().replace(/ /g, "-")}`}
-				aria-labelledby={`option-${option.label.toLowerCase().replace(/ /g, "-")}`}
 			>
 				<pre
 					className={cn(
-						"whitespace-pre-wrap break-words",
+						"whitespace-pre-wrap wrap-break-words",
 						"text-sm leading-relaxed",
 						"w-full",
 						interFont

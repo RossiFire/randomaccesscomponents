@@ -1,9 +1,9 @@
 import { createMDX } from "fumadocs-mdx/next";
+import type { NextConfig } from "next";
 
 const withMDX = createMDX();
 
-/** @type {import('next').NextConfig} */
-const config = {
+const config: NextConfig = {
 	reactStrictMode: true,
 	images: {
 		remotePatterns: [
@@ -16,6 +16,8 @@ const config = {
 				hostname: "avatar.iran.liara.run",
 			},
 		],
+		formats: ['image/webp'],
+    	minimumCacheTTL: 2678400, // 31 days
 	},
 	async rewrites() {
 		return [
@@ -25,8 +27,7 @@ const config = {
 			},
 		];
 	},
-	formats: ["image/webp"],
-	minimumCacheTTL: 2678400, // 31 days
+	output: "standalone",
 };
 
 export default withMDX(config);
