@@ -9,7 +9,6 @@ import { ShimmerText } from "@/components/shimmer-text";
 import Device from "../components/showcase/device";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { GridBackground } from "../components/beam-bg";
-import LenisProvider from "@/providers/LenisProvider";
 import BubbleButton from "@/components/bubble-button";
 import useScreenSize from "@/hooks/use-screen-size";
 import { TextReveal, type TextRevealHandle } from "@/components/text-reveal";
@@ -136,38 +135,36 @@ function Hero() {
 	}, [isMounted]);
 
 	return (
-		<LenisProvider>
-			<div className="hero-pin relative min-h-svh w-full bg-background flex flex-col justify-center text-center z-20">
-				<GridBackground />
-				<div className="relative isolate container z-[2]">
-					<Device
-						ref={deviceRef}
-						className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device"
-					/>
-					<div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
-						<ShimmerText asChild>
-							<h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left")}>
-								Random Access Components
-							</h1>
-						</ShimmerText>
-						<TextReveal ref={textRevealRef} asChild>
-							<h2
-								className={cn(
-									"text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans"
-								)}
-							>
-								A collection of animated, accessible and performant components. Made for the web.
-							</h2>
-						</TextReveal>
-						<div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
-							<BubbleButton asChild>
-								<Link href="/docs/getting-started">View docs</Link>
-							</BubbleButton>
-						</div>
+		<section className="hero-pin relative min-h-svh w-full bg-background flex flex-col justify-center text-center z-20" aria-label="Hero section">
+			<GridBackground />
+			<div className="relative isolate container z-2">
+				<Device
+					ref={deviceRef}
+					className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device"
+				/>
+				<div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
+					<ShimmerText asChild>
+						<h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left")}>
+							Random Access Components
+						</h1>
+					</ShimmerText>
+					<TextReveal ref={textRevealRef} asChild>
+						<h2
+							className={cn(
+								"text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans"
+							)}
+						>
+							A collection of animated, accessible and performant components. Made for the web.
+						</h2>
+					</TextReveal>
+					<div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
+						<BubbleButton asChild>
+							<Link href="/docs/getting-started">View docs</Link>
+						</BubbleButton>
 					</div>
 				</div>
 			</div>
-		</LenisProvider>
+		</section>
 	);
 }
 

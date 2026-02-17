@@ -24,7 +24,7 @@ export const ShowcaseTextReveal = () => {
 			onClick={handleClick}
 		>
 			<TextReveal ref={ref} startVisible asChild>
-				<span className="font-bold text-muted-foreground">
+				<span className="font-medium dark:font-bold text-muted-foreground">
 					I&apos;M A TEXT REVEAL, CLICK ME TO ANIMATE. <br /> WARNING: I&apos;M TOO COOL.
 				</span>
 			</TextReveal>

@@ -13,18 +13,18 @@ function BubbleButton({
 			className={cn(
 				`
         relative z-0 flex items-center gap-2 overflow-hidden whitespace-nowrap rounded-md
-            border border-muted-foreground/20 bg-gradient-to-br from-background/80 to-muted
+            border border-muted-foreground/20 bg-linear-to-br from-background/80 to-muted
            px-3 py-1.5
            text-primary transition-[color,background-color,border-color,text-decoration-color,fill,stroke,scale] duration-300
             
             before:absolute before:inset-0
             before:-z-10 before:translate-y-[200%]
             before:scale-[2.5]
-            before:rounded-[100%] before:bg-muted-foreground
+            before:rounded-[100%] before:bg-accent
             before:transition-transform before:duration-500
             before:content-[""]
     
-            hover:scale-105 hover:text-muted
+            hover:scale-105 hover:text-accent-foreground
             hover:before:translate-y-0
             active:scale-100`,
 				className

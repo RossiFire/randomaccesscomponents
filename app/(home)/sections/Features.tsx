@@ -46,6 +46,7 @@ function Features() {
 	return (
 		<section
 			className="min-h-svh bg-background flex items-end justify-center mt-12 md:mt-0 mb-12 md:mb-52"
+			aria-label="Features section"
 			id="features"
 		>
 			<div className="container flex flex-col items-center justify-center gap-10 md:gap-14 lg:gap-20">
@@ -123,12 +124,13 @@ function FeatureCard({
 			parentRef={parentRef}
 			glowColor={glowColor}
 			className="rounded-lg bg-muted-foreground/20 glow-card"
+			aria-label={`${title} card - ${description}`}
 		>
 			<div className="relative bg-muted min-h-50 font-sans rounded-[7px] px-6 py-8 flex flex-col items-start text-left gap-2 overflow-hidden">
 				<GridBackground />
 				{icon}
-				<span className="text-2xl text-foreground font-serif z-[2]">{title}</span>
-				<span className="text-muted-foreground text-base z-[2]">{description}</span>
+				<span className="text-2xl text-foreground font-serif z-2">{title}</span>
+				<span className="text-muted-foreground text-base z-2">{description}</span>
 			</div>
 		</Glow>
 	);

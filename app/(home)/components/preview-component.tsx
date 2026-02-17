@@ -169,21 +169,32 @@ function PreviewComponentEditor({
 
 	const currentLines = allTokenized[codeIndex] ?? [];
 
+	const snippetLabel = `Example ${codeIndex + 1} of ${codeSnippets.length}`;
+
 	return (
-		<div
+		<section
+			aria-roledescription="code preview carousel"
+			aria-label="Markee component interactive code preview"
 			className={cn(
 				"w-full min-w-0 rounded-2xl border border-border overflow-hidden h-[500px] md:h-auto",
 				className
 			)}
 			{...props}
 		>
+			<span className="sr-only" aria-live="polite" aria-atomic="true">
+				{snippetLabel}
+			</span>
 			<ResizablePanelGroup orientation={isMobile ? "vertical" : "horizontal"} disabled={isMobile}>
 				{/* Code panel — animated read-only */}
 				<ResizablePanel defaultSize={isMobile ? 70 : 50}>
-					<div className="h-full md:h-fit py-12 md:py-20 px-4 md:px-12 bg-muted dark grid place-items-center relative overflow-x-auto min-w-0">
+					<section
+						aria-label={`Source code — ${snippetLabel}`}
+						className="h-full md:h-fit py-12 md:py-20 px-4 md:px-12 bg-muted dark grid place-items-center relative overflow-x-auto min-w-0"
+					>
 						<ShimmerText asChild>
 							<Link
 								href="/docs/components/markee"
+								aria-label="View Markee component documentation"
 								className="absolute top-4 left-4 font-sans text-sm [background:radial-gradient(circle_at_center,var(--primary),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)] text-primary"
 							>
 								Markee Component
@@ -191,16 +202,22 @@ function PreviewComponentEditor({
 						</ShimmerText>
 						{/* Fallback while Shiki loads */}
 						{currentLines.length === 0 && (
-							<code className="block font-mono text-[10px] md:text-[13px] leading-[1.7] text-[#e1e4e8] whitespace-pre">
-								{codeSnippets[0]}
-							</code>
+							<figure aria-label="Markee component source code">
+								<pre className="w-full">
+									<code className="block font-mono text-[10px] md:text-[13px] leading-[1.7] text-[#e1e4e8] whitespace-pre">
+										{codeSnippets[0]}
+									</code>
+								</pre>
+							</figure>
 						)}
 
 						{currentLines.length > 0 && (
-							<pre className="w-full">
+							<figure aria-label="Markee component source code">
+								<pre className="w-full">
 								<motion.code
 									layout
 									className="block relative font-mono text-[10px] md:text-[13px] leading-[1.7] [tab-size:4]"
+									aria-hidden="true"
 								>
 									<AnimatePresence mode="popLayout" initial={false}>
 										{currentLines.map(({ key, tokens }) => (
@@ -238,16 +255,21 @@ function PreviewComponentEditor({
 										))}
 									</AnimatePresence>
 								</motion.code>
-							</pre>
+								<code className="sr-only">{codeSnippets[codeIndex]}</code>
+								</pre>
+							</figure>
 						)}
-					</div>
+					</section>
 				</ResizablePanel>
 
-				<ResizableHandle withHandle className="hidden md:flex" />
+				<ResizableHandle withHandle aria-label="Resize code and preview panels" className="hidden md:flex" />
 
 				{/* Preview panel — synced with code */}
 				<ResizablePanel defaultSize={isMobile ? 30 : 50} minSize={0}>
-					<div className="h-full w-full bg-background flex items-center justify-center overflow-hidden relative contain-[inline-size]">
+					<section
+						aria-label="Live preview"
+						className="h-full w-full bg-background flex items-center justify-center overflow-hidden relative contain-[inline-size]"
+					>
 						<AnimatePresence mode="wait">
 							<motion.div
 								key={codeIndex}
@@ -260,10 +282,10 @@ function PreviewComponentEditor({
 								{React.createElement(demos[codeIndex])}
 							</motion.div>
 						</AnimatePresence>
-					</div>
+					</section>
 				</ResizablePanel>
 			</ResizablePanelGroup>
-		</div>
+		</section>
 	);
 }
 

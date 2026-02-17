@@ -4,19 +4,24 @@ import Features from "./sections/Features";
 import CodeSection from "./sections/Code";
 import Link from "next/link";
 import { MoveUpRight } from "lucide-react";
+import LenisProvider from "@/providers/LenisProvider";
 
 export default function HomePage() {
+
+	const rightsText = `© ${new Date().getFullYear()} Random Access Components. All rights reserved.`
+
 	return (
 		<>
+			<LenisProvider />
 			<Navbar />
 			<Hero />
 			<Features />
 			<CodeSection />
 			<footer className="container mx-auto my-8 flex flex-col-reverse md:flex-row gap-y-8 items-center justify-between">
-				<p className="text-center text-sm text-muted-foreground">
-					© {new Date().getFullYear()} Random Access Components. All rights reserved.
-				</p>
-				<ul className="flex items-center justify-center gap-6">
+				<span className="text-center text-sm text-muted-foreground">
+					{rightsText}
+				</span>
+				<ul className="flex items-center justify-center gap-6" aria-label="Footer links">
 					<li>
 						<ExternalLink href="https://github.com/RossiFire/randomaccesscomponents">
 							Github

@@ -31,14 +31,14 @@ function Navbar({ className, ...props }: React.ComponentProps<"header">) {
 	return (
 		<header
 			className={cn(
-				"fixed inset-x-0 top-0 z-50 py-4 md:py-8 bg-gradient-to-t from-transparent via-background/80 to-background",
+				"fixed inset-x-0 top-0 z-50 py-4 md:py-8 bg-linear-to-t from-transparent via-background/80 to-background",
 				className
 			)}
 			{...props}
 		>
 			<div className="container mx-auto px-4">
-				<nav className="flex items-center justify-between" aria-label="Website navigation menu">
-					<div className="flex items-center gap-8 z-[2]">
+				<nav className="flex items-center justify-between" aria-label="Navigation menu">
+					<div className="flex items-center gap-8 z-2">
 						<Link
 							href="/"
 							className="text-base font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
@@ -46,7 +46,7 @@ function Navbar({ className, ...props }: React.ComponentProps<"header">) {
 						>
 							<Image src={racLogo} alt="Rac UI Logo" className="size-10 object-contain" />
 						</Link>
-						<ul className="items-center gap-6 hidden md:flex">
+						<ul className="items-center gap-6 hidden md:flex" aria-label="Navigation links">
 							{navLinks.map((link) => (
 								<li key={link.href} className="flex items-center gap-2 group">
 									<NavLink
