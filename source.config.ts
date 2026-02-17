@@ -24,6 +24,7 @@ export const docs = defineDocs({
 export default defineConfig({
 	mdxOptions: {
 		rehypeCodeOptions: {
+			...rehypeCodeDefaultOptions,
 			transformers: [
 				...(rehypeCodeDefaultOptions.transformers ?? []),
 				{
