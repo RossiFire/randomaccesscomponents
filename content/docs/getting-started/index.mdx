@@ -4,13 +4,12 @@ description: Introducing Random Access Components, a collection of accessible co
 icon: Album
 ---
 
-## What is Random Access Components?
-Random Access Components (abbreviated as RAC) is a collection of reusable components, hooks, utilities and more that I've created over the years.
-
 ## Philosophy
-This idea of this project is to deliver minimal but powerful components, hooks, utilities that can be simply copied and pasted into any project.
-I'm mainly focused on building robust, standardized and accessible components, still keeping them lightweight and easy to understand.
-- All the components are built using less dependencies as possible, to don't bloat the bundle size and your package.json. This also gives you more flexibility over the component.
+This idea of this project is to deliver minimal but powerful components.
+That's not a brainless copy-paste "wow" components. Think of it as a shadcn/ui with steroids. 
+You're going to write some code of course, but you'll have already a solid, accessible and animated structure ready to be customized based on your needs.
+
+- All the components are built using less dependencies as possible, without bloating the bundle size and your package.json. This also gives you more flexibility over the component.
 - Almost all the components are built using Tailwindcss, to give you more flexibility over the styling.
 - TypeScript, not JavaScript. This gives you type safety and better readability.
 - Accessibility: Every component is built with accessibility in mind, to be compliant.
@@ -22,7 +21,7 @@ For issues, check the [Common Issues](/docs/getting-started/common-issues) page.
 
 
 ## Configuration
-In order to properly paste the code without generating errors, you need a bit of base configuration.
+In order to use the code without generating errors, you need a bit of base configuration.
 
 ### TailwindCSS
 Most of the components use Tailwindcss for styling, so you can follow the official [Tailwindcss guide](https://tailwindcss.com/docs/installation/framework-guides/nextjs) to install it.
@@ -30,7 +29,7 @@ Additionally, install the following dependencies:
 
 <PkgInstallerTabs command="clsx tailwind-merge" />
 
-Copy and paste the following code into your project.
+Then copy and paste the following code into your project.
 
 ```typescript title="lib/utils.ts" icon="typescript"
 import { type ClassValue, clsx } from "clsx";
@@ -55,7 +54,7 @@ To improve imports readability, I've embraced path aliases for my components. If
 And you're done! That's really it. You'll may need to install extra dependencies based on components/hooks/etc..., but now you're ready. Happy coding!
 
 <Cards>
-  <Card title="Components" href="components/window-menu" />
-  <Card title="Hooks" href="hooks/use-quick-form" />
-  <Card title="Utilities" href="utilities/use-supabase-auth" />
+  <Card title="Components" href="components/glow-container" />
+  <Card title="Hooks" href="hooks/use-breakpoints" />
+  <Card title="Utilities" href="utilities/array-builder" />
 </Cards>

@@ -1,7 +1,5 @@
-// Map badge types to their actual filenames and extensions
 import * as TechIcons from "./tech-icons";
-import { GlowCard } from "../glow";
-import { GridBackground } from "@/app/(home)/components/beam-bg";
+import { Glow } from "../glow";
 
 const ICON_ALIASES = {
     nextjs: {
@@ -100,16 +98,16 @@ const TechBadge: React.FC<{ badge: Badge }> = ({ badge }) => {
     if(!bd){ 
         return null;
     }
-    
+
     const { icon, label, color } = ICON_ALIASES[badge];
     return (
-        <GlowCard aria-label={`${label} badge`} glowColor={color} glowRadius="80px" glowTransparency="80%" className="rounded-lg bg-muted-foreground/20">
+        <Glow aria-label={`${label} badge`} glowColor={color} glowRadius="80px" glowTransparency="80%" className="rounded-lg bg-muted-foreground/20">
             <div className="flex items-center gap-2 rounded-lg px-3 py-1 bg-secondary overflow-hidden relative">
                 {icon({ className: "size-2 md:size-4 lg:size-4" })}
                 <span className="text-xs md:text-sm text-foreground whitespace-nowrap">{label}</span>
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/0 to-background" aria-hidden="true" />
             </div>
-        </GlowCard>
+        </Glow>
     );
 }
 

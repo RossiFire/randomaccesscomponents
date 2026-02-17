@@ -31,9 +31,6 @@ const NoisyBackgroundDemo: React.FC = () => {
                     />
                     <span className="text-sm text-muted-foreground">Background opacity: <b>{opacity}</b></span>
                 </div>
-                <span className="text-sm text-muted-foreground italic mt-8">
-                    *This properties are set just for demo purposes, the default component doesn't have these.
-                </span>
         </DemoBlock>
     );
 }

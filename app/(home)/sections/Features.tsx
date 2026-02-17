@@ -8,7 +8,7 @@ import gsap from 'gsap';
 import { useHydration } from '@/hooks/use-hydration';
 import useScreenSize from '@/hooks/use-screen-size';
 import { cn } from '@/lib/utils';
-import { GlowCard } from '@/components/glow';
+import { Glow } from '@/components/glow';
 
 function Features() {
     const gridRef = useRef<HTMLDivElement>(null);
@@ -105,14 +105,14 @@ function FeatureCard({
 }) {
 
     return (
-        <GlowCard parentRef={parentRef} glowColor={glowColor} className="rounded-lg bg-muted-foreground/20 glow-card">
+        <Glow parentRef={parentRef} glowColor={glowColor} className="rounded-lg bg-muted-foreground/20 glow-card">
             <div className="relative bg-muted min-h-50 font-sans rounded-[7px] px-6 py-8 flex flex-col items-start text-left gap-2 overflow-hidden">
                 <GridBackground />
                 {icon}
                 <span className="text-2xl text-foreground font-serif z-[2]">{title}</span>
                 <span className="text-muted-foreground text-base z-[2]">{description}</span>
             </div>
-        </GlowCard>
+        </Glow>
     );
 }
 

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
-function GlowCard({
+function Glow({
     children,
     glowColor = 'var(--primary)',
     parentRef = null,
@@ -62,4 +62,4 @@ function GlowCard({
     );
 }
 
-export { GlowCard };
+export { Glow };
