@@ -24,7 +24,7 @@ const BADGES = [
   <TechBadge badge="gsap" />,
   <TechBadge badge="react" />,
   <TechBadge badge="typescript" />,
-  <TechBadge badge="framer_motion" />,
+  <TechBadge badge="motion" />,
   <TechBadge badge="tailwind" />,
   <TechBadge badge="css" />,
 ]

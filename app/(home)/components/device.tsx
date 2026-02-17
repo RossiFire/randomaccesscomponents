@@ -13,10 +13,10 @@ const techBadges = [
   <TechBadge key="gsap" badge="gsap" />,
   <TechBadge key="react" badge="react" />,
   <TechBadge key="typescript" badge="typescript" />,
-  <TechBadge key="framer_motion" badge="framer_motion" />,
-  <TechBadge key="tailwind" badge="tailwind" />,
+  <TechBadge key="motion" badge="motion" />,
+  <TechBadge key="tailwindcss" badge="tailwindcss" />,
   <TechBadge key="css" badge="css" />,
-  <TechBadge key="radix_ui" badge="radix_ui" />,
+  <TechBadge key="radix" badge="radix" />,
 ]
 
 function Device({ className, ...props }: React.ComponentProps<'div'>) {
@@ -81,7 +81,7 @@ const DemoMarkee = () => {
   return (
     <Markee className='w-full'>
       <MarkeeFade position="left" />
-      <MarkeeContent duration={20} pauseOnHover={true}>
+      <MarkeeContent duration={20}>
         {techBadges.map((badge, index) => (
           <React.Fragment key={index}>
             <MarkeeItem>

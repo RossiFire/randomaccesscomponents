@@ -1,29 +1,115 @@
 // Map badge types to their actual filenames and extensions
-import Image from "next/image";
+import * as TechIcons from "./tech-icons";
+import { GlowCard } from "../glow";
+import { GridBackground } from "@/app/(home)/components/beam-bg";
 
-export type Badge = "gsap" | "css" | "framer_motion" | "tailwind" | "typescript" | "nextjs" | "react" | "radix_ui";
+const ICON_ALIASES = {
+    nextjs: {
+        icon: TechIcons.Nextjs,
+        label: "Next.js",
+        color: "#000000",
+    },
+    expressjs: {
+        icon: TechIcons.Expressjs,
+        label: "Express.js",
+        color: "#000000",
+    },
+    react: {
+        icon: TechIcons.React,
+        label: "React",
+        color: "#087EA4",
+    },
+    motion: {
+        icon: TechIcons.Motion,
+        label: "Motion",
+        color: "#FFDD01",
+    },
+    tailwindcss: {
+        icon: TechIcons.TailwindCSS,
+        label: "Tailwind CSS",
+        color: "#38bdf8",
+    },
+    supabase: {
+        icon: TechIcons.Supabase,
+        label: "Supabase",
+        color: "#3CC98C",
+    },
+    shadcnui: {
+        icon: TechIcons.ShadcnUi,
+        label: "Shadcn UI",
+        color: "#000000",
+    },
+    vercel: {
+        icon: TechIcons.Vercel,
+        label: "Vercel",
+        color: "#000000",
+    },
+    gsap: {
+        icon: TechIcons.Gsap,
+        label: "GSAP",
+        color: "#0ADE46",
+    },
+    npm: {
+        icon: TechIcons.NPM,
+        label: "NPM",
+        color: "#CC3534",
+    },
+    pnpm: {
+        icon: TechIcons.Pnpm,
+        label: "PNPM",
+        color: "#F9AD01",
+    },
+    yarn: {
+        icon: TechIcons.Yarn,
+        label: "Yarn",
+        color: "#2890BD",
+    },
+    bun: {
+        icon: TechIcons.Bun,
+        label: "Bun",
+        color: "#FBF0DF",
+    },
+    css: {
+        icon: TechIcons.CSS,
+        label: "CSS",
+        color: "#639"
+    },
+    radix: {
+        icon: TechIcons.RadixUI,
+        label: "Radix UI",
+        color: "#6263FA",
+    },
+    typescript: {
+        icon: TechIcons.TypeScript,
+        label: "TypeScript",
+        color: "#3075C0",
+    },
+    json: {
+        icon: TechIcons.JSON,
+        label: "JSON",
+        color: "#151515",
+    },
+  } as const;
 
-const badgeConfig: Record<Badge, { filename: string; extension: string; label: string }> = {
-    gsap: { filename: "gsap_logo", extension: "png", label: "GSAP" },
-    css: { filename: "css_logo", extension: "png", label: "CSS" },
-    framer_motion: { filename: "framer_motion_logo", extension: "svg", label: "Framer Motion" },
-    tailwind: { filename: "tailwind_logo", extension: "png", label: "Tailwind CSS" },
-    typescript: { filename: "typescript_logo", extension: "png", label: "TypeScript" },
-    nextjs: { filename: "nextjs_logo", extension: "png", label: "NextJS" },
-    react: { filename: "react_logo", extension: "png", label: "React" },
-    radix_ui: { filename: "radix_ui_logo", extension: "svg", label: "Radix UI" },
-};
+export type Badge = keyof typeof ICON_ALIASES;
+
 
 const TechBadge: React.FC<{ badge: Badge }> = ({ badge }) => {
-    const { filename, extension, label } = badgeConfig[badge];
-    const imagePath = `/assets/badges/${filename}.${extension}`;
+    const bd = ICON_ALIASES[badge];
+
+    if(!bd){ 
+        console.log(badge)
+        return null;
+    }
+    const { icon, label, color } = ICON_ALIASES[badge];
     return (
-        <div className="flex items-center gap-2 border border-border rounded-lg py-2 md:py-1 px-3 bg-secondary">
-            <div className="size-4 md:size-6 relative">
-                <Image src={imagePath} alt={label} fill className="object-contain !m-0" loading="lazy" />
+        <GlowCard aria-label={`${label} badge`} glowColor={color} glowRadius="80px" glowTransparency="80%" className="rounded-lg bg-muted-foreground/20">
+            <div className="flex items-center gap-2 rounded-lg px-3 py-1 bg-secondary overflow-hidden relative">
+                {icon({ className: "size-2 md:size-4 lg:size-4" })}
+                <span className="text-xs md:text-sm text-foreground whitespace-nowrap">{label}</span>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/0 to-background" aria-hidden="true" />
             </div>
-            <span className="text-xs md:text-sm text-foreground whitespace-nowrap">{label}</span>
-        </div>
+        </GlowCard>
     );
 }
 
