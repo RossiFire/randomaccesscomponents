@@ -15,148 +15,171 @@ import BubbleButton from "@/components/bubble-button";
 import useScreenSize from "@/hooks/use-screen-size";
 import { TextReveal, TextRevealHandle } from "@/components/text-reveal";
 
-
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const Hero: React.FC = () => {
+	const isMounted = useHydration();
+	const { width } = useScreenSize();
+	const isMobile = width < 768;
+	const deviceRef = useRef<HTMLDivElement>(null);
+	const textRevealRef = useRef<TextRevealHandle>(null);
 
-    const isMounted = useHydration();
-    const { width } = useScreenSize();
-    const isMobile = width < 768;
-    const deviceRef = useRef<HTMLDivElement>(null);
-    const textRevealRef = useRef<TextRevealHandle>(null);
+	useGSAP(() => {
+		gsap.set(".hero-device", {
+			scale: 0.9,
+			skewY: 5,
+			skewX: 1,
+			perspective: 1200,
+		});
 
-    useGSAP(() => {
+		if (!isMounted) return;
 
-        gsap.set(".hero-device", {
-            scale: 0.9,
-            skewY: 5,
-            skewX: 1,
-            perspective: 1200,
-        });
+		const tl = gsap.timeline({ delay: 0.25 });
+		const splittedH2 = new SplitText("h2", { type: "lines" });
 
-        if(!isMounted) return;
-        
-        
-        const tl = gsap.timeline({ delay: 0.25 });
-        const splittedH2 = new SplitText("h2", {type: "lines"});
+		/* Initial Timeline */
 
-        /* Initial Timeline */
-        
-        tl.from("h1", {
-            y: 50,
-            opacity: 0,
-            delay: 0.25,
-            stagger: 0.03,
-            ease: "back.out(1.7)"
-        })
-        .from(splittedH2.lines, {
-            y: 50,
-            opacity: 0,
-            delay: 0.25,
-            stagger: 0.03,
-            ease: "back.out(1.7)",
-            onComplete:() => {
-                textRevealRef.current?.play();
-            }
-        },'<20%')
-        .from(".hero-buttons > *", {
-            opacity: 0,
-            stagger: 0.03,
-            ease: "power2.inOut"
-        },'<20%')
+		tl.from("h1", {
+			y: 50,
+			opacity: 0,
+			delay: 0.25,
+			stagger: 0.03,
+			ease: "back.out(1.7)",
+		})
+			.from(
+				splittedH2.lines,
+				{
+					y: 50,
+					opacity: 0,
+					delay: 0.25,
+					stagger: 0.03,
+					ease: "back.out(1.7)",
+					onComplete: () => {
+						textRevealRef.current?.play();
+					},
+				},
+				"<20%"
+			)
+			.from(
+				".hero-buttons > *",
+				{
+					opacity: 0,
+					stagger: 0.03,
+					ease: "power2.inOut",
+				},
+				"<20%"
+			);
 
-        if(!isMobile){
-            tl.from(".hero-device", {
-                opacity: 0,
-                translateY: "-20%",
-                duration: 2,
-                ease: "power3.out"
-            });
-        }
+		if (!isMobile) {
+			tl.from(".hero-device", {
+				opacity: 0,
+				translateY: "-20%",
+				duration: 2,
+				ease: "power3.out",
+			});
+		}
 
+		/* Scroll Timeline */
 
-        /* Scroll Timeline */
+		if (!isMobile) {
+			const scrollTl = gsap.timeline({
+				scrollTrigger: {
+					trigger: "body",
+					start: "top top",
+					end: "+=400%",
+					pin: ".hero-pin",
+					scrub: true,
+				},
+				onUpdate: () => {
+					if (deviceRef.current) {
+						const addClass = scrollTl.progress() > 0.5;
+						if (addClass) {
+							deviceRef.current.classList.add("z-50");
+						} else {
+							deviceRef.current.classList.remove("z-50");
+						}
+					}
+				},
+			});
 
-        if(!isMobile){
-            const scrollTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "body",
-                    start: "top top",
-                    end: "+=400%",
-                    pin: ".hero-pin",
-                    scrub: true,
-                },
-                onUpdate:() => {
-                    if(deviceRef.current){
-                        const addClass = scrollTl.progress() > 0.5;
-                        if(addClass){
-                            deviceRef.current.classList.add("z-50");
-                        } else {
-                            deviceRef.current.classList.remove("z-50");
-                        }
-                    }
-                }
-            });
-    
-            scrollTl.to(".hero-main-content", {
-                scale: 0.8,
-                duration: 1,
-                translateX: "-10%",
-                ease: "power2.inOut"
-            },'<')
-            .to('.hero-device', {
-                scale: 0.8,
-                duration: 1,
-                ease: "power2.inOut",
-            },'<')
-            .to('.hero-device', {
-                left: "50%",
-                top: "100%",
-                scale: 1.5,
-                skewY: 0,
-                skewX: 0,
-                duration: 1.2,
-                ease: "power2.inOut"
-            })
-            // Hide main content on small screens since in those cases the device doesn't not cover completely the content
-            if(width < 1500){
-                scrollTl.to(".hero-main-content", {
-                    translateX: "20%",
-                    duration: 0.5,
-                    ease: "power2.inOut"
-                },'<50%')
-            }
-        }
+			scrollTl
+				.to(
+					".hero-main-content",
+					{
+						scale: 0.8,
+						duration: 1,
+						translateX: "-10%",
+						ease: "power2.inOut",
+					},
+					"<"
+				)
+				.to(
+					".hero-device",
+					{
+						scale: 0.8,
+						duration: 1,
+						ease: "power2.inOut",
+					},
+					"<"
+				)
+				.to(".hero-device", {
+					left: "50%",
+					top: "100%",
+					scale: 1.5,
+					skewY: 0,
+					skewX: 0,
+					duration: 1.2,
+					ease: "power2.inOut",
+				});
+			// Hide main content on small screens since in those cases the device doesn't not cover completely the content
+			if (width < 1500) {
+				scrollTl.to(
+					".hero-main-content",
+					{
+						translateX: "20%",
+						duration: 0.5,
+						ease: "power2.inOut",
+					},
+					"<50%"
+				);
+			}
+		}
+	}, [isMounted]);
 
-    }, [isMounted]);
+	return (
+		<LenisProvider>
+			<div className="hero-pin relative min-h-svh w-full bg-background flex flex-col justify-center text-center z-20">
+				<GridBackground />
+				<div className="relative isolate container z-[2]">
+					<Device
+						ref={deviceRef}
+						className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device"
+					/>
+					<div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
+						<ShimmerText asChild>
+							<h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left")}>
+								Random Access Components
+							</h1>
+						</ShimmerText>
+						<TextReveal asChild ref={textRevealRef}>
+							<h2
+								className={cn(
+									"text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans"
+								)}
+							>
+								A collection of animated, accessible and performant components. Made for the web.
+							</h2>
+						</TextReveal>
+						<div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
+							<BubbleButton asChild>
+								<Link href="/docs/getting-started">View docs</Link>
+							</BubbleButton>
+						</div>
+					</div>
+				</div>
+			</div>
+		</LenisProvider>
+	);
+};
 
-    return (
-
-    <LenisProvider>
-        <div className='hero-pin relative min-h-svh w-full bg-background flex flex-col justify-center text-center z-20'>
-            <GridBackground />
-            <div className="relative isolate container z-[2]">
-                <Device ref={deviceRef} className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device" />
-                <div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
-                    <ShimmerText asChild>
-                        <h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left")}>Random Access Components</h1>
-                    </ShimmerText>
-                    <TextReveal asChild ref={textRevealRef}>
-                        <h2 className={cn("text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans")}>
-                            A collection of animated, accessible and performant components. Made for the web.
-                        </h2>
-                    </TextReveal>
-                    <div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
-                        <BubbleButton asChild>
-                            <Link href="/docs/getting-started">View docs</Link>
-                        </BubbleButton>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </LenisProvider>
-    );
-}
- 
 export default Hero;

@@ -1,14 +1,14 @@
-  {
-    "title": "Home",
-    "root": true,
-    "pages": [
-      "getting-started",
-      "contribute",
-      "---Components---",
-      "...components",
-      "---Hooks---",
-      "...hooks",
-      "---Utilities---",
-      "...utilities"
-    ]
-  }
+{
+	"title": "Home",
+	"root": true,
+	"pages": [
+		"getting-started",
+		"contribute",
+		"---Components---",
+		"...components",
+		"---Hooks---",
+		"...hooks",
+		"---Utilities---",
+		"...utilities"
+	]
+}

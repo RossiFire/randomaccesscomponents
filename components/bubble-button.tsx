@@ -2,12 +2,16 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 
-
-function BubbleButton({ className, asChild = false, ...props }: React.ComponentProps<'button'> & { asChild?: boolean }) {
-    const Comp = asChild ? Slot : 'button';
-  return (
-    <Comp
-      className={cn(`
+function BubbleButton({
+	className,
+	asChild = false,
+	...props
+}: React.ComponentProps<"button"> & { asChild?: boolean }) {
+	const Comp = asChild ? Slot : "button";
+	return (
+		<Comp
+			className={cn(
+				`
         relative z-0 flex items-center gap-2 overflow-hidden whitespace-nowrap rounded-md
             border border-muted-foreground/20 bg-gradient-to-br from-background/80 to-muted
            px-3 py-1.5
@@ -23,12 +27,11 @@ function BubbleButton({ className, asChild = false, ...props }: React.ComponentP
             hover:scale-105 hover:text-muted
             hover:before:translate-y-0
             active:scale-100`,
-        className
-      )}
-      {...props}
-    />
-    
-  );
-};
+				className
+			)}
+			{...props}
+		/>
+	);
+}
 
 export default BubbleButton;

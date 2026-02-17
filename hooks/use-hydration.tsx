@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
  * @returns {boolean} isMounted
  */
 export const useHydration = (): boolean => {
-  const [isMounted, setIsMounded] = useState(false);
+	const [isMounted, setIsMounded] = useState(false);
 
-  useEffect(() => {
-    setIsMounded(true);
-  }, []);
+	useEffect(() => {
+		setIsMounded(true);
+	}, []);
 
-  return isMounted;
+	return isMounted;
 };

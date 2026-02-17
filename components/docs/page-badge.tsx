@@ -1,15 +1,16 @@
 import TechBadge, { Badge } from "../ui/tech-badge";
 
-
 interface PageBadgeProps {
-    badges: Badge[];
+	badges: Badge[];
 }
 const PageBadge: React.FC<PageBadgeProps> = ({ badges }) => {
-    return (
-        <div className="flex gap-2 items-center">
-            {badges.map((badge,i) => <TechBadge key={i} badge={badge} />)}
-        </div>
-    );
+	return (
+		<div className="flex gap-2 items-center">
+			{badges.map((badge, i) => (
+				<TechBadge key={i} badge={badge} />
+			))}
+		</div>
+	);
 };
 
 export default PageBadge;

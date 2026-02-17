@@ -5,18 +5,18 @@ import { Nextjs, React, TailwindCSS, CSS, RadixUI, TypeScript } from "@/componen
 import { CodeBlock } from "@/components/codeblock";
 import { PreviewCodeBlock } from "@/components/docs/preview-code-block";
 
-export { 
-    PageBadge,
-    MultiCodeBlock,
-    PkgInstallerTabs,
-    Nextjs,
-    React,
-    TailwindCSS,
-    CSS,
-    RadixUI,
-    TypeScript,
-    CodeBlock,
-    PreviewCodeBlock,
+export {
+	PageBadge,
+	MultiCodeBlock,
+	PkgInstallerTabs,
+	Nextjs,
+	React,
+	TailwindCSS,
+	CSS,
+	RadixUI,
+	TypeScript,
+	CodeBlock,
+	PreviewCodeBlock,
 };
 
 export * from "./components";

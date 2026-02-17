@@ -1,9 +1,9 @@
 /* This file is used to export all the components */
 export {
-  TextRevealDemo,
-  TextRevealAlternativeDemo,
-  TextRevealWrongDemo,
-  TextRevealScrollingDemo
+	TextRevealDemo,
+	TextRevealAlternativeDemo,
+	TextRevealWrongDemo,
+	TextRevealScrollingDemo,
 } from "@/demo/components/text-reveal/demo";
 export { FollowMouseDemo } from "./follow-mouse/demo";
 export { MagnetDemo } from "./magnet/demo";

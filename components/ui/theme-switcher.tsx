@@ -5,15 +5,25 @@ import { KeyboardButton } from "../keyboard-button";
 import { cn } from "@/lib/utils";
 
 const ThemeSwitcher = ({ className, ...props }: React.ComponentProps<typeof KeyboardButton>) => {
+	const { theme, setTheme } = useTheme();
 
-
-  const { theme, setTheme } = useTheme();
-
-  return (
-    <KeyboardButton onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className={cn("min-h-0 p-1 bg-background text-primary border-muted-foreground/50 rounded-sm mb-2", className)} {...props}>
-      {theme === "dark" ? <SunIcon className="size-4 text-warning" /> : <MoonIcon className="size-4 text-info" />}
-    </KeyboardButton>
-  );
+	return (
+		<KeyboardButton
+			aria-label={`Toggle theme to ${theme === "dark" ? "light" : "dark"}`}
+			onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+			className={cn(
+				"min-h-0 p-1 bg-background text-primary border-muted-foreground/50 rounded-sm mb-2",
+				className
+			)}
+			{...props}
+		>
+			{theme === "dark" ? (
+				<SunIcon className="size-4 text-warning" />
+			) : (
+				<MoonIcon className="size-4 text-info" />
+			)}
+		</KeyboardButton>
+	);
 };
 
 export default ThemeSwitcher;

@@ -1,5 +1,5 @@
-import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { cn } from 'fumadocs-ui/utils/cn';
+import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import { cn } from "fumadocs-ui/utils/cn";
 
 /**
  * Shared layout configurations
@@ -9,14 +9,20 @@ import { cn } from 'fumadocs-ui/utils/cn';
  * Docs Layout: app/docs/layout.tsx
  */
 export function baseOptions(): BaseLayoutProps {
-  return {
-    nav: {
-      title: (
-        <span className={cn('text-sm text-muted-foreground font-sans hover:text-primary-foreground transition-colors duration-300')}>Random Access Components</span>
-      ),
-    },
-    githubUrl: "https://github.com/RossiFire/randomaccesscomponents",
-    // see https://fumadocs.dev/docs/ui/navigation/links
-    links: [],
-  };
+	return {
+		nav: {
+			title: (
+				<span
+					className={cn(
+						"text-sm text-muted-foreground font-sans hover:text-primary-foreground transition-colors duration-300"
+					)}
+				>
+					Random Access Components
+				</span>
+			),
+		},
+		githubUrl: "https://github.com/RossiFire/randomaccesscomponents",
+		// see https://fumadocs.dev/docs/ui/navigation/links
+		links: [],
+	};
 }

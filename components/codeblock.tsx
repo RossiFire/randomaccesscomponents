@@ -1,369 +1,342 @@
-'use client';
-import { Check, Clipboard } from 'lucide-react';
+"use client";
+import { Check, Clipboard } from "lucide-react";
 import {
-  type ComponentProps,
-  createContext,
-  type HTMLAttributes,
-  type ReactNode,
-  type RefObject,
-  useContext,
-  useMemo,
-  useRef,
-} from 'react';
-import { cn } from '../lib/utils';
-import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
-import * as TechIcons from './ui/tech-icons';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from './tabs.unstyled';
-import { mergeRefs } from '../lib/merge-refs';
+	type ComponentProps,
+	createContext,
+	type HTMLAttributes,
+	type ReactNode,
+	type RefObject,
+	useContext,
+	useMemo,
+	useRef,
+} from "react";
+import { cn } from "../lib/utils";
+import { useCopyButton } from "fumadocs-ui/utils/use-copy-button";
+import * as TechIcons from "./ui/tech-icons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs.unstyled";
+import { mergeRefs } from "../lib/merge-refs";
 
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva, type VariantProps } from "class-variance-authority";
 
 const variants = {
-  primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
-  outline: 'border hover:bg-accent hover:text-accent-foreground',
-  ghost: 'hover:bg-accent hover:text-accent-foreground',
-  secondary:
-    'border bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground',
+	primary: "bg-primary text-primary-foreground hover:bg-primary/80",
+	outline: "border hover:bg-accent hover:text-accent-foreground",
+	ghost: "hover:bg-accent hover:text-accent-foreground",
+	secondary:
+		"border bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground",
 } as const;
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md p-2 text-sm font-medium transition-colors duration-100 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-  {
-    variants: {
-      variant: variants,
-      // fumadocs use `color` instead of `variant`
-      color: variants,
-      size: {
-        sm: 'gap-1 px-2 py-1.5 text-xs',
-        icon: 'p-1.5 [&_svg]:size-5',
-        'icon-sm': 'p-1.5 [&_svg]:size-4.5',
-        'icon-xs': 'p-1 [&_svg]:size-4',
-      },
-    },
-  },
+	"inline-flex items-center justify-center rounded-md p-2 text-sm font-medium transition-colors duration-100 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+	{
+		variants: {
+			variant: variants,
+			// fumadocs use `color` instead of `variant`
+			color: variants,
+			size: {
+				sm: "gap-1 px-2 py-1.5 text-xs",
+				icon: "p-1.5 [&_svg]:size-5",
+				"icon-sm": "p-1.5 [&_svg]:size-4.5",
+				"icon-xs": "p-1 [&_svg]:size-4",
+			},
+		},
+	}
 );
 
 export type ButtonProps = VariantProps<typeof buttonVariants>;
 
 const ICON_ALIASES = {
-  next: TechIcons.Nextjs,
-  nextjs: TechIcons.Nextjs,
-  express: TechIcons.Expressjs,
-  expressjs: TechIcons.Expressjs,
-  react: TechIcons.React,
-  motion: TechIcons.Motion,
-  framer: TechIcons.Motion,
-  framermotion: TechIcons.Motion,
-  tailwind: TechIcons.TailwindCSS,
-  tailwindcss: TechIcons.TailwindCSS,
-  supabase: TechIcons.Supabase,
-  shadcn: TechIcons.ShadcnUi,
-  shadcnui: TechIcons.ShadcnUi,
-  vercel: TechIcons.Vercel,
-  gsap: TechIcons.Gsap,
-  npm: TechIcons.NPM,
-  pnpm: TechIcons.Pnpm,
-  yarn: TechIcons.Yarn,
-  bun: TechIcons.Bun,
-  css: TechIcons.CSS,
-  radix: TechIcons.RadixUI,
-  radixui: TechIcons.RadixUI,
-  typescript: TechIcons.TypeScript,
-  ts: TechIcons.TypeScript,
-  json: TechIcons.JSON,
+	next: TechIcons.Nextjs,
+	nextjs: TechIcons.Nextjs,
+	express: TechIcons.Expressjs,
+	expressjs: TechIcons.Expressjs,
+	react: TechIcons.React,
+	motion: TechIcons.Motion,
+	framer: TechIcons.Motion,
+	framermotion: TechIcons.Motion,
+	tailwind: TechIcons.TailwindCSS,
+	tailwindcss: TechIcons.TailwindCSS,
+	supabase: TechIcons.Supabase,
+	shadcn: TechIcons.ShadcnUi,
+	shadcnui: TechIcons.ShadcnUi,
+	vercel: TechIcons.Vercel,
+	gsap: TechIcons.Gsap,
+	npm: TechIcons.NPM,
+	pnpm: TechIcons.Pnpm,
+	yarn: TechIcons.Yarn,
+	bun: TechIcons.Bun,
+	css: TechIcons.CSS,
+	radix: TechIcons.RadixUI,
+	radixui: TechIcons.RadixUI,
+	typescript: TechIcons.TypeScript,
+	ts: TechIcons.TypeScript,
+	json: TechIcons.JSON,
 } as const;
 
 function resolveNamedIcon(icon: string) {
-  const normalized = icon.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
-  return ICON_ALIASES[normalized as keyof typeof ICON_ALIASES];
+	const normalized = icon
+		.trim()
+		.toLowerCase()
+		.replace(/[^a-z0-9]/g, "");
+	return ICON_ALIASES[normalized as keyof typeof ICON_ALIASES];
 }
 
-export interface CodeBlockProps extends ComponentProps<'figure'> {
-  /**
-   * Icon of code block
-   *
-   * When passed as a string, it assumes the value is the HTML of icon
-   */
-  icon?: ReactNode;
+export interface CodeBlockProps extends ComponentProps<"figure"> {
+	/**
+	 * Icon of code block
+	 *
+	 * When passed as a string, it assumes the value is the HTML of icon
+	 */
+	icon?: ReactNode;
 
-  /**
-   * Allow to copy code with copy button
-   *
-   * @defaultValue true
-   */
-  allowCopy?: boolean;
+	/**
+	 * Allow to copy code with copy button
+	 *
+	 * @defaultValue true
+	 */
+	allowCopy?: boolean;
 
-  /**
-   * Keep original background color generated by Shiki or Rehype Code
-   *
-   * @defaultValue false
-   */
-  keepBackground?: boolean;
+	/**
+	 * Keep original background color generated by Shiki or Rehype Code
+	 *
+	 * @defaultValue false
+	 */
+	keepBackground?: boolean;
 
-  viewportProps?: HTMLAttributes<HTMLElement>;
+	viewportProps?: HTMLAttributes<HTMLElement>;
 
-  /**
-   * show line numbers
-   */
-  'data-line-numbers'?: boolean;
+	/**
+	 * show line numbers
+	 */
+	"data-line-numbers"?: boolean;
 
-  /**
-   * @defaultValue 1
-   */
-  'data-line-numbers-start'?: number;
+	/**
+	 * @defaultValue 1
+	 */
+	"data-line-numbers-start"?: number;
 
-  Actions?: (props: { className?: string; children?: ReactNode }) => ReactNode;
+	Actions?: (props: { className?: string; children?: ReactNode }) => ReactNode;
 
-  'data-icon'?: string;
+	"data-icon"?: string;
 }
 
 const TabsContext = createContext<{
-  containerRef: RefObject<HTMLDivElement | null>;
-  nested: boolean;
+	containerRef: RefObject<HTMLDivElement | null>;
+	nested: boolean;
 } | null>(null);
 
-export function Pre(props: ComponentProps<'pre'>) {
-  return (
-    <pre
-      {...props}
-      className={cn('min-w-full w-max *:flex *:flex-col', props.className)}
-    >
-      {props.children}
-    </pre>
-  );
+export function Pre(props: ComponentProps<"pre">) {
+	return (
+		<pre {...props} className={cn("min-w-full w-max *:flex *:flex-col", props.className)}>
+			{props.children}
+		</pre>
+	);
 }
 
 export function CodeBlock({
-  ref,
-  title,
-  allowCopy = true,
-  keepBackground = false,
-  icon,
-  'data-icon': dataIcon,
-  viewportProps = {},
-  children,
-  Actions = (props) => (
-    <div {...props} className={cn('empty:hidden', props.className)} />
-  ),
-  ...props
+	ref,
+	title,
+	allowCopy = true,
+	keepBackground = false,
+	icon,
+	"data-icon": dataIcon,
+	viewportProps = {},
+	children,
+	Actions = (props) => <div {...props} className={cn("empty:hidden", props.className)} />,
+	...props
 }: CodeBlockProps) {
-  const inTab = useContext(TabsContext) !== null;
-  const areaRef = useRef<HTMLDivElement>(null);
-  const resolvedIcon = dataIcon ?? icon;
+	const inTab = useContext(TabsContext) !== null;
+	const areaRef = useRef<HTMLDivElement>(null);
+	const resolvedIcon = dataIcon ?? icon;
 
-  return (
-    <figure
-      data-lenis-prevent
-      ref={ref}
-      dir="ltr"
-      {...props}
-      className={cn(
-        inTab
-          ? 'bg-secondary -mx-px -mb-px last:rounded-b-xl'
-          : 'my-2 bg-card rounded-xl',
-        keepBackground && 'bg-(--shiki-light-bg) dark:bg-(--shiki-dark-bg)',
+	return (
+		<figure
+			data-lenis-prevent
+			ref={ref}
+			dir="ltr"
+			{...props}
+			className={cn(
+				inTab ? "bg-secondary -mx-px -mb-px last:rounded-b-xl" : "my-2 bg-card rounded-xl",
+				keepBackground && "bg-(--shiki-light-bg) dark:bg-(--shiki-dark-bg)",
 
-        'shiki relative border shadow-sm outline-none not-prose overflow-hidden text-sm',
-        props.className,
-      )}
-    >
-      {title ? (
-        <div className="flex text-muted-foreground items-center gap-2 h-9.5 border-b px-4">
-          {typeof resolvedIcon === 'string' ? (
-            (() => {
-              const Icon = resolveNamedIcon(resolvedIcon);
-              if (Icon) {
-                return (
-                  <Icon
-                    className="!size-3.5"
-                    aria-hidden
-                  />
-                );
-              }
+				"shiki relative border shadow-sm outline-none not-prose overflow-hidden text-sm",
+				props.className
+			)}
+		>
+			{title ? (
+				<div className="flex text-muted-foreground items-center gap-2 h-9.5 border-b px-4">
+					{typeof resolvedIcon === "string"
+						? (() => {
+								const Icon = resolveNamedIcon(resolvedIcon);
+								if (Icon) {
+									return <Icon className="!size-3.5" aria-hidden />;
+								}
 
-              if (!resolvedIcon.includes('<')) {
-                return null;
-              }
+								if (!resolvedIcon.includes("<")) {
+									return null;
+								}
 
-              return (
-              <div
-                className="[&_svg]:size-3.5"
-                dangerouslySetInnerHTML={{
-                  __html: resolvedIcon,
-                }}
-              />
-              );
-            })()
-          ) : (
-            resolvedIcon
-          )}
-          <figcaption className="flex-1 truncate">{title}</figcaption>
-          {Actions({
-            className: '-me-2',
-            children: allowCopy && <CopyButton containerRef={areaRef} />,
-          })}
-        </div>
-      ) : (
-        Actions({
-          className:
-            'absolute top-2 right-2 z-2 backdrop-blur-lg rounded-lg text-muted-foreground',
-          children: allowCopy && <CopyButton containerRef={areaRef} />,
-        })
-      )}
-      <div
-        ref={areaRef}
-        {...viewportProps}
-        className={cn(
-          'text-[13px] py-3.5 overflow-auto max-h-[600px] fd-scroll-container',
-          viewportProps.className,
-        )}
-        style={
-          {
-            // space for toolbar
-            '--padding-right': !title ? 'calc(var(--spacing) * 8)' : undefined,
-            counterSet: props['data-line-numbers']
-              ? `line ${Number(props['data-line-numbers-start'] ?? 1) - 1}`
-              : undefined,
-            ...viewportProps.style,
-          } as object
-        }
-      >
-        {children}
-      </div>
-    </figure>
-  );
+								return (
+									<div
+										className="[&_svg]:size-3.5"
+										dangerouslySetInnerHTML={{
+											__html: resolvedIcon,
+										}}
+									/>
+								);
+							})()
+						: resolvedIcon}
+					<figcaption className="flex-1 truncate">{title}</figcaption>
+					{Actions({
+						className: "-me-2",
+						children: allowCopy && <CopyButton containerRef={areaRef} />,
+					})}
+				</div>
+			) : (
+				Actions({
+					className: "absolute top-2 right-2 z-2 backdrop-blur-lg rounded-lg text-muted-foreground",
+					children: allowCopy && <CopyButton containerRef={areaRef} />,
+				})
+			)}
+			<div
+				ref={areaRef}
+				{...viewportProps}
+				className={cn(
+					"text-[13px] py-3.5 overflow-auto max-h-[600px] fd-scroll-container",
+					viewportProps.className
+				)}
+				style={
+					{
+						// space for toolbar
+						"--padding-right": !title ? "calc(var(--spacing) * 8)" : undefined,
+						counterSet: props["data-line-numbers"]
+							? `line ${Number(props["data-line-numbers-start"] ?? 1) - 1}`
+							: undefined,
+						...viewportProps.style,
+					} as object
+				}
+			>
+				{children}
+			</div>
+		</figure>
+	);
 }
 
 function CopyButton({
-  className,
-  containerRef,
-  ...props
-}: ComponentProps<'button'> & {
-  containerRef: RefObject<HTMLElement | null>;
+	className,
+	containerRef,
+	...props
+}: ComponentProps<"button"> & {
+	containerRef: RefObject<HTMLElement | null>;
 }) {
-  const [checked, onClick] = useCopyButton(() => {
-    const pre = containerRef.current?.getElementsByTagName('pre').item(0);
-    if (!pre) return;
+	const [checked, onClick] = useCopyButton(() => {
+		const pre = containerRef.current?.getElementsByTagName("pre").item(0);
+		if (!pre) return;
 
-    const clone = pre.cloneNode(true) as HTMLElement;
-    clone.querySelectorAll('.nd-copy-ignore').forEach((node) => {
-      node.replaceWith('\n');
-    });
+		const clone = pre.cloneNode(true) as HTMLElement;
+		clone.querySelectorAll(".nd-copy-ignore").forEach((node) => {
+			node.replaceWith("\n");
+		});
 
-    void navigator.clipboard.writeText(clone.textContent ?? '');
-  });
+		void navigator.clipboard.writeText(clone.textContent ?? "");
+	});
 
-  return (
-    <button
-      type="button"
-      data-checked={checked || undefined}
-      className={cn(
-        buttonVariants({
-          className:
-            'hover:text-accent-foreground data-[checked]:text-accent-foreground',
-          size: 'icon-xs',
-        }),
-        className,
-      )}
-      aria-label={checked ? 'Copied Text' : 'Copy Text'}
-      onClick={onClick}
-      {...props}
-    >
-      {checked ? <Check /> : <Clipboard />}
-    </button>
-  );
+	return (
+		<button
+			type="button"
+			data-checked={checked || undefined}
+			className={cn(
+				buttonVariants({
+					className: "hover:text-accent-foreground data-[checked]:text-accent-foreground",
+					size: "icon-xs",
+				}),
+				className
+			)}
+			aria-label={checked ? "Copied Text" : "Copy Text"}
+			onClick={onClick}
+			{...props}
+		>
+			{checked ? <Check /> : <Clipboard />}
+		</button>
+	);
 }
 
 export function CodeBlockTabs({ ref, ...props }: ComponentProps<typeof Tabs>) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const nested = useContext(TabsContext) !== null;
+	const containerRef = useRef<HTMLDivElement>(null);
+	const nested = useContext(TabsContext) !== null;
 
-  return (
-    <Tabs
-      ref={mergeRefs(containerRef, ref)}
-      {...props}
-      className={cn(
-        'bg-card rounded-xl border',
-        !nested && 'my-4',
-        props.className,
-      )}
-    >
-      <TabsContext.Provider
-        value={useMemo(
-          () => ({
-            containerRef,
-            nested,
-          }),
-          [nested],
-        )}
-      >
-        {props.children}
-      </TabsContext.Provider>
-    </Tabs>
-  );
+	return (
+		<Tabs
+			ref={mergeRefs(containerRef, ref)}
+			{...props}
+			className={cn("bg-card rounded-xl border", !nested && "my-4", props.className)}
+		>
+			<TabsContext.Provider
+				value={useMemo(
+					() => ({
+						containerRef,
+						nested,
+					}),
+					[nested]
+				)}
+			>
+				{props.children}
+			</TabsContext.Provider>
+		</Tabs>
+	);
 }
 
 export function CodeBlockTabsList(props: ComponentProps<typeof TabsList>) {
-  return (
-    <TabsList
-      {...props}
-      className={cn(
-        'flex flex-row px-2 overflow-x-auto text-muted-foreground',
-        props.className,
-      )}
-    >
-      {props.children}
-    </TabsList>
-  );
+	return (
+		<TabsList
+			{...props}
+			className={cn("flex flex-row px-2 overflow-x-auto text-muted-foreground", props.className)}
+		>
+			{props.children}
+		</TabsList>
+	);
 }
 
 export function CodeBlockTabsTrigger({
-  children,
-  icon,
-  ...props
+	children,
+	icon,
+	...props
 }: ComponentProps<typeof TabsTrigger> & {
-  /**
-   * Optional icon shown near the tab label.
-   * When passed as a string, it resolves to a named tech icon or renders raw HTML.
-   * When passed as a ReactNode, it renders directly.
-   */
-  icon?: ReactNode;
+	/**
+	 * Optional icon shown near the tab label.
+	 * When passed as a string, it resolves to a named tech icon or renders raw HTML.
+	 * When passed as a ReactNode, it renders directly.
+	 */
+	icon?: ReactNode;
 }) {
-  const resolvedIcon = typeof icon === 'string' ? (() => {
-    const Icon = resolveNamedIcon(icon);
-    if (Icon) return <Icon className="!size-3.5 text-current" aria-hidden />;
-    if (icon.includes('<')) {
-      return (
-        <div
-          className="[&_svg]:size-3.5"
-          dangerouslySetInnerHTML={{ __html: icon }}
-        />
-      );
-    }
-    return null;
-  })() : icon;
+	const resolvedIcon =
+		typeof icon === "string"
+			? (() => {
+					const Icon = resolveNamedIcon(icon);
+					if (Icon) return <Icon className="!size-3.5 text-current" aria-hidden />;
+					if (icon.includes("<")) {
+						return <div className="[&_svg]:size-3.5" dangerouslySetInnerHTML={{ __html: icon }} />;
+					}
+					return null;
+				})()
+			: icon;
 
-  return (
-    <TabsTrigger
-      {...props}
-      className={cn(
-        'relative group inline-flex text-sm font-medium text-nowrap items-center transition-colors gap-2 px-2 py-1.5 hover:text-accent-foreground data-[state=active]:text-primary [&_svg]:size-3.5',
-        props.className,
-      )}
-    >
-      <div className="absolute inset-x-2 bottom-0 h-px group-data-[state=active]:bg-primary" />
-      {resolvedIcon}
-      {children}
-    </TabsTrigger>
-  );
+	return (
+		<TabsTrigger
+			{...props}
+			className={cn(
+				"relative group inline-flex text-sm font-medium text-nowrap items-center transition-colors gap-2 px-2 py-1.5 hover:text-accent-foreground data-[state=active]:text-primary [&_svg]:size-3.5",
+				props.className
+			)}
+		>
+			<div className="absolute inset-x-2 bottom-0 h-px group-data-[state=active]:bg-primary" />
+			{resolvedIcon}
+			{children}
+		</TabsTrigger>
+	);
 }
 
 // TODO: currently Vite RSC plugin has problem with `asChild` due to children is automatically wrapped in <Fragment />, maybe revisit this in future
 export function CodeBlockTab(props: ComponentProps<typeof TabsContent>) {
-  return <TabsContent {...props} />;
+	return <TabsContent {...props} />;
 }

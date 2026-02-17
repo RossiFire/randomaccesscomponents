@@ -2,35 +2,35 @@
 import { useState, useEffect } from "react";
 
 const getOs = () => {
-  if (typeof window === "undefined") {
-    return "unknown";
-  }
+	if (typeof window === "undefined") {
+		return "unknown";
+	}
 
-  const userAgent = window.navigator.userAgent;
+	const userAgent = window.navigator.userAgent;
 
-  if (/Windows|Win32|Win64|WinCE/.test(userAgent)) {
-    return "windows";
-  } else if (/Mac OS X|Macintosh/.test(userAgent)) {
-    return "macos";
-  } else if (/Linux/.test(userAgent)) {
-    return "linux";
-  } else if (/iPhone|iPad|iPod/.test(userAgent)) {
-    return "ios";
-  } else if (/Android/.test(userAgent)) {
-    return "android";
-  }
+	if (/Windows|Win32|Win64|WinCE/.test(userAgent)) {
+		return "windows";
+	} else if (/Mac OS X|Macintosh/.test(userAgent)) {
+		return "macos";
+	} else if (/Linux/.test(userAgent)) {
+		return "linux";
+	} else if (/iPhone|iPad|iPod/.test(userAgent)) {
+		return "ios";
+	} else if (/Android/.test(userAgent)) {
+		return "android";
+	}
 
-  return "unknown";
+	return "unknown";
 };
 
 type Os = "macos" | "windows" | "ios" | "android" | "linux" | "unknown";
 
 export const useOs = () => {
-  const [os, setOs] = useState<Os>("unknown");
+	const [os, setOs] = useState<Os>("unknown");
 
-  useEffect(() => {
-    setOs(getOs());
-  }, []);
+	useEffect(() => {
+		setOs(getOs());
+	}, []);
 
-  return os;
+	return os;
 };
