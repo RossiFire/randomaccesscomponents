@@ -2,10 +2,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { cn } from "@/lib/utils";
-import { SplitText } from "gsap/SplitText";
 import Link from "next/link";
 import { useHydration } from "@/hooks/use-hydration";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { ShimmerText } from "@/components/shimmer-text";
 import Device from "../components/showcase/device";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,11 +12,11 @@ import { GridBackground } from "../components/beam-bg";
 import LenisProvider from "@/providers/LenisProvider";
 import BubbleButton from "@/components/bubble-button";
 import useScreenSize from "@/hooks/use-screen-size";
-import { TextReveal, TextRevealHandle } from "@/components/text-reveal";
+import { TextReveal, type TextRevealHandle } from "@/components/text-reveal";
 
-gsap.registerPlugin(SplitText, ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-const Hero: React.FC = () => {
+function Hero() {
 	const isMounted = useHydration();
 	const { width } = useScreenSize();
 	const isMobile = width < 768;
@@ -35,7 +34,6 @@ const Hero: React.FC = () => {
 		if (!isMounted) return;
 
 		const tl = gsap.timeline({ delay: 0.25 });
-		const splittedH2 = new SplitText("h2", { type: "lines" });
 
 		/* Initial Timeline */
 
@@ -46,19 +44,10 @@ const Hero: React.FC = () => {
 			stagger: 0.03,
 			ease: "back.out(1.7)",
 		})
-			.from(
-				splittedH2.lines,
-				{
-					y: 50,
-					opacity: 0,
-					delay: 0.25,
-					stagger: 0.03,
-					ease: "back.out(1.7)",
-					onComplete: () => {
-						textRevealRef.current?.play();
-					},
-				},
-				"<20%"
+			.call(
+				() => { textRevealRef.current?.play() },
+				[],
+				"<50%"
 			)
 			.from(
 				".hero-buttons > *",
@@ -161,7 +150,7 @@ const Hero: React.FC = () => {
 								Random Access Components
 							</h1>
 						</ShimmerText>
-						<TextReveal asChild ref={textRevealRef}>
+						<TextReveal ref={textRevealRef} asChild>
 							<h2
 								className={cn(
 									"text-base md:text-xl lg:text-2xl text-left font-light text-muted-foreground px-2 md:px-0 max-w-2xl font-sans"
@@ -180,6 +169,6 @@ const Hero: React.FC = () => {
 			</div>
 		</LenisProvider>
 	);
-};
+}
 
 export default Hero;

@@ -3,7 +3,7 @@ import { DemoBlock } from "@/components/demo-block";
 import { Button } from "@/components/ui/button";
 import LenisProvider from "@/providers/LenisProvider";
 import { useState } from "react";
-import { LenisOptions } from "lenis";
+import type { LenisOptions } from "lenis";
 
 const GsapLenisScrollDemo: React.FC = () => {
 	const [lenisOptions, setLenisOptions] = useState<LenisOptions>({

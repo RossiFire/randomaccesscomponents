@@ -45,7 +45,7 @@ export const buttonVariants = cva(
 
 export type ButtonProps = VariantProps<typeof buttonVariants>;
 
-const ICON_ALIASES = {
+const iconAliases = {
 	next: TechIcons.Nextjs,
 	nextjs: TechIcons.Nextjs,
 	express: TechIcons.Expressjs,
@@ -70,7 +70,7 @@ const ICON_ALIASES = {
 	radixui: TechIcons.RadixUI,
 	typescript: TechIcons.TypeScript,
 	ts: TechIcons.TypeScript,
-	json: TechIcons.JSON,
+	json: TechIcons.Json,
 } as const;
 
 function resolveNamedIcon(icon: string) {
@@ -78,7 +78,7 @@ function resolveNamedIcon(icon: string) {
 		.trim()
 		.toLowerCase()
 		.replace(/[^a-z0-9]/g, "");
-	return ICON_ALIASES[normalized as keyof typeof ICON_ALIASES];
+	return iconAliases[normalized as keyof typeof iconAliases];
 }
 
 export interface CodeBlockProps extends ComponentProps<"figure"> {
@@ -120,7 +120,7 @@ export interface CodeBlockProps extends ComponentProps<"figure"> {
 	"data-icon"?: string;
 }
 
-const TabsContext = createContext<{
+const tabsContext = createContext<{
 	containerRef: RefObject<HTMLDivElement | null>;
 	nested: boolean;
 } | null>(null);
@@ -145,7 +145,7 @@ export function CodeBlock({
 	Actions = (props) => <div {...props} className={cn("empty:hidden", props.className)} />,
 	...props
 }: CodeBlockProps) {
-	const inTab = useContext(TabsContext) !== null;
+	const inTab = useContext(tabsContext) !== null;
 	const areaRef = useRef<HTMLDivElement>(null);
 	const resolvedIcon = dataIcon ?? icon;
 
@@ -263,7 +263,7 @@ function CopyButton({
 
 export function CodeBlockTabs({ ref, ...props }: ComponentProps<typeof Tabs>) {
 	const containerRef = useRef<HTMLDivElement>(null);
-	const nested = useContext(TabsContext) !== null;
+	const nested = useContext(tabsContext) !== null;
 
 	return (
 		<Tabs
@@ -271,7 +271,7 @@ export function CodeBlockTabs({ ref, ...props }: ComponentProps<typeof Tabs>) {
 			{...props}
 			className={cn("bg-card rounded-xl border", !nested && "my-4", props.className)}
 		>
-			<TabsContext.Provider
+			<tabsContext.Provider
 				value={useMemo(
 					() => ({
 						containerRef,
@@ -281,7 +281,7 @@ export function CodeBlockTabs({ ref, ...props }: ComponentProps<typeof Tabs>) {
 				)}
 			>
 				{props.children}
-			</TabsContext.Provider>
+			</tabsContext.Provider>
 		</Tabs>
 	);
 }

@@ -1,7 +1,7 @@
 import useScreenSize from "./use-screen-size";
 
-const MOBILE_WIDTH = 768;
-const TABLET_WIDTH = 1024;
+const mobileWidth = 768;
+const tabletWidth = 1024;
 
 export type BreakPoints = {
 	isMobile: boolean;
@@ -12,9 +12,9 @@ export type BreakPoints = {
 export const useBreakPoints = (): BreakPoints => {
 	const { width } = useScreenSize();
 
-	const isMobile = width < MOBILE_WIDTH;
-	const isTablet = width >= MOBILE_WIDTH && width < TABLET_WIDTH;
-	const isDesktop = width >= TABLET_WIDTH;
+	const isMobile = width < mobileWidth;
+	const isTablet = width >= mobileWidth && width < tabletWidth;
+	const isDesktop = width >= tabletWidth;
 
 	return { isMobile, isTablet, isDesktop };
 };

@@ -3,7 +3,6 @@ import { KeyboardButton } from "@/components/keyboard-button";
 import { MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 import { animate, AnimatePresence, motion, stagger } from "framer-motion";
 import ThemeSwitcher from "@/components/ui/theme-switcher";
 

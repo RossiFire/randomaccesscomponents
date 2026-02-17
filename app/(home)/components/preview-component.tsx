@@ -6,42 +6,29 @@ import { createHighlighter } from "shiki";
 import { motion, AnimatePresence } from "motion/react";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 import { Markee, MarkeeContent, MarkeeFade, MarkeeItem, MarkeeSpacer } from "@/components/markee";
-import {
-	CSS,
-	Gsap,
-	Motion,
-	TypeScript,
-	Nextjs,
-	RadixUI,
-	React as ReactIcon,
-	TailwindCSS,
-} from "@/components/ui/tech-icons";
 import { ShimmerText } from "@/components/shimmer-text";
-import { GripVertical } from "lucide-react";
+import TechBadge from "@/components/ui/tech-badge";
 
 const icons = [
-	<TailwindCSS />,
-	<ReactIcon />,
-	<RadixUI />,
-	<Motion />,
-	<Nextjs />,
-	<Gsap />,
-	<TypeScript />,
-	<CSS />,
+	<TechBadge key="nextjs" badge="nextjs" />,
+	<TechBadge key="gsap" badge="gsap" />,
+	<TechBadge key="react" badge="react" />,
+	<TechBadge key="motion" badge="motion" />,
+	<TechBadge key="tailwindcss" badge="tailwindcss" />,
 ];
 
-const DEMO_CODE = `<Markee className='w-full'>
+const demoCode = `<Markee className='w-full'>
     <MarkeeContent>
     {icons.map((icon, index) => (
         <React.Fragment key={index}>
             {icon}
-            <MarkeeSpacer className='w-8'/>
+            <MarkeeSpacer className='w-4'/>
         </React.Fragment>
     ))}
     </MarkeeContent>
 </Markee>`;
 
-const DEMO_CODE_TWO = `<Markee className='w-full'>
+const demoCodeTwo = `<Markee className='w-full'>
     <MarkeeContent>
     {icons.map((icon, index) => (
         <React.Fragment key={index}>
@@ -54,21 +41,21 @@ const DEMO_CODE_TWO = `<Markee className='w-full'>
     </MarkeeContent>
 </Markee>`;
 
-const DEMO_CODE_THREE = `<Markee className='w-full'>
+const demoCodeThree = `<Markee className='w-full'>
     <MarkeeFade position="left" />
     <MarkeeContent>
     {icons.map((icon, index) => (
         <React.Fragment key={index}>
             {icon}
-            <MarkeeSpacer className='w-8'/>
+            <MarkeeSpacer className='w-4'/>
         </React.Fragment>
     ))}
     </MarkeeContent>
     <MarkeeFade position="right" />
 </Markee>`;
 
-const CODE_SNIPPETS = [DEMO_CODE, DEMO_CODE_TWO, DEMO_CODE_THREE];
-const CYCLE_MS = 6000;
+const codeSnippets = [demoCode, demoCodeTwo, demoCodeThree];
+const cycleMs = 6000;
 
 interface TokenizedLine {
 	key: string;
@@ -92,7 +79,7 @@ function DemoOne() {
 				{icons.map((icon, index) => (
 					<React.Fragment key={index}>
 						<MarkeeItem>{icon}</MarkeeItem>
-						<MarkeeSpacer className="w-8" />
+						<MarkeeSpacer className="w-4" />
 					</React.Fragment>
 				))}
 			</MarkeeContent>
@@ -107,7 +94,7 @@ function DemoTwo() {
 				{icons.map((icon, index) => (
 					<React.Fragment key={index}>
 						<MarkeeItem>{icon}</MarkeeItem>
-						<MarkeeSpacer className="mx-6 flex items-center justify-center text-2xl">
+						<MarkeeSpacer className="mx-2 md:mx-6 flex items-center justify-center text-xs md:text-2xl">
 							✦
 						</MarkeeSpacer>
 					</React.Fragment>
@@ -125,7 +112,7 @@ function DemoThree() {
 				{icons.map((icon, index) => (
 					<React.Fragment key={index}>
 						<MarkeeItem>{icon}</MarkeeItem>
-						<MarkeeSpacer className="w-8" />
+						<MarkeeSpacer className="w-4" />
 					</React.Fragment>
 				))}
 			</MarkeeContent>
@@ -134,7 +121,7 @@ function DemoThree() {
 	);
 }
 
-const DEMOS = [DemoOne, DemoTwo, DemoThree];
+const demos = [DemoOne, DemoTwo, DemoThree];
 
 function PreviewComponentEditor({
 	className,
@@ -153,7 +140,7 @@ function PreviewComponentEditor({
 		})
 			.then((hl) => {
 				if (cancelled) return;
-				const tokenized = CODE_SNIPPETS.map((code) => {
+				const tokenized = codeSnippets.map((code) => {
 					const result = hl.codeToTokens(code, { lang: "tsx", theme: "github-dark" });
 					const rawLines = code.split("\n");
 					const keys = getLineKeys(rawLines);
@@ -174,8 +161,8 @@ function PreviewComponentEditor({
 	useEffect(() => {
 		if (allTokenized.length === 0) return;
 		const id = setInterval(() => {
-			setCodeIndex((i) => (i + 1) % CODE_SNIPPETS.length);
-		}, CYCLE_MS);
+			setCodeIndex((i) => (i + 1) % codeSnippets.length);
+		}, cycleMs);
 		return () => clearInterval(id);
 	}, [allTokenized]);
 
@@ -184,15 +171,15 @@ function PreviewComponentEditor({
 	return (
 		<div
 			className={cn(
-				"w-full rounded-2xl border border-border overflow-hidden h-[500px] md:h-auto",
+				"w-full min-w-0 rounded-2xl border border-border overflow-hidden h-[500px] md:h-auto",
 				className
 			)}
 			{...props}
 		>
 			<ResizablePanelGroup orientation={isMobile ? "vertical" : "horizontal"} disabled={isMobile}>
 				{/* Code panel — animated read-only */}
-				<ResizablePanel defaultSize={isMobile ? 75 : 50}>
-					<div className="h-fit py-20 px-12 bg-muted dark grid place-items-center p-4 relative overflow-x-auto">
+				<ResizablePanel defaultSize={isMobile ? 70 : 50}>
+					<div className="h-full md:h-fit py-12 md:py-20 px-4 md:px-12 bg-muted dark grid place-items-center relative overflow-x-auto min-w-0">
 						<ShimmerText asChild>
 							<span className="absolute top-4 left-4 font-sans text-sm [background:radial-gradient(circle_at_center,var(--muted),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]">
 								Markee Component
@@ -200,8 +187,8 @@ function PreviewComponentEditor({
 						</ShimmerText>
 						{/* Fallback while Shiki loads */}
 						{currentLines.length === 0 && (
-							<code className="block font-mono text-[13px] leading-[1.7] text-[#e1e4e8] whitespace-pre">
-								{CODE_SNIPPETS[0]}
+							<code className="block font-mono text-[10px] md:text-[13px] leading-[1.7] text-[#e1e4e8] whitespace-pre">
+								{codeSnippets[0]}
 							</code>
 						)}
 
@@ -209,7 +196,7 @@ function PreviewComponentEditor({
 							<pre className="w-full">
 								<motion.code
 									layout
-									className="block relative font-mono text-[13px] leading-[1.7] [tab-size:4]"
+									className="block relative font-mono text-[10px] md:text-[13px] leading-[1.7] [tab-size:4]"
 								>
 									<AnimatePresence mode="popLayout" initial={false}>
 										{currentLines.map(({ key, tokens }) => (
@@ -255,8 +242,8 @@ function PreviewComponentEditor({
 				<ResizableHandle withHandle className="hidden md:flex" />
 
 				{/* Preview panel — synced with code */}
-				<ResizablePanel defaultSize={isMobile ? 25 : 50} minSize={0}>
-					<div className="h-full bg-background flex items-center justify-center overflow-hidden relative">
+				<ResizablePanel defaultSize={isMobile ? 30 : 50} minSize={0}>
+					<div className="h-full w-full bg-background flex items-center justify-center overflow-hidden relative contain-[inline-size]">
 						<AnimatePresence mode="wait">
 							<motion.div
 								key={codeIndex}
@@ -264,9 +251,9 @@ function PreviewComponentEditor({
 								animate={{ opacity: 1, filter: "blur(0px)" }}
 								exit={{ opacity: 0, filter: "blur(6px)" }}
 								transition={{ duration: 0.4, ease: "easeInOut" }}
-								className="w-full"
+								className="w-full min-w-0 overflow-hidden"
 							>
-								{React.createElement(DEMOS[codeIndex])}
+								{React.createElement(demos[codeIndex])}
 							</motion.div>
 						</AnimatePresence>
 					</div>

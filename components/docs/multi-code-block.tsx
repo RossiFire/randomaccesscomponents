@@ -2,7 +2,7 @@ import { Children, isValidElement, type ReactElement, type ReactNode } from "rea
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../tabs";
-import { type CodeBlockProps } from "../codeblock";
+import type { CodeBlockProps } from "../codeblock";
 
 export interface MultiCodeBlockItem {
 	/**

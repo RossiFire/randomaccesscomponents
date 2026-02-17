@@ -1,13 +1,12 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { GridBackground } from "../components/beam-bg";
 import { Motion, RadixUI, React, TailwindCSS } from "@/components/ui/tech-icons";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useHydration } from "@/hooks/use-hydration";
 import useScreenSize from "@/hooks/use-screen-size";
-import { cn } from "@/lib/utils";
 import { Glow } from "@/components/glow";
 
 function Features() {
@@ -19,8 +18,6 @@ function Features() {
 		if (!isMounted) return;
 
 		const cards = gsap.utils.toArray(".glow-card") as HTMLElement[];
-
-		console.log(cards);
 
 		const tl = gsap.timeline({
 			scrollTrigger: {

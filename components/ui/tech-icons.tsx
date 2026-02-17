@@ -373,6 +373,7 @@ const RadixUI = ({ className, size = "base", ...props }: IconProps) => (
 		viewBox="4 0 17 25"
 		className={cn(iconVariants({ size, className }), "text-base")}
 	>
+		<title>Radix UI icon</title>
 		<path
 			fill="currentColor"
 			d="M12 25a8 8 0 1 1 0-16v16zM12 0H4v8h8V0zM17 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
@@ -399,13 +400,14 @@ const TypeScript = ({ className, size = "base", ...props }: IconProps) => (
 	</svg>
 );
 
-const JSON = ({ className, size = "base", ...props }: IconProps) => (
+const Json = ({ className, size = "base", ...props }: IconProps) => (
 	<svg
 		{...props}
 		xmlnsXlink="http://www.w3.org/1999/xlink"
 		viewBox="0 0 160 160"
 		className={cn(iconVariants({ size, className }))}
 	>
+		<title>JSON icon</title>
 		<defs>
 			<linearGradient id="json__a">
 				<stop offset="0" />
@@ -462,5 +464,5 @@ export {
 	CSS,
 	RadixUI,
 	TypeScript,
-	JSON,
+	Json,
 };

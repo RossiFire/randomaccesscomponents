@@ -16,6 +16,7 @@ const RippleButtonDemo: React.FC = () => {
 			containerClassName="min-h-82 flex items-center justify-center gap-12"
 		>
 			<button
+				type="button"
 				id="myButton"
 				className="px-6 py-2 group z-10 font-medium border-2 border-accent-demo cursor-pointer rounded-lg relative overflow-hidden"
 			>
@@ -56,6 +57,7 @@ const RippleButtonDemo: React.FC = () => {
 							strokeLinejoin="round"
 							className="translate-x-0 group-hover:translate-x-1 transition-transform duration-300"
 						>
+							<title>Arrow right icon</title>
 							<path d="M5 12h14" />
 							<path d="m12 5 7 7-7 7" />
 						</svg>

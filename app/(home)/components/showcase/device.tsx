@@ -6,8 +6,6 @@ import { KeyboardButton } from "@/components/keyboard-button";
 import Magnet from "@/demo/components/magnet/magnet";
 import { MousePointer2Icon } from "lucide-react";
 import { Ripple } from "@/demo/components/ripple/Ripple";
-import Link from "next/link";
-import { TextReveal } from "@/components/text-reveal";
 import { DemoCard } from "./showcase-card";
 import { ShowcaseTextReveal } from "./showcase-text-reveal";
 
@@ -41,6 +39,7 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 				</DemoCard>
 				<DemoCard className="col-span-4" name="Ripple" link="/docs/components/ripple">
 					<button
+						type="button"
 						id="device-demo-button"
 						className="px-6 py-2 group z-10 font-medium border-2 text-accent-demo hover:text-white border-accent-demo cursor-pointer rounded-lg relative overflow-hidden focus-visible:outline-accent-demo focus-visible:outline-offset-4"
 					>
@@ -70,7 +69,7 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 	);
 }
 
-const DemoMarkee = () => {
+function DemoMarkee() {
 	return (
 		<Markee className="w-full">
 			<MarkeeFade position="left" />
@@ -85,7 +84,7 @@ const DemoMarkee = () => {
 			<MarkeeFade position="right" />
 		</Markee>
 	);
-};
+}
 
 function LiftText({
 	className,

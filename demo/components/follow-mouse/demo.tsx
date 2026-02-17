@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import tailwindLogo from "@/public/assets/badges/tailwind_logo.png";
 
-const EMOJIS = [
+const emojis = [
 	"🤡",
 	"🤔",
 	"🤨",
@@ -43,11 +43,11 @@ const FollowMouseDemo: React.FC = () => {
 	const [isVolumeOn, setIsVolumeOn] = useState(false);
 
 	const [selectedEmoji, setSelectedEmoji] = useState(
-		EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
+		emojis[Math.floor(Math.random() * emojis.length)]
 	);
 
 	const onMouseLeave = () => {
-		setSelectedEmoji(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]);
+		setSelectedEmoji(emojis[Math.floor(Math.random() * emojis.length)]);
 	};
 
 	return (
@@ -103,7 +103,8 @@ const FollowMouseDemo: React.FC = () => {
 						</div>
 					</MouseFollowContent>
 					<MouseFollowContent asChild>
-						<div
+						<button
+							type="button"
 							onMouseLeave={onMouseLeave}
 							className="flex cursor-pointer flex-col w-60 gap-4 bg-gradient-to-br from-background to-muted-foreground/10 border border-muted-foreground/10 rounded-lg p-4"
 						>
@@ -115,7 +116,7 @@ const FollowMouseDemo: React.FC = () => {
 							<MouseFollowItem offsetX={25} offsetY={25}>
 								{selectedEmoji}
 							</MouseFollowItem>
-						</div>
+						</button>
 					</MouseFollowContent>
 				</div>
 				<h2 className="mt-0 mb-2 text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-foreground">
@@ -126,7 +127,8 @@ const FollowMouseDemo: React.FC = () => {
 				</p>
 				<div className="w-full gap-4 flex justify-center">
 					<MouseFollowContent asChild>
-						<div
+						<button
+							type="button"
 							onClick={() => setIsVolumeOn(!isVolumeOn)}
 							className="flex cursor-none select-none flex-col w-60 gap-4 bg-gradient-to-br from-background to-muted-foreground/10 border border-muted-foreground/10 rounded-lg p-4"
 						>
@@ -137,7 +139,7 @@ const FollowMouseDemo: React.FC = () => {
 							<MouseFollowItem>
 								<CenterItemContent isVolumeOn={isVolumeOn} />
 							</MouseFollowItem>
-						</div>
+						</button>
 					</MouseFollowContent>
 					<MouseFollowContent asChild>
 						<div className="flex flex-col w-60 gap-4 bg-gradient-to-br from-background to-muted-foreground/10 border border-muted-foreground/10 rounded-lg p-4">

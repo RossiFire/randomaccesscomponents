@@ -48,7 +48,7 @@ function CodeSection() {
 	if (!isMounted) return null;
 
 	return (
-		<section className="min-h-svh relative grid place-items-center" id="editor">
+		<section className="min-h-svh relative grid items-center" id="editor">
 			<div className="container flex flex-col items-center justify-center h-full gap-10 md:gap-14 lg:gap-20 py-20 z-[3]">
 				<h2 className="text-2xl md:text-3xl lg:text-5xl font-serif z-[3] text-center">
 					Exactly how you&apos;d use it

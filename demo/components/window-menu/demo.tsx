@@ -2,18 +2,16 @@
 
 import { DemoBlock } from "@/components/demo-block";
 import WindowMenu from "./window-menu";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { CheckCircle2Icon, CheckIcon, MoonIcon, SunIcon } from "lucide-react";
+import { CheckCircle2Icon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
 const WindowMenuDemo: React.FC = () => {
-	const [fullScreen, setFullScreen] = useState(false);
 
 	return (
 		<DemoBlock
-			className={cn("relative", fullScreen && "fixed inset-0 size-full")}
+			className={cn("relative")}
 			containerClassName="max-h-[900px] flex flex-col justify-start p-0"
 		>
 			<WindowMenu>
@@ -71,7 +69,7 @@ const WindowMenuDemo: React.FC = () => {
 	);
 };
 
-const ThemeSwitcher = () => {
+function ThemeSwitcher() {
 	const { theme, setTheme } = useTheme();
 
 	return (
@@ -85,6 +83,6 @@ const ThemeSwitcher = () => {
 			<MoonIcon className={cn("size-4", theme === "light" && "hidden")} />
 		</Button>
 	);
-};
+}
 
 export { WindowMenuDemo };

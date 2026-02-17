@@ -57,6 +57,7 @@ export default function InputFile({
 								</span>
 							</div>
 							<button
+								type="button"
 								onClick={() => onRemove(index)}
 								className="ml-2 p-1 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
 								aria-label={`Remove ${file.name}`}

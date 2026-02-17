@@ -2,21 +2,19 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-const MarkeeContext = React.createContext<boolean>(false);
-const MarkeeContentContext = React.createContext<boolean>(false);
+const markeeContext = React.createContext<boolean>(false);
+const markeeContentContext = React.createContext<boolean>(false);
 
 function Markee({ className, ...props }: React.ComponentProps<"div">) {
 	return (
-		<MarkeeContext.Provider value={true}>
+		<markeeContext.Provider value={true}>
 			<div
 				data-slot="markee"
 				className={cn("relative flex overflow-hidden max-w-fit", className)}
-				role="region"
-				aria-label="Marquee content"
 				aria-live="polite"
 				{...props}
 			/>
-		</MarkeeContext.Provider>
+		</markeeContext.Provider>
 	);
 }
 Markee.displayName = "Markee";
@@ -26,7 +24,7 @@ function MarkeeFade({
 	position,
 	...props
 }: React.ComponentProps<"div"> & { position: "left" | "right" }) {
-	const isInMarkee = React.useContext(MarkeeContext);
+	const isInMarkee = React.useContext(markeeContext);
 
 	if (!isInMarkee) {
 		console.error("MarkeeFade must be used inside a Markee component");
@@ -56,7 +54,6 @@ function MarkeeSpacer({ className, ...props }: React.ComponentProps<"div">) {
 			data-slot="markee-spacer"
 			className={cn("shrink-0 w-4", className)}
 			aria-hidden="true"
-			aria-label="Marquee spacer"
 			{...props}
 		/>
 	);
@@ -109,7 +106,7 @@ function MarkeeContent({
 		[duration, ease, direction]
 	);
 
-	const isInMarkee = React.useContext(MarkeeContext);
+	const isInMarkee = React.useContext(markeeContext);
 
 	if (!isInMarkee) {
 		console.error("MarkeeContent must be used inside a Markee component");
@@ -117,7 +114,7 @@ function MarkeeContent({
 	}
 
 	return (
-		<MarkeeContentContext.Provider value={true}>
+		<markeeContentContext.Provider value={true}>
 			<div
 				data-slot="markee-content-wrapper"
 				style={{ ...animationStyle }}
@@ -131,7 +128,6 @@ function MarkeeContent({
 				<ul
 					data-slot="markee-content"
 					className="flex shrink-0 justify-around min-w-full pl-0!"
-					role="list"
 					aria-label="Marquee content list"
 					{...props}
 				/>
@@ -143,13 +139,13 @@ function MarkeeContent({
 					aria-hidden="true"
 				/>
 			</div>
-		</MarkeeContentContext.Provider>
+		</markeeContentContext.Provider>
 	);
 }
 MarkeeContent.displayName = "MarkeeContent";
 
 function MarkeeItem({ ...props }: React.ComponentProps<"li">) {
-	return <li data-slot="markee-item" role="listitem" aria-label="Marquee item" {...props} />;
+	return <li data-slot="markee-item" aria-label="Marquee item" {...props} />;
 }
 MarkeeItem.displayName = "MarkeeItem";
 

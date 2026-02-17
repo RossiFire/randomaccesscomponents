@@ -1,6 +1,6 @@
 "use client";
 
-import { TextReveal, TextRevealHandle } from "@/components/text-reveal";
+import { TextReveal, type TextRevealHandle } from "@/components/text-reveal";
 import { useRef, useState } from "react";
 import { DemoCard } from "./showcase-card";
 

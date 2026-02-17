@@ -9,7 +9,7 @@ import Magnet from "../magnet/magnet";
 import { Button } from "@/components/ui/button";
 import { interFont } from "@/lib/fonts";
 
-const MENU_OPTIONS: OptionItem[] = [
+const menuOptions: OptionItem[] = [
 	{
 		id: "about",
 		label: "About",
@@ -243,7 +243,7 @@ const FloatingMenu: React.FC = () => {
 					role="tablist"
 					aria-label="Menu options"
 				>
-					{MENU_OPTIONS.map((link, index) => (
+					{menuOptions.map((link, index) => (
 						<button
 							role="tab"
 							ref={(el) => {
@@ -389,13 +389,13 @@ const FloatingMenu: React.FC = () => {
 						<XIcon className="size-4" aria-hidden="true" />
 					</button>
 				</div>
-				<OptionsPanelContent option={currentOption} />
+				<optionsPanelContent option={currentOption} />
 			</div>
 		</nav>
 	);
 };
 
-const OptionsPanelContent = ({ option }: { option: OptionItem | null }) => {
+const optionsPanelContent = ({ option }: { option: OptionItem | null }) => {
 	if (!option) return null;
 
 	if (option.id === "about")

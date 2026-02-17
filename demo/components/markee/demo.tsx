@@ -17,14 +17,14 @@ import { useHydration } from "@/hooks/use-hydration";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BADGES = [
-	<TechBadge badge="nextjs" />,
-	<TechBadge badge="gsap" />,
-	<TechBadge badge="react" />,
-	<TechBadge badge="typescript" />,
-	<TechBadge badge="motion" />,
-	<TechBadge badge="tailwind" />,
-	<TechBadge badge="css" />,
+const badges = [
+	<TechBadge key="nextjs" badge="nextjs" />,
+	<TechBadge key="gsap" badge="gsap" />,
+	<TechBadge key="react" badge="react" />,
+	<TechBadge key="typescript" badge="typescript" />,
+	<TechBadge key="motion" badge="motion" />,
+	<TechBadge key="tailwind" badge="tailwindcss" />,
+	<TechBadge key="css" badge="css" />,
 ];
 
 const MarkeeDemo: React.FC = () => {
@@ -50,7 +50,7 @@ const MarkeeDemo: React.FC = () => {
 					direction={direction}
 					paused={paused}
 				>
-					{BADGES.map((badge, index) => (
+					{badges.map((badge, index) => (
 						<React.Fragment key={index}>
 							<MarkeeItem className="list-none">{badge}</MarkeeItem>
 							<MarkeeSpacer className="w-2 md:w-4" />
@@ -174,7 +174,7 @@ const MarkeeDemoWithGSAP: React.FC = () => {
 				<Markee className="w-full md:w-3/4">
 					<MarkeeFade position="left" className="from-background" />
 					<MarkeeContent className="mymarkee-content animate-none!" paused>
-						{BADGES.map((badge, index) => (
+						{badges.map((badge, index) => (
 							<React.Fragment key={index}>
 								<MarkeeItem className="list-none">{badge}</MarkeeItem>
 								<MarkeeSpacer className="w-2 md:w-4" />
@@ -186,7 +186,7 @@ const MarkeeDemoWithGSAP: React.FC = () => {
 				<Markee className="w-full md:w-3/4">
 					<MarkeeFade position="left" className="from-background" />
 					<MarkeeContent className="mymarkee-content-right animate-none!" paused direction="right">
-						{BADGES.map((badge, index) => (
+						{badges.map((badge, index) => (
 							<React.Fragment key={index}>
 								<MarkeeItem className="list-none">{badge}</MarkeeItem>
 								<MarkeeSpacer className="w-2 md:w-4" />
@@ -251,7 +251,7 @@ const MarkeeDemoWithFramerMotion: React.FC = () => {
 						<MarkeeFade position="left" className="from-background" />
 						<MarkeeContent className="mymarkee-content animate-none!" paused>
 							<motion.div style={{ translateX }} className="flex">
-								{BADGES.map((badge, index) => (
+								{badges.map((badge, index) => (
 									<React.Fragment key={index}>
 										<MarkeeItem className="list-none">{badge}</MarkeeItem>
 										<MarkeeSpacer className="w-2 md:w-4" />
@@ -265,7 +265,7 @@ const MarkeeDemoWithFramerMotion: React.FC = () => {
 						<MarkeeFade position="left" className="from-background" />
 						<MarkeeContent className="mymarkee-content animate-none!" paused>
 							<motion.div style={{ translateX: translateXInverse }} className="flex">
-								{BADGES.map((badge, index) => (
+								{badges.map((badge, index) => (
 									<React.Fragment key={index}>
 										<MarkeeItem className="list-none">{badge}</MarkeeItem>
 										<MarkeeSpacer className="w-2 md:w-4" />

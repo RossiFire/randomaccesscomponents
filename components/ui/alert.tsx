@@ -40,7 +40,7 @@ export const Alert = ({ variant, color, size, children, ...props }: AlertProps) 
 	);
 };
 
-const AlertIcon = ({ variant }: { variant: AlertProps["variant"] }) => {
+function AlertIcon({ variant }: { variant: AlertProps["variant"] }) {
 	return (
 		<div className="flex items-center justify-start">
 			{variant === "info" && <Info className="size-4" />}
@@ -49,4 +49,4 @@ const AlertIcon = ({ variant }: { variant: AlertProps["variant"] }) => {
 			{variant === "error" && <AlertCircle className="size-4" />}
 		</div>
 	);
-};
+}

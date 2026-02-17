@@ -1,6 +1,6 @@
 "use client";
 import { DemoBlock } from "@/components/demo-block";
-import { CheckCircle2Icon, Maximize2, MoonIcon, SunIcon } from "lucide-react";
+import { CheckCircle2Icon, MoonIcon, SunIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FloatingMenu from "./FloatingMenu";
 import { useTheme } from "next-themes";
@@ -88,7 +88,7 @@ const FloatingMenuDemo: React.FC = () => {
 	);
 };
 
-const ThemeSwitcher: React.FC = () => {
+function ThemeSwitcher() {
 	const { theme, setTheme } = useTheme();
 
 	return (
@@ -102,6 +102,6 @@ const ThemeSwitcher: React.FC = () => {
 			<MoonIcon className={cn("size-4", theme === "light" && "hidden")} />
 		</Button>
 	);
-};
+}
 
 export { FloatingMenuDemo };

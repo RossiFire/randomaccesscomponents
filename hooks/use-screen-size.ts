@@ -39,6 +39,7 @@ const useScreenSize = (options?: ScreenSizeOptions) => {
 				height: Math.round((screenSize.height * 100) / baseWindowSize.height),
 			};
 		case "px":
+			return screenSize;
 		default:
 			return screenSize;
 	}

@@ -1,5 +1,4 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { cn } from "fumadocs-ui/utils/cn";
 
 /**
  * Shared layout configurations
@@ -12,11 +11,7 @@ export function baseOptions(): BaseLayoutProps {
 	return {
 		nav: {
 			title: (
-				<span
-					className={cn(
-						"text-sm text-muted-foreground font-sans hover:text-primary-foreground transition-colors duration-300"
-					)}
-				>
+				<span className="text-sm text-muted-foreground font-sans hover:text-primary-foreground transition-colors duration-300">
 					Random Access Components
 				</span>
 			),

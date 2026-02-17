@@ -126,7 +126,7 @@ const WindowMenu: React.FC<WindowMenuProps> = ({ children }) => {
 
 	return (
 		<>
-			<NavTrigger setOpen={setOpen} open={open} />
+			<navTrigger setOpen={setOpen} open={open} />
 			<div className="wrapper size-full">
 				<header
 					ref={navRef}
@@ -159,8 +159,8 @@ const WindowMenu: React.FC<WindowMenuProps> = ({ children }) => {
 						</div>
 
 						<div className="corners absolute bottom-0 left-0 right-0 w-full" aria-hidden="true">
-							<Corner className="absolute -bottom-[34px] -left-[2px] -rotate-90 text-[#212121] dark:text-[#F8FAFC] md:-left-[17px]" />
-							<Corner className="absolute -bottom-[36px] -right-[4px] text-[#212121] dark:text-[#F8FAFC] md:-right-[18px]" />
+							<corner className="absolute -bottom-[34px] -left-[2px] -rotate-90 text-[#212121] dark:text-[#F8FAFC] md:-left-[17px]" />
+							<corner className="absolute -bottom-[36px] -right-[4px] text-[#212121] dark:text-[#F8FAFC] md:-right-[18px]" />
 						</div>
 					</div>
 				</header>
@@ -170,7 +170,7 @@ const WindowMenu: React.FC<WindowMenuProps> = ({ children }) => {
 	);
 };
 
-const NavTrigger = ({ setOpen, open }: { setOpen: (open: boolean) => void; open: boolean }) => {
+const navTrigger = ({ setOpen, open }: { setOpen: (open: boolean) => void; open: boolean }) => {
 	const onReload = () => {
 		window.location.reload();
 	};
@@ -205,7 +205,7 @@ const NavTrigger = ({ setOpen, open }: { setOpen: (open: boolean) => void; open:
 	);
 };
 
-const Corner = ({ className }: { className?: string }) => {
+const corner = ({ className }: { className?: string }) => {
 	return (
 		<svg className={cn("h-9 w-8", className)} viewBox="0 0 8 9" xmlns="http://www.w3.org/2000/svg">
 			<path

@@ -1,27 +1,28 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
 import { useHydration } from "@/hooks/use-hydration";
 import { cn } from "@/lib/utils";
 
-const H = { h: 0, m: 180 },
-	V = { h: 270, m: 90 },
-	TL = { h: 180, m: 270 },
-	TR = { h: 0, m: 270 },
-	BL = { h: 180, m: 90 },
-	BR = { h: 0, m: 90 },
-	E = { h: 135, m: 135 };
+const h = { h: 0, m: 180 },
+	v = { h: 270, m: 90 },
+	tl = { h: 180, m: 270 },
+	tr = { h: 0, m: 270 },
+	bl = { h: 180, m: 90 },
+	br = { h: 0, m: 90 },
+	e = { h: 135, m: 135 };
 
 const digits = [
-	[BR, H, H, BL, V, BR, BL, V, V, V, V, V, V, V, V, V, V, TR, TL, V, TR, H, H, TL],
-	[BR, H, BL, E, TR, BL, V, E, E, V, V, E, E, V, V, E, BR, TL, TR, BL, TR, H, H, TL],
-	[BR, H, H, BL, TR, H, BL, V, BR, H, TL, V, V, BR, H, TL, V, TR, H, BL, TR, H, H, TL],
-	[BR, H, H, BL, TR, H, BL, V, E, BR, TL, V, E, TR, BL, V, BR, H, TL, V, TR, H, H, TL],
-	[BR, BL, BR, BL, V, V, V, V, V, TR, TL, V, TR, H, BL, V, E, E, V, V, E, E, TR, TL],
-	[BR, H, H, BL, V, BR, H, TL, V, TR, H, BL, TR, H, BL, V, BR, H, TL, V, TR, H, H, TL],
-	[BR, H, H, BL, V, BR, H, TL, V, TR, H, BL, V, BR, BL, V, V, TR, TL, V, TR, H, H, TL],
-	[BR, H, H, BL, TR, H, BL, V, E, E, V, V, E, E, V, V, E, E, V, V, E, E, TR, TL],
-	[BR, H, H, BL, V, BR, BL, V, V, TR, TL, V, V, BR, BL, V, V, TR, TL, V, TR, H, H, TL],
-	[BR, H, H, BL, V, BR, BL, V, V, TR, TL, V, TR, H, BL, V, BR, H, TL, V, TR, H, H, TL],
+	[br, h, h, bl, v, br, bl, v, v, v, v, v, v, v, v, v, v, tr, tl, v, tr, h, h, tl],
+	[br, h, bl, e, tr, bl, v, e, e, v, v, e, e, v, v, e, br, tl, tr, bl, tr, h, h, tl],
+	[br, h, h, bl, tr, h, bl, v, br, h, tl, v, v, br, h, tl, v, tr, h, bl, tr, h, h, tl],
+	[br, h, h, bl, tr, h, bl, v, e, br, tl, v, e, tr, bl, v, br, h, tl, v, tr, h, h, tl],
+	[br, bl, br, bl, v, v, v, v, v, tr, tl, v, tr, h, bl, v, e, e, v, v, e, e, tr, tl],
+	[br, h, h, bl, v, br, h, tl, v, tr, h, bl, tr, h, bl, v, br, h, tl, v, tr, h, h, tl],
+	[br, h, h, bl, v, br, h, tl, v, tr, h, bl, v, br, bl, v, v, tr, tl, v, tr, h, h, tl],
+	[br, h, h, bl, tr, h, bl, v, e, e, v, v, e, e, v, v, e, e, v, v, e, e, tr, tl],
+	[br, h, h, bl, v, br, bl, v, v, tr, tl, v, v, br, bl, v, v, tr, tl, v, tr, h, h, tl],
+	[br, h, h, bl, v, br, bl, v, v, tr, tl, v, tr, h, bl, v, br, h, tl, v, tr, h, h, tl],
 ];
 
 const normalizeAngle = (next: number, prev: number) => {
@@ -41,7 +42,7 @@ interface ClockProps {
 	m: number;
 }
 
-const Clock: React.FC<ClockProps> = ({ h, m }) => {
+function Clock({ h, m }: ClockProps) {
 	const prev = useRef({ h: 0, m: 0 });
 	const hourAngle = normalizeAngle(h, prev.current.h);
 	const minuteAngle = normalizeAngle(m, prev.current.m);
@@ -70,7 +71,7 @@ const Clock: React.FC<ClockProps> = ({ h, m }) => {
 					left: "50%",
 					transformOrigin: "0% 50%",
 					transform: `rotate(${hourAngle}deg)`,
-					transitionDuration: `0.4s`,
+					transitionDuration: "0.4s",
 				}}
 			/>
 			{/* Minute hand */}
@@ -82,7 +83,7 @@ const Clock: React.FC<ClockProps> = ({ h, m }) => {
 					left: "50%",
 					transformOrigin: "0% 50%",
 					transform: `rotate(${minuteAngle}deg)`,
-					transitionDuration: `0.4s`,
+					transitionDuration: "0.4s",
 				}}
 			/>
 		</div>

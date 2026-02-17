@@ -1,7 +1,7 @@
 import * as TechIcons from "./tech-icons";
 import { Glow } from "../glow";
 
-const ICON_ALIASES = {
+const iconAliases = {
 	nextjs: {
 		icon: TechIcons.Nextjs,
 		label: "Next.js",
@@ -83,22 +83,22 @@ const ICON_ALIASES = {
 		color: "#3075C0",
 	},
 	json: {
-		icon: TechIcons.JSON,
+		icon: TechIcons.Json,
 		label: "JSON",
 		color: "#151515",
 	},
 } as const;
 
-export type Badge = keyof typeof ICON_ALIASES;
+export type Badge = keyof typeof iconAliases;
 
 const TechBadge: React.FC<{ badge: Badge }> = ({ badge }) => {
-	const bd = ICON_ALIASES[badge];
+	const bd = iconAliases[badge];
 
 	if (!bd) {
 		return null;
 	}
 
-	const { icon, label, color } = ICON_ALIASES[badge];
+	const { icon, label, color } = iconAliases[badge];
 	return (
 		<Glow
 			aria-label={`${label} badge`}

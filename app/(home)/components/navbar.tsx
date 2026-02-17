@@ -1,11 +1,11 @@
-import * as React from "react";
+import type * as React from "react";
 import Link from "next/link";
 import ThemeSwitcher from "@/components/ui/theme-switcher";
 import { cn } from "@/lib/utils";
 import CustomKbd from "./custom-kbd";
 import MobileNav from "./mobile-nav";
 import { MoveUpRight } from "lucide-react";
-import rac_logo from "@/public/assets/rac_logo.png";
+import racLogo from "@/public/assets/rac_logo.png";
 import Image from "next/image";
 
 const navLinks = [
@@ -44,7 +44,7 @@ function Navbar({ className, ...props }: React.ComponentProps<"header">) {
 							className="text-base font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
 							aria-label="Back to home"
 						>
-							<Image src={rac_logo} alt="Rac UI Logo" className="size-10 object-contain" />
+							<Image src={racLogo} alt="Rac UI Logo" className="size-10 object-contain" />
 						</Link>
 						<ul className="items-center gap-6 hidden md:flex">
 							{navLinks.map((link) => (

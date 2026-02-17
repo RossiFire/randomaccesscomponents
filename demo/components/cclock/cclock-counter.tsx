@@ -1,27 +1,28 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
 import { useHydration } from "@/hooks/use-hydration";
 import { cn } from "@/lib/utils";
 
-const H = { a: 0, b: 180 },
-	V = { a: 270, b: 90 },
-	TL = { a: 180, b: 270 },
-	TR = { a: 0, b: 270 },
-	BL = { a: 180, b: 90 },
-	BR = { a: 0, b: 90 },
-	E = { a: 135, b: 135 };
+const h = { a: 0, b: 180 },
+	v = { a: 270, b: 90 },
+	tl = { a: 180, b: 270 },
+	tr = { a: 0, b: 270 },
+	bl = { a: 180, b: 90 },
+	br = { a: 0, b: 90 },
+	e = { a: 135, b: 135 };
 
 const digits = [
-	[BR, H, H, BL, V, BR, BL, V, V, V, V, V, V, V, V, V, V, TR, TL, V, TR, H, H, TL],
-	[BR, H, BL, E, TR, BL, V, E, E, V, V, E, E, V, V, E, BR, TL, TR, BL, TR, H, H, TL],
-	[BR, H, H, BL, TR, H, BL, V, BR, H, TL, V, V, BR, H, TL, V, TR, H, BL, TR, H, H, TL],
-	[BR, H, H, BL, TR, H, BL, V, E, BR, TL, V, E, TR, BL, V, BR, H, TL, V, TR, H, H, TL],
-	[BR, BL, BR, BL, V, V, V, V, V, TR, TL, V, TR, H, BL, V, E, E, V, V, E, E, TR, TL],
-	[BR, H, H, BL, V, BR, H, TL, V, TR, H, BL, TR, H, BL, V, BR, H, TL, V, TR, H, H, TL],
-	[BR, H, H, BL, V, BR, H, TL, V, TR, H, BL, V, BR, BL, V, V, TR, TL, V, TR, H, H, TL],
-	[BR, H, H, BL, TR, H, BL, V, E, E, V, V, E, E, V, V, E, E, V, V, E, E, TR, TL],
-	[BR, H, H, BL, V, BR, BL, V, V, TR, TL, V, V, BR, BL, V, V, TR, TL, V, TR, H, H, TL],
-	[BR, H, H, BL, V, BR, BL, V, V, TR, TL, V, TR, H, BL, V, BR, H, TL, V, TR, H, H, TL],
+	[br, h, h, bl, v, br, bl, v, v, v, v, v, v, v, v, v, v, tr, tl, v, tr, h, h, tl],
+	[br, h, bl, e, tr, bl, v, e, e, v, v, e, e, v, v, e, br, tl, tr, bl, tr, h, h, tl],
+	[br, h, h, bl, tr, h, bl, v, br, h, tl, v, v, br, h, tl, v, tr, h, bl, tr, h, h, tl],
+	[br, h, h, bl, tr, h, bl, v, e, br, tl, v, e, tr, bl, v, br, h, tl, v, tr, h, h, tl],
+	[br, bl, br, bl, v, v, v, v, v, tr, tl, v, tr, h, bl, v, e, e, v, v, e, e, tr, tl],
+	[br, h, h, bl, v, br, h, tl, v, tr, h, bl, tr, h, bl, v, br, h, tl, v, tr, h, h, tl],
+	[br, h, h, bl, v, br, h, tl, v, tr, h, bl, v, br, bl, v, v, tr, tl, v, tr, h, h, tl],
+	[br, h, h, bl, tr, h, bl, v, e, e, v, v, e, e, v, v, e, e, v, v, e, e, tr, tl],
+	[br, h, h, bl, v, br, bl, v, v, tr, tl, v, v, br, bl, v, v, tr, tl, v, tr, h, h, tl],
+	[br, h, h, bl, v, br, bl, v, v, tr, tl, v, tr, h, bl, v, br, h, tl, v, tr, h, h, tl],
 ];
 
 const normalizeAngle = (next: number, prev: number) => {
@@ -34,7 +35,7 @@ interface DialProps {
 	angle2: number;
 }
 
-const Dial: React.FC<DialProps> = ({ angle1, angle2 }) => {
+function Dial({ angle1, angle2 }: DialProps) {
 	const prev = useRef({ angle1: 0, angle2: 0 });
 	const normalizedAngle1 = normalizeAngle(angle1, prev.current.angle1);
 	const normalizedAngle2 = normalizeAngle(angle2, prev.current.angle2);
@@ -63,7 +64,7 @@ const Dial: React.FC<DialProps> = ({ angle1, angle2 }) => {
 					left: "50%",
 					transformOrigin: "0% 50%",
 					transform: `rotate(${normalizedAngle1}deg)`,
-					transitionDuration: `0.4s`,
+					transitionDuration: "0.4s",
 				}}
 			/>
 			{/* Second hand */}
@@ -75,7 +76,7 @@ const Dial: React.FC<DialProps> = ({ angle1, angle2 }) => {
 					left: "50%",
 					transformOrigin: "0% 50%",
 					transform: `rotate(${normalizedAngle2}deg)`,
-					transitionDuration: `0.4s`,
+					transitionDuration: "0.4s",
 				}}
 			/>
 		</div>
@@ -107,7 +108,7 @@ const ClockCounter: React.FC<ClockCounterProps> = ({ value, className }) => {
 
 	return (
 		<div
-			className={cn(`flex items-center justify-center font-sans text-center`, className)}
+			className={cn("flex items-center justify-center font-sans text-center", className)}
 			style={
 				{
 					"--dial-size": "3vw",

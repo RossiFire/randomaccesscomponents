@@ -1,9 +1,10 @@
 "use client";
-import React, { PropsWithChildren, useEffect } from "react";
+import { type PropsWithChildren, useEffect } from "react";
 import { ReactLenis } from "lenis/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { LenisOptions } from "lenis";
+import type Lenis from "lenis";
+import type { LenisOptions } from "lenis";
 
 interface LenisProviderProps {
 	options?: LenisOptions;
@@ -11,7 +12,7 @@ interface LenisProviderProps {
 
 const LenisProvider = ({ children, options }: PropsWithChildren<LenisProviderProps>) => {
 	useEffect(() => {
-		const lenis = (window as any).lenis;
+		const lenis = (window as (Window & typeof globalThis & { lenis: Lenis })).lenis;
 
 		if (lenis) {
 			lenis.on("scroll", ScrollTrigger.update);

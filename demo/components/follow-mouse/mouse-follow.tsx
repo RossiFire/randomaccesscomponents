@@ -10,7 +10,7 @@ interface MouseContextType {
 	y: number;
 }
 
-const MouseContext = React.createContext<MouseContextType | null>(null);
+const mouseContext = React.createContext<MouseContextType | null>(null);
 
 function MouseFollowContent({
 	asChild,
@@ -42,7 +42,7 @@ function MouseFollowContent({
 	const Comp = asChild ? Slot : "div";
 
 	return (
-		<MouseContext.Provider value={mouseState}>
+		<mouseContext.Provider value={mouseState}>
 			<Comp
 				data-slot="mouse-follow-content"
 				className={className}
@@ -51,7 +51,7 @@ function MouseFollowContent({
 				onMouseMove={handleMouseMove}
 				{...props}
 			/>
-		</MouseContext.Provider>
+		</mouseContext.Provider>
 	);
 }
 MouseFollowContent.displayName = "MouseFollowContent";
@@ -62,12 +62,9 @@ interface MouseFollowItemProps extends React.ComponentProps<"div"> {
 }
 
 function MouseFollowItem({ offsetX = 0, offsetY = 0, className, ...props }: MouseFollowItemProps) {
-	const context = React.useContext(MouseContext);
+	const context = React.useContext(mouseContext);
 
-	if (!context) {
-		console.error("MouseFollowItem must be used inside MouseFollowContent");
-		return null;
-	}
+	if (!context) return null;
 
 	const { isVisible, x, y } = context;
 

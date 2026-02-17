@@ -3,32 +3,18 @@
 import {
 	type ComponentProps,
 	createContext,
-	useContext,
+	use,
+	useEffectEvent,
 	useLayoutEffect,
 	useMemo,
 	useRef,
 	useState,
-	useCallback,
 } from "react";
 import * as Primitive from "@radix-ui/react-tabs";
-import { mergeRefs } from "../lib/merge-refs";
+import { mergeRefs } from "../../lib/merge-refs";
 
 type ChangeListener = (v: string) => void;
-const listeners = new Map<string, ChangeListener[]>();
-
-function addChangeListener(id: string, listener: ChangeListener): void {
-	const list = listeners.get(id) ?? [];
-	list.push(listener);
-	listeners.set(id, list);
-}
-
-function removeChangeListener(id: string, listener: ChangeListener): void {
-	const list = listeners.get(id) ?? [];
-	listeners.set(
-		id,
-		list.filter((item) => item !== listener)
-	);
-}
+const listeners = new Map<string, Set<ChangeListener>>();
 
 export interface TabsProps extends ComponentProps<typeof Primitive.Tabs> {
 	/**
@@ -47,12 +33,12 @@ export interface TabsProps extends ComponentProps<typeof Primitive.Tabs> {
 	updateAnchor?: boolean;
 }
 
-const tabsContext = createContext<{
+const TabsContext = createContext<{
 	valueToIdMap: Map<string, string>;
 } | null>(null);
 
 function useTabContext() {
-	const ctx = useContext(tabsContext);
+	const ctx = use(TabsContext);
 	if (!ctx) throw new Error("You must wrap your component in <Tabs>");
 	return ctx;
 }
@@ -61,39 +47,38 @@ export const TabsList = Primitive.TabsList;
 
 export const TabsTrigger = Primitive.TabsTrigger;
 
-/**
- * @internal You better not use it
- */
 export function Tabs({
 	ref,
 	groupId,
 	persist = false,
 	updateAnchor = false,
 	defaultValue,
-	value: Value,
-	onValueChange,
+	value: _value,
+	onValueChange: _onValueChange,
 	...props
 }: TabsProps) {
 	const tabsRef = useRef<HTMLDivElement>(null);
+	const valueToIdMap = useMemo(() => new Map<string, string>(), []);
 	const [value, setValue] =
-		Value === undefined
+		_value === undefined
 			? // eslint-disable-next-line react-hooks/rules-of-hooks -- not supposed to change controlled/uncontrolled
 				useState(defaultValue)
-			: [Value, onValueChange ?? (() => undefined)];
-
-	const onChange = useCallback((v: string) => setValue(v), []);
-	const valueToIdMap = useMemo(() => new Map<string, string>(), []);
+			: // eslint-disable-next-line react-hooks/rules-of-hooks -- not supposed to change controlled/uncontrolled
+				[_value, useEffectEvent((v: string) => _onValueChange?.(v))];
 
 	useLayoutEffect(() => {
 		if (!groupId) return;
-		const previous = persist ? localStorage.getItem(groupId) : sessionStorage.getItem(groupId);
+		let previous = sessionStorage.getItem(groupId);
+		if (persist) previous ??= localStorage.getItem(groupId);
+		if (previous) setValue(previous);
 
-		if (previous) onChange(previous);
-		addChangeListener(groupId, onChange);
+		const groupListeners = listeners.get(groupId) ?? new Set();
+		groupListeners.add(setValue);
+		listeners.set(groupId, groupListeners);
 		return () => {
-			removeChangeListener(groupId, onChange);
+			groupListeners.delete(setValue);
 		};
-	}, [groupId, onChange, persist]);
+	}, [groupId, persist, setValue]);
 
 	useLayoutEffect(() => {
 		const hash = window.location.hash.slice(1);
@@ -101,12 +86,12 @@ export function Tabs({
 
 		for (const [value, id] of valueToIdMap.entries()) {
 			if (id === hash) {
-				onChange(value);
+				setValue(value);
 				tabsRef.current?.scrollIntoView();
 				break;
 			}
 		}
-	}, [onChange, valueToIdMap]);
+	}, [setValue, valueToIdMap]);
 
 	return (
 		<Primitive.Tabs
@@ -122,21 +107,22 @@ export function Tabs({
 				}
 
 				if (groupId) {
-					listeners.get(groupId)?.forEach((item) => {
-						item(v);
-					});
+					const groupListeners = listeners.get(groupId);
+					if (groupListeners) {
+						for (const listener of groupListeners) listener(v);
+					}
 
+					sessionStorage.setItem(groupId, v);
 					if (persist) localStorage.setItem(groupId, v);
-					else sessionStorage.setItem(groupId, v);
 				} else {
 					setValue(v);
 				}
 			}}
 			{...props}
 		>
-			<tabsContext.Provider value={useMemo(() => ({ valueToIdMap }), [valueToIdMap])}>
+			<TabsContext value={useMemo(() => ({ valueToIdMap }), [valueToIdMap])}>
 				{props.children}
-			</tabsContext.Provider>
+			</TabsContext>
 		</Primitive.Tabs>
 	);
 }

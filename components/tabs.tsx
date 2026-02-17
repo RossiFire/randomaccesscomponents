@@ -36,13 +36,13 @@ export interface TabsProps
 	label?: ReactNode;
 }
 
-const TabsContext = createContext<{
+const tabsContext = createContext<{
 	items?: string[];
 	collection: CollectionKey[];
 } | null>(null);
 
 function useTabContext() {
-	const ctx = useContext(TabsContext);
+	const ctx = useContext(tabsContext);
 	if (!ctx) throw new Error("You must wrap your component in <Tabs>");
 	return ctx;
 }
@@ -110,9 +110,9 @@ export function Tabs({
 					))}
 				</TabsList>
 			)}
-			<TabsContext.Provider value={useMemo(() => ({ items, collection }), [collection, items])}>
+			<tabsContext.Provider value={useMemo(() => ({ items, collection }), [collection, items])}>
 				{props.children}
-			</TabsContext.Provider>
+			</tabsContext.Provider>
 		</Unstyled.Tabs>
 	);
 }
@@ -129,7 +129,7 @@ export function Tab({ value, ...props }: TabProps) {
 	const resolved =
 		value ??
 		// eslint-disable-next-line react-hooks/rules-of-hooks -- `value` is not supposed to change
-		items?.at(useCollectionIndex());
+		items?.at(UseCollectionIndex());
 	if (!resolved)
 		throw new Error(
 			"Failed to resolve tab `value`, please pass a `value` prop to the Tab component."
@@ -168,7 +168,7 @@ export function TabsContent({
  * Return the index of children, this is made possible by registering the order of render from children using React context.
  * This is supposed by work with pre-rendering & pure client-side rendering.
  */
-function useCollectionIndex() {
+function UseCollectionIndex() {
 	const key = useId();
 	const { collection } = useTabContext();
 

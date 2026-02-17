@@ -8,7 +8,7 @@ interface CustomKbdProps {
 	className?: string;
 }
 
-const CustomKbd: React.FC<CustomKbdProps> = ({ className }) => {
+function CustomKbd({ className }: CustomKbdProps) {
 	const simulate = () => {
 		const isMac = /Mac|iPod|iPhone|iPad/i.test(navigator.platform);
 
@@ -38,6 +38,6 @@ const CustomKbd: React.FC<CustomKbdProps> = ({ className }) => {
 			<div>{os === "macos" ? "⌘K" : "Ctrl + K"}</div>
 		</KeyboardButton>
 	);
-};
+}
 
 export default CustomKbd;

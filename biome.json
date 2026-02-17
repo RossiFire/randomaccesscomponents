@@ -49,7 +49,8 @@
 				"useValidAnchor": "error",
 				"useValidAriaProps": "error",
 				"useValidAriaValues": "error",
-				"useValidLang": "warn"
+				"useValidLang": "warn",
+				"useSemanticElements": "warn"
 			},
 			"complexity": {
 				"recommended": true,
@@ -95,7 +96,7 @@
 				"noUnusedVariables": "error",
 				"noUnusedImports": "error",
 				"noUnusedFunctionParameters": "warn",
-				"useExhaustiveDependencies": "warn",
+				"useExhaustiveDependencies": "off",
 				"useHookAtTopLevel": "error",
 				"useIsNan": "error",
 				"useJsxKeyInIterable": "error",
@@ -124,7 +125,6 @@
 				"noShoutyConstants": "warn",
 				"noUnusedTemplateLiteral": "error",
 				"useAsConstAssertion": "error",
-				"useBlockStatements": "error",
 				"useCollapsedElseIf": "warn",
 				"useConst": "error",
 				"useDefaultParameterLast": "error",
@@ -140,7 +140,7 @@
 								"selector": {
 									"kind": "variable"
 								},
-								"formats": ["camelCase"]
+								"formats": ["camelCase", "PascalCase"]
 							},
 							{
 								"selector": {

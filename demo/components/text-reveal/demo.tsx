@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Prata } from "next/font/google";
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import { TextReveal, TextRevealLine, TextRevealHandle } from "@/components/text-reveal";
+import { TextReveal, TextRevealLine, type TextRevealHandle } from "@/components/text-reveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +23,7 @@ const accentClasses = cn("text-primary", prata.className);
 
 const demoLines = [<TextRevealLine className="bg-primary" key="0" />];
 
-const DemoTextContent: React.FC = () => (
+const DemoTextContent = () => (
 	<>
 		<strong className={accentClasses}>Redefining</strong> Web, Chasing
 		<strong className={accentClasses}>Performance</strong>, Bringing It All In All Ways. Defining A

@@ -1,16 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { motion, Transition } from "motion/react";
+import { motion, type Transition } from "motion/react";
 import useScreenSize from "@/demo/hooks/use-screen-size/use-screen-size";
 import { cn } from "@/lib/utils";
 
-const GridBackground = ({
+function GridBackground({
 	hideFade = false,
 	className,
 }: {
 	hideFade?: boolean;
 	className?: string;
-}) => {
+}) {
 	return (
 		<div
 			style={{
@@ -27,17 +26,17 @@ const GridBackground = ({
 			<Beams />
 		</div>
 	);
-};
+}
 
-const Beams = () => {
+function Beams() {
 	const { width } = useScreenSize();
 
-	const numColumns = width ? Math.floor(width / GRID_BOX_SIZE) : 0;
+	const numColumns = width ? Math.floor(width / gridBoxSize) : 0;
 
 	const placements = [
 		{
-			top: GRID_BOX_SIZE * 0,
-			left: Math.floor(numColumns * 0.05) * GRID_BOX_SIZE,
+			top: gridBoxSize * 0,
+			left: Math.floor(numColumns * 0.05) * gridBoxSize,
 			transition: {
 				duration: 3.5,
 				repeatDelay: 5,
@@ -45,8 +44,8 @@ const Beams = () => {
 			},
 		},
 		{
-			top: GRID_BOX_SIZE * 12,
-			left: Math.floor(numColumns * 0.15) * GRID_BOX_SIZE,
+			top: gridBoxSize * 12,
+			left: Math.floor(numColumns * 0.15) * gridBoxSize,
 			transition: {
 				duration: 3.5,
 				repeatDelay: 10,
@@ -54,12 +53,12 @@ const Beams = () => {
 			},
 		},
 		{
-			top: GRID_BOX_SIZE * 3,
-			left: Math.floor(numColumns * 0.25) * GRID_BOX_SIZE,
+			top: gridBoxSize * 3,
+			left: Math.floor(numColumns * 0.25) * gridBoxSize,
 		},
 		{
-			top: GRID_BOX_SIZE * 9,
-			left: Math.floor(numColumns * 0.75) * GRID_BOX_SIZE,
+			top: gridBoxSize * 9,
+			left: Math.floor(numColumns * 0.75) * gridBoxSize,
 			transition: {
 				duration: 2,
 				repeatDelay: 7.5,
@@ -68,7 +67,7 @@ const Beams = () => {
 		},
 		{
 			top: 0,
-			left: Math.floor(numColumns * 0.7) * GRID_BOX_SIZE,
+			left: Math.floor(numColumns * 0.7) * gridBoxSize,
 			transition: {
 				duration: 3,
 				repeatDelay: 2,
@@ -76,8 +75,8 @@ const Beams = () => {
 			},
 		},
 		{
-			top: GRID_BOX_SIZE * 2,
-			left: Math.floor(numColumns * 1) * GRID_BOX_SIZE - GRID_BOX_SIZE,
+			top: gridBoxSize * 2,
+			left: Math.floor(numColumns * 1) * gridBoxSize - gridBoxSize,
 			transition: {
 				duration: 5,
 				repeatDelay: 5,
@@ -89,18 +88,13 @@ const Beams = () => {
 	return (
 		<>
 			{placements.map((p, i) => (
-				<Beam
-					key={i}
-					top={p.top}
-					left={p.left - BEAM_WIDTH_OFFSET}
-					transition={p.transition || {}}
-				/>
+				<Beam key={i} top={p.top} left={p.left - beamWidthOffset} transition={p.transition || {}} />
 			))}
 		</>
 	);
-};
+}
 
-const Beam = ({
+function Beam({
 	top,
 	left,
 	transition = {},
@@ -108,7 +102,7 @@ const Beam = ({
 	top: number;
 	left: number;
 	transition?: Transition;
-}) => {
+}) {
 	return (
 		<motion.div
 			initial={{
@@ -133,36 +127,9 @@ const Beam = ({
 			className="absolute z-[1] h-[64px] w-[1px] bg-gradient-to-b from-primary/0 to-primary"
 		/>
 	);
-};
+}
 
-type WindowSize = {
-	width: number | undefined;
-	height: number | undefined;
-};
-
-const useWindowSize = () => {
-	const [windowSize, setWindowSize] = useState<WindowSize>({
-		width: undefined,
-		height: undefined,
-	});
-
-	useEffect(() => {
-		const handleResize = () =>
-			setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-
-		window.addEventListener("resize", handleResize);
-
-		handleResize();
-
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
-	}, []);
-
-	return windowSize;
-};
-
-const GRID_BOX_SIZE = 32;
-const BEAM_WIDTH_OFFSET = 1;
+const gridBoxSize = 32;
+const beamWidthOffset = 1;
 
 export { GridBackground };
