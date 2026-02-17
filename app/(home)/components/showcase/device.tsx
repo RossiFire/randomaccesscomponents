@@ -6,6 +6,10 @@ import { KeyboardButton } from '@/components/keyboard-button';
 import Magnet from '@/demo/components/magnet/magnet';
 import { MousePointer2Icon } from 'lucide-react';
 import { Ripple } from '@/demo/components/ripple/Ripple';
+import Link from 'next/link';
+import { TextReveal } from '@/components/text-reveal';
+import { DemoCard } from './showcase-card';
+import { ShowcaseTextReveal } from './showcase-text-reveal';
 
 
 const techBadges = [
@@ -24,41 +28,35 @@ function Device({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       aria-hidden='true'
       className={cn(
-        'relative h-[70vh] aspect-[1.2/1] rounded-[3.2rem] border border-border/70 bg-gradient-to-br from-muted',
-        'to-muted p-2 shadow-[0_55px_110px_-40px_rgba(15,23,42,0.4)] backdrop-blur-sm dark:from-muted',
+        'relative h-[70vh] aspect-[1.2/1] rounded-[3.2rem] border border-border/70 bg-gradient-to-br from-muted dark:from-muted',
+        'to-muted dark:to-muted p-2 shadow-[0_55px_110px_-40px_color-mix(in_srgb,var(--foreground)_20%,transparent)] dark:shadow-[0_55px_110px_-40px_color-mix(in_srgb,var(--primary)_2%,transparent)] backdrop-blur-sm dark:from-muted',
         'dark:to-background/80 z-20',
         "-translate-x-1/2 -translate-y-1/2 overflow-ellipsis",
         className
       )}
       {...props}
     >
-      <div className='relative h-full w-full overflow-hidden rounded-[2.7rem] bg-primary/50 dark:bg-[#0A0A0A] p-4 grid grid-cols-12 gap-4'>
-        <div className='col-span-8 bg-background/80 rounded-4xl p-2 grid place-items-center'>
+      <div className='relative h-full w-full overflow-hidden rounded-[2.7rem] bg-[#a6cdb2] dark:bg-[#0A0A0A] p-4 grid grid-cols-12 gap-4'>
+        <DemoCard name="Markee" link="/docs/components/markee" className='col-span-8'>
           <DemoMarkee />
-        </div>
-        <DemoCard className='col-span-4'>
-          <button id="device-demo-button" className="px-6 py-2 group z-10 font-medium border-2 border-accent-demo cursor-pointer rounded-lg relative overflow-hidden">
+        </DemoCard>
+        <DemoCard className='col-span-4' name="Ripple" link="/docs/components/ripple">
+          <button id="device-demo-button" className="px-6 py-2 group z-10 font-medium border-2 text-accent-demo hover:text-white border-accent-demo cursor-pointer rounded-lg relative overflow-hidden focus-visible:outline-accent-demo focus-visible:outline-offset-4">
             <Ripple parent="#device-demo-button" className="bg-accent-demo" />
-            <span className="relative z-10">I&apos;m a button</span>
+            <span className="relative z-10">👋🏻 Hey folks!</span>
           </button>
         </DemoCard>
 
-        <DemoCard className='col-span-6'>
+        <DemoCard className='col-span-6' name="Keyboard button" link="/docs/components/keyboard-button">
           <KeyboardButton>
             Keyboard button
           </KeyboardButton>
         </DemoCard>
-        <DemoCard className='col-span-6'>
+        <DemoCard className='col-span-6' name="Lift text" link="/docs/components/lift-text">
           <LiftText text="Hover Me" />
         </DemoCard>
-
-        <DemoCard className='col-span-7'>
-          <button id="device-demo-ripple-button" className="px-6 py-2 group z-10 font-medium border-2 border-accent-demo cursor-pointer rounded-lg relative overflow-hidden">
-            <Ripple parent="#device-demo-ripple-button" className="bg-accent-demo" />
-            <span className="relative z-10">I&apos;m a ripple button</span>
-          </button>
-        </DemoCard>
-        <DemoCard className='col-span-5'>
+        <ShowcaseTextReveal />
+        <DemoCard className='col-span-5' name="Magnet" link="/docs/components/magnet">
           <Magnet className='rounded-full bg-accent cursor-pointer text-accent-foreground p-3 border border-accent-foreground/10'>
             <MousePointer2Icon className="size-6" />
           </Magnet>
@@ -69,12 +67,6 @@ function Device({ className, ...props }: React.ComponentProps<'div'>) {
     </div>
   );
 }
-
-const DemoCard = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-  <div className={cn('bg-background/80 rounded-4xl p-2 grid place-items-center', className)}>
-    {children}
-  </div>
-)
 
 
 const DemoMarkee = () => {
@@ -103,7 +95,7 @@ function LiftText({ className, text, ...props }: Omit<React.ComponentProps<"a">,
       <a
         className={cn(
           "text-muted-foreground hover:text-primary-foreground transition-colors duration-300 no-underline leading-none cursor-pointer",
-          "group",
+          "group/lift",
           className
         )}
         style={{
@@ -118,7 +110,7 @@ function LiftText({ className, text, ...props }: Omit<React.ComponentProps<"a">,
           return (
             <span
               key={index}
-              className="relative inline-block group-hover:animate-[lift-text-up-home_0.2s_forwards]"
+              className="relative inline-block group-hover/lift:animate-[lift-text-up-home_0.2s_forwards]"
               style={{
                 animationDelay: 'calc(sibling-index() * 0.02s)'
               }}

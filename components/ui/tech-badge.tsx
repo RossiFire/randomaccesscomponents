@@ -98,9 +98,9 @@ const TechBadge: React.FC<{ badge: Badge }> = ({ badge }) => {
     const bd = ICON_ALIASES[badge];
 
     if(!bd){ 
-        console.log(badge)
         return null;
     }
+    
     const { icon, label, color } = ICON_ALIASES[badge];
     return (
         <GlowCard aria-label={`${label} badge`} glowColor={color} glowRadius="80px" glowTransparency="80%" className="rounded-lg bg-muted-foreground/20">

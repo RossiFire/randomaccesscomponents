@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useHydration } from "@/hooks/use-hydration";
 import React, { useRef } from "react";
 import { ShimmerText } from "@/components/shimmer-text";
-import Device from "../components/device";
+import Device from "../components/showcase/device";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { GridBackground } from "../components/beam-bg";
 import LenisProvider from "@/providers/LenisProvider";
