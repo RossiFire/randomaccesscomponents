@@ -143,8 +143,8 @@ function Hero() {
 					className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device"
 				/>
 				<div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
-					<ShimmerText asChild>
-						<h1 className={cn("text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left")}>
+					<ShimmerText asChild className="[background:radial-gradient(circle_at_center,var(--muted-foreground),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]">
+						<h1 className="text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left">
 							Random Access Components
 						</h1>
 					</ShimmerText>

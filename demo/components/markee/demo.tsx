@@ -31,7 +31,7 @@ const MarkeeDemo: React.FC = () => {
 	const [showFades, setShowFades] = React.useState(true);
 	const [pauseOnHover, setPauseOnHover] = React.useState(false);
 	const [direction, setDirection] = React.useState<"left" | "right">("left");
-	const [duration, setDuration] = React.useState(10);
+	const [duration, setDuration] = React.useState(15);
 	const [paused, setPaused] = React.useState(false);
 
 	return (

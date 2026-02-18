@@ -13,7 +13,7 @@ function ShimmerText({
 		<Comp
 			{...props}
 			className={cn(
-				"animate-shimmer [animation-duration:5s] [animation-iteration-count:infinite] [animation-timing-function:linear] bg-clip-text! text-transparent [background:radial-gradient(circle_at_center,var(--muted-foreground),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]",
+				"animate-shimmer animation-duration-[5s] repeat-[infinite] [animation-timing-function:linear] bg-clip-text! text-transparent [background:radial-gradient(circle_at_center,var(--primary),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]",
 				className
 			)}
 		/>

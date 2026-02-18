@@ -1,0 +1,124 @@
+---
+title: Skew Button
+description: Button with skew effect, accessible and customizable
+hot_item: true
+---
+
+<PageBadge badges={['tailwindcss']} />
+
+## Demo
+
+<PreviewCodeBlock preview={<SkewButtonDemo />}>
+```tsx
+import SkewButton from "@/components/ui/skew-button";
+import { SearchIcon } from "lucide-react";
+
+function SkewButtonDemo() {
+    return (
+        <div className="flex items-center justify-center gap-4">
+            <SkewButton>Skew button</SkewButton>
+            <SkewButton as="link" href="#" direction="right">
+                I&apos;m a link
+            </SkewButton>
+            <SkewButton variant="icon" direction="center">
+                <SearchIcon className="size-5" />
+            </SkewButton>
+        </div>
+    )
+}
+
+export { SkewButtonDemo };
+```
+</PreviewCodeBlock>
+
+## Installation
+
+<PkgInstallerTabs command="class-variance-authority" />
+
+Copy and paste the following code into your project.
+
+```tsx title="skew-button.tsx" icon="react"
+import type { ComponentProps } from "react";
+import Link from "next/link";
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils";
+
+const skewButtonVariants = cva("flex [corner-shape:squircle] whitespace-nowrap rounded-2xl border border-primary text-xs font-medium transition-all md:text-base hover:-translate-y-1 focus:-translate-y-1 active:translate-y-0 bg-background text-primary disabled:translate-y-0 disabled:rotate-0 disabled:text-secondary disabled:border-secondary disabled:cursor-not-allowed disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:ring-primary outline-none", {
+    variants: {
+        direction: {
+            left: "origin-top-left -rotate-2 hover:-rotate-3 active:-rotate-1 hover:skew-y-2 active:skew-y-0",
+            right: "origin-top-right rotate-2 hover:rotate-3 active:rotate-1 hover:-skew-y-2 active:skew-y-0",
+            center: "origin-center -translate-y-1",
+        },
+        variant: {
+            default: "px-12 py-3",
+            icon: "p-3 w-fit",
+        }
+    },
+    defaultVariants: {
+        direction: "left",
+        variant: "default",
+    }
+})
+
+type SkewButtonGenericProps = {
+    shadowClassName?: string;
+}
+
+type SkewButtonAsButton = { as?: "button" } & ComponentProps<"button">
+type SkewButtonAsLink = { as: "link" } & ComponentProps<typeof Link>;
+
+type SkewButtonProps = (SkewButtonAsButton | SkewButtonAsLink) & SkewButtonGenericProps & VariantProps<typeof skewButtonVariants>;
+
+function SkewButton(props: SkewButtonProps) {
+    const { as = "button", className, children, direction = "left", variant = "default", shadowClassName, ...rest } = props;
+
+    return (
+        <div className={cn("rounded-2xl transition-colors bg-primary w-auto [corner-shape:squircle]", shadowClassName)}>
+            {as === "link" ? (
+                <Link className={skewButtonVariants({ direction, variant, className })} {...(rest as ComponentProps<typeof Link>)}>
+                    {children}
+                </Link>
+            ) : (
+                <button type="button" className={skewButtonVariants({ direction, variant, className })} {...(rest as ComponentProps<"button">)}>
+                    {children}
+                </button>
+            )}
+        </div>
+    );
+}
+
+export default SkewButton;
+```
+
+## Usage
+```typescript
+import SkewButton from "@/components/ui/skew-button";
+```
+### Basic
+```tsx
+<SkewButton>Skew button</SkewButton>
+```
+### As link
+```tsx
+<SkewButton as="link" href="/some-page">
+    I'm a link
+</SkewButton>
+```
+### Icon
+```tsx
+<SkewButton variant="icon">
+    <SearchIcon className="size-5" />
+</SkewButton>
+```
+
+### Props
+
+It accepts all the props of a native `button` element. When `as="link"`, it accepts all Next.js `Link` props instead. Additionally:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| as | `"button"` \| `"link"` | `"button"` | Renders as a button or a Next.js Link. |
+| direction | `"left"` \| `"right"` \| `"center"` | `"left"` | The skew direction of the button. |
+| variant | `"default"` \| `"icon"` | `"default"` | The variant of the button. |
+| shadowClassName | `string` | — | Class name for the shadow wrapper element. |

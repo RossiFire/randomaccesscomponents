@@ -1,0 +1,113 @@
+---
+title: Shimmer Text
+description: Animated shimmer effect for text, easily customizable with Tailwind CSS
+---
+
+<PageBadge badges={['tailwindcss']} />
+
+## Demo
+
+<PreviewCodeBlock preview={<ShimmerTextDemo />}>
+```tsx
+import { ShimmerText } from "@/components/shimmer-text";
+
+function ShimmerTextDemo() {
+    return (
+        <p className="text-3xl font-bold tracking-tight md:text-5xl">
+            This is a <ShimmerText>shimmer text</ShimmerText> component
+        </p>
+    )
+}
+
+export { ShimmerTextDemo };
+```
+
+
+</PreviewCodeBlock>
+
+## Installation
+
+<PkgInstallerTabs command="@radix-ui/react-slot" />
+
+Copy and paste the following code into your project.
+
+
+<MultiCodeBlock>
+  <MultiCodeBlock.Tab
+    value="components/shimmer-text.tsx"
+    label="shimmer-text.tsx"
+    icon={<React />}
+    lang="tsx"
+  >
+    ```tsx
+import { cn } from "@/lib/utils";
+import { Slot } from "@radix-ui/react-slot";
+import type * as React from "react";
+
+function ShimmerText({
+    className,
+    asChild = false,
+    ...props
+}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+    const Comp = asChild ? Slot : "span";
+
+    return (
+        <Comp
+            {...props}
+            className={cn(
+                "animate-shimmer animation-duration-[5s] repeat-[infinite] [animation-timing-function:linear] bg-clip-text! text-transparent [background:radial-gradient(circle_at_center,var(--primary),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]",
+                className
+            )}
+        />
+    );
+}
+
+export { ShimmerText };
+  ```
+  </MultiCodeBlock.Tab>
+  <MultiCodeBlock.Tab
+    value="globals.css"
+    label="globals.css"
+    icon={<CSS />}
+    lang="css"
+  >
+    ```css
+    @theme {
+        ...
+
+        --animate-shimmer: shimmer;
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    }
+    ```
+  </MultiCodeBlock.Tab>
+</MultiCodeBlock>
+
+## Usage
+```typescript
+import { ShimmerText } from "@/components/shimmer-text";
+```
+### Basic
+```tsx
+<ShimmerText>Shimmering text</ShimmerText>
+```
+### As child
+```tsx
+<ShimmerText asChild>
+    <h1>Shimmering heading</h1>
+</ShimmerText>
+```
+
+### Props
+
+It accepts all the props of a native `span` element. Additionally:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| asChild | `boolean` | `false` | Merges props onto its child element instead of rendering a `span`. |
