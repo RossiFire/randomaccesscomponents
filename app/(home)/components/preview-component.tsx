@@ -8,7 +8,6 @@ import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/componen
 import { Markee, MarkeeContent, MarkeeFade, MarkeeItem, MarkeeSpacer } from "@/components/markee";
 import { ShimmerText } from "@/components/shimmer-text";
 import TechBadge from "@/components/ui/tech-badge";
-import Link from "next/link";
 
 const icons = [
 	<TechBadge key="nextjs" badge="nextjs" />,
@@ -17,6 +16,12 @@ const icons = [
 	<TechBadge key="motion" badge="motion" />,
 	<TechBadge key="tailwindcss" badge="tailwindcss" />,
 ];
+
+const labels = [
+	"Simple Markee",
+	"Custom separators",
+	"With edge fades",
+]
 
 const demoCode = `<Markee className='w-full'>
     <MarkeeContent>
@@ -191,14 +196,8 @@ function PreviewComponentEditor({
 						aria-label={`Source code — ${snippetLabel}`}
 						className="h-full md:h-fit py-12 md:py-20 px-4 md:px-12 bg-muted dark grid place-items-center relative overflow-x-auto min-w-0"
 					>
-						<ShimmerText asChild>
-							<Link
-								href="/docs/components/markee"
-								aria-label="View Markee component documentation"
-								className="absolute top-4 left-4 font-sans text-sm [background:radial-gradient(circle_at_center,var(--primary),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)] text-primary"
-							>
-								Markee Component
-							</Link>
+						<ShimmerText className="absolute top-4 left-4 font-sans text-sm">
+							{labels[codeIndex]}
 						</ShimmerText>
 						{/* Fallback while Shiki loads */}
 						{currentLines.length === 0 && (

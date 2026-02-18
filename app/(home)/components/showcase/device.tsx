@@ -37,15 +37,10 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 				<DemoCard name="Markee" link="/docs/components/markee" className="col-span-8">
 					<DemoMarkee />
 				</DemoCard>
-				<DemoCard className="col-span-4" name="Ripple" link="/docs/components/ripple">
-					<button
-						type="button"
-						id="device-demo-button"
-						className="px-6 py-2 group z-10 font-medium border-2 text-accent-demo hover:text-white border-accent-demo cursor-pointer rounded-lg relative overflow-hidden focus-visible:outline-accent-demo focus-visible:outline-offset-4"
-					>
-						<Ripple parent="#device-demo-button" className="bg-accent-demo" />
-						<span className="relative z-10">👋🏻 Hey folks!</span>
-					</button>
+				<DemoCard className="col-span-4" name="Magnet" link="/docs/components/magnet">
+					<Magnet className="rounded-full bg-accent cursor-pointer text-accent-foreground p-3 border border-accent-foreground/10">
+						<MousePointer2Icon className="size-6" />
+					</Magnet>
 				</DemoCard>
 
 				<DemoCard
@@ -53,18 +48,35 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 					name="Skew button"
 					link="/docs/components/skew-button"
 				>
-					<SkewButton shadowClassName="bg-foreground" 
-					className="border-foreground text-foreground"
+					<SkewButton shadowClassName="bg-[#396CB3]" 
+					className="border-[#396CB3] text-[#396CB3]"
 					>Skew button</SkewButton>
 				</DemoCard>
 				<DemoCard className="col-span-6" name="Lift text" link="/docs/components/lift-text">
 					<LiftText text="Hover Me" />
 				</DemoCard>
 				<ShowcaseTextReveal />
-				<DemoCard className="col-span-5" name="Magnet" link="/docs/components/magnet">
-					<Magnet className="rounded-full bg-accent cursor-pointer text-accent-foreground p-3 border border-accent-foreground/10">
-						<MousePointer2Icon className="size-6" />
-					</Magnet>
+				<DemoCard className="col-span-5" name="Ripple" link="/docs/components/ripple">
+					<div
+						id="device-demo-card"
+						className="relative w-36 overflow-hidden rounded-xl border border-accent-demo/20 bg-accent-demo/5 backdrop-blur-sm cursor-pointer"
+					>
+						<Ripple parent="#device-demo-card" className="bg-accent-demo/30" />
+						<div className="relative z-10 flex flex-col gap-2 p-3 will-change-transform">
+							<div className="flex items-center gap-2">
+								<div className="size-7 rounded-full bg-accent-demo/15 flex items-center justify-center text-sm">👋🏻</div>
+								<div className="flex flex-col items-start">
+									<span className="text-[11px] font-semibold text-accent-demo">Hey folks!</span>
+									<span className="text-[9px] text-muted-foreground">Hover me</span>
+								</div>
+							</div>
+							<div className="h-px w-full bg-accent-demo/10" />
+							<div className="flex gap-1.5">
+								<div className="h-1 flex-1 rounded-full bg-accent-demo/20" />
+								<div className="h-1 w-8 rounded-full bg-accent-demo/10" />
+							</div>
+						</div>
+					</div>
 				</DemoCard>
 			</div>
 		</div>
