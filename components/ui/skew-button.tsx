@@ -33,16 +33,14 @@ type SkewButtonProps = (SkewButtonAsButton | SkewButtonAsLink) & SkewButtonGener
 function SkewButton(props: SkewButtonProps) {
     const { as = "button", className, children, direction = "left", variant = "default", shadowClassName, ...rest } = props;
 
-
-
     return (
         <div className={cn("rounded-2xl transition-colors bg-primary w-auto [corner-shape:squircle]", shadowClassName)}>
             {as === "link" ? (
-                <Link className={skewButtonVariants({ direction, variant, className })} {...(rest as ComponentProps<typeof Link>)}>
+                <Link className={cn(skewButtonVariants({ direction, variant }), className)} {...(rest as ComponentProps<typeof Link>)}>
                     {children}
                 </Link>
             ) : (
-                <button type="button" className={skewButtonVariants({ direction, variant, className })} {...(rest as ComponentProps<"button">)}>
+                <button type="button" className={cn(skewButtonVariants({ direction, variant }), className)} {...(rest as ComponentProps<"button">)}>
                     {children}
                 </button>
             )}

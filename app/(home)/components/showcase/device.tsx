@@ -2,12 +2,12 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import TechBadge from "@/components/ui/tech-badge";
 import { Markee, MarkeeContent, MarkeeFade, MarkeeSpacer, MarkeeItem } from "@/components/markee";
-import { KeyboardButton } from "@/components/keyboard-button";
 import Magnet from "@/demo/components/magnet/magnet";
 import { MousePointer2Icon } from "lucide-react";
 import { Ripple } from "@/demo/components/ripple/Ripple";
 import { DemoCard } from "./demo-card";
 import { ShowcaseTextReveal } from "./showcase-text-reveal";
+import SkewButton from "@/components/ui/skew-button";
 
 const techBadges = [
 	<TechBadge key="nextjs" badge="nextjs" />,
@@ -50,10 +50,12 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 
 				<DemoCard
 					className="col-span-6"
-					name="Keyboard button"
-					link="/docs/components/keyboard-button"
+					name="Skew button"
+					link="/docs/components/skew-button"
 				>
-					<KeyboardButton>Keyboard button</KeyboardButton>
+					<SkewButton shadowClassName="bg-foreground" 
+					className="border-foreground text-foreground"
+					>Skew button</SkewButton>
 				</DemoCard>
 				<DemoCard className="col-span-6" name="Lift text" link="/docs/components/lift-text">
 					<LiftText text="Hover Me" />

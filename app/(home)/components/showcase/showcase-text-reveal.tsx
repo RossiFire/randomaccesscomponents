@@ -21,13 +21,14 @@ export const ShowcaseTextReveal = () => {
 			className="col-span-7"
 			name="Text reveal"
 			link="/docs/components/text-reveal"
-			onClick={handleClick}
 		>
-			<TextReveal ref={ref} startVisible asChild>
-				<span className="font-medium dark:font-bold text-muted-foreground">
-					I&apos;M A TEXT REVEAL, CLICK ME TO ANIMATE. <br /> WARNING: I&apos;M TOO COOL.
-				</span>
-			</TextReveal>
+			<button type="button" onClick={handleClick}>
+				<TextReveal ref={ref} startVisible asChild>
+					<span className="font-medium dark:font-bold text-muted-foreground">
+						I&apos;M A TEXT REVEAL, CLICK ME TO ANIMATE. <br /> WARNING: I&apos;M TOO COOL.
+					</span>
+				</TextReveal>
+			</button>
 		</DemoCard>
 	);
 };
