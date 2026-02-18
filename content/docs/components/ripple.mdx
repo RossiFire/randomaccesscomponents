@@ -1,6 +1,6 @@
 ---
 title: Ripple
-description: Standalone ripple effect component — drop it inside any element for a smooth, cursor-tracking fill animation.
+description: Add Ripple effect to everything — drop it inside any element for a smooth, cursor-tracking fill animation.
 ---
 
 <PageBadge badges={['gsap', 'tailwindcss']} />
@@ -15,9 +15,9 @@ description: Standalone ripple effect component — drop it inside any element f
         </button>
         <div
             ref={cardRef}
-            className="group relative w-64 rounded-2xl border border-[#2fc9da]/20 bg-[#2fc9da]/[0.03] px-6 py-5 overflow-hidden cursor-pointer transition-shadow duration-500 hover:shadow-[0_0_24px_-4px_rgba(47,201,218,0.25)]"
+            className="group relative w-64 rounded-2xl border border-[#2fc9da]/20 bg-[#2fc9da]/3 px-6 py-5 overflow-hidden cursor-pointer transition-shadow duration-500 hover:shadow-[0_0_24px_-4px_rgba(47,201,218,0.25)]"
         >
-            <div className="absolute top-0 left-6 h-px w-12 bg-gradient-to-r from-transparent via-[#2fc9da] to-transparent" />
+            <div className="absolute top-0 left-6 h-px w-12 bg-linear-to-r from-transparent via-[#2fc9da] to-transparent" />
             <div className="relative z-10 flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium uppercase tracking-widest text-[#2fc9da] group-hover:text-white transition-colors duration-300">
@@ -131,7 +131,7 @@ function Ripple({ parent, className }: RippleProps) {
         <div
             ref={rippleRef}
             className={cn(
-                'absolute pointer-events-none rounded-full scale-0 top-0 left-0 size-28 z-[1]',
+                'absolute pointer-events-none rounded-full scale-0 top-0 left-0 size-28 z-1',
                 className
             )}
         />

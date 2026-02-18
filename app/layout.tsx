@@ -7,7 +7,7 @@ import { dmSans, roslindale } from "@/lib/fonts";
 
 export default function Layout({ children }: LayoutProps<"/">) {
 	return (
-		<html lang="en" className={cn(dmSans.variable, roslindale.variable)} suppressHydrationWarning>
+		<html lang="en" className={cn("dark",dmSans.variable, roslindale.variable)} suppressHydrationWarning>
 			<body className="flex flex-col min-h-svh">
 				<NoisyBackground />
 				<RootProvider
