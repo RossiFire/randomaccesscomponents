@@ -48,9 +48,12 @@ function Device({ className, ...props }: React.ComponentProps<"div">) {
 					name="Skew button"
 					link="/docs/components/skew-button"
 				>
-					<SkewButton shadowClassName="bg-[#396CB3]" 
-					className="border-[#396CB3] text-[#396CB3]"
-					>Skew button</SkewButton>
+					<SkewButton 
+						shadowClassName="bg-accent-demo" 
+						className="border-accent-demo text-accent-demo"
+					>
+						Skew button
+					</SkewButton>
 				</DemoCard>
 				<DemoCard className="col-span-6" name="Lift text" link="/docs/components/lift-text">
 					<LiftText text="Hover Me" />
