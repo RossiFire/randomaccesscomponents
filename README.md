@@ -14,7 +14,7 @@ Built with React, Next.js, TypeScript, Tailwind CSS, Framer Motion, and GSAP.
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](https://www.typescriptlang.org)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss)](https://tailwindcss.com)
 
-[Website](https://www.randomui.dev/) · [GitHub](https://github.com/RossiFire/randomaccesscomponents)
+[Website](https://www.racui.dev/) · [GitHub](https://github.com/RossiFire/randomaccesscomponents)
 
 </div>
 
@@ -26,7 +26,7 @@ Random Access Components is a curated collection of React components, hooks, and
 
 ## Documentation
 
-Visit the [documentation](https://www.randomui.dev/docs/getting-started) website to browse components, view live demos, and copy the source directly into your project.
+Visit the [documentation](https://www.racui.dev/docs/getting-started) website to browse components, view live demos, and copy the source directly into your project.
 
 
 ## Contributing
@@ -52,6 +52,6 @@ You are free to use these components in personal and commercial projects. Redist
 
 <div align="center">
 
-**[randomui.dev](https://www.randomui.dev/)**
+**[racui.dev](https://www.racui.dev/)**
 
 </div>
