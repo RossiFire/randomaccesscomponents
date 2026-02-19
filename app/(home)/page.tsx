@@ -49,7 +49,10 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 			className="text-sm text-muted-foreground group hover:text-primary-foreground transition-colors duration-300 flex items-center gap-2"
 		>
 			{children}
-			<MoveUpRight className="size-4 text-muted-foreground group-hover:text-primary-foreground transition-colors duration-300" />
+			<div className="relative overflow-hidden">
+				<MoveUpRight className="size-4 text-muted-foreground group-hover:transition-all group-hover:duration-300 group-hover:-translate-y-full group-hover:translate-x-full " />
+				<MoveUpRight className="absolute text-muted-foreground group-hover:text-primary-foreground size-4 top-[160%] group-hover:top-1/2 -translate-y-1/2 -left-[60%] group-hover:left-1/2 -translate-x-1/2 group-hover:transition-all group-hover:duration-300" />
+			</div>
 		</Link>
 	);
 }

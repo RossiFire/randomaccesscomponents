@@ -15,7 +15,7 @@ const navLinks = [
 		ariaLabel: "Go to getting started page",
 	},
 	{
-		href: "/docs/components/glow-container",
+		href: "/docs/components/cclock",
 		label: "Components",
 		ariaLabel: "Go to components page",
 	},
@@ -48,7 +48,7 @@ function Navbar({ className, ...props }: React.ComponentProps<"header">) {
 						</Link>
 						<ul className="items-center gap-6 hidden md:flex" aria-label="Navigation links">
 							{navLinks.map((link) => (
-								<li key={link.href} className="flex items-center gap-2 group">
+								<li key={link.href} className="flex items-center gap-2 group text-muted-foreground hover:text-primary-foreground">
 									<NavLink
 										href={link.href}
 										text={link.label}
@@ -56,7 +56,10 @@ function Navbar({ className, ...props }: React.ComponentProps<"header">) {
 										aria-label={link.ariaLabel}
 									/>
 									{link.external && (
-										<MoveUpRight className="size-4 text-muted-foreground group-hover:text-primary-foreground transition-colors hover:duration-300" />
+										<div className="relative overflow-hidden">
+											<MoveUpRight className="size-4 group-hover:transition-all group-hover:duration-300 group-hover:-translate-y-full group-hover:translate-x-full " />
+											<MoveUpRight className="absolute size-4 top-[160%] group-hover:top-1/2 -translate-y-1/2 -left-[60%] group-hover:left-1/2 -translate-x-1/2 group-hover:transition-all group-hover:duration-300" />
+										</div>
 									)}
 								</li>
 							))}
@@ -83,8 +86,7 @@ function NavLink({
 		<div className="overflow-hidden">
 			<a
 				className={cn(
-					"text-muted-foreground hover:text-primary-foreground transition-colors duration-300 no-underline leading-none cursor-pointer",
-					"group",
+					"transition-colors duration-300 no-underline leading-none cursor-pointer",
 					className
 				)}
 				style={{
