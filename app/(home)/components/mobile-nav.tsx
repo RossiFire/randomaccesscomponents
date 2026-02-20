@@ -3,7 +3,7 @@ import { KeyboardButton } from "@/components/keyboard-button";
 import { MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { animate, AnimatePresence, motion, stagger } from "framer-motion";
+import { animate, AnimatePresence, motion, stagger } from "motion/react";
 import ThemeSwitcher from "@/components/ui/theme-switcher";
 
 function MobileNav({ navLinks }: { navLinks: { href: string; label: string }[] }) {
