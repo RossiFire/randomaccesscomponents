@@ -9,9 +9,9 @@ import { ShimmerText } from "@/components/shimmer-text";
 import Device from "../components/showcase/device";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { GridBackground } from "../components/beam-bg";
-import BubbleButton from "@/components/bubble-button";
 import useScreenSize from "@/hooks/use-screen-size";
 import { TextReveal, type TextRevealHandle } from "@/components/text-reveal";
+import { KeyboardButton} from "@/components/keyboard-button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,7 +49,7 @@ function Hero() {
 				"<50%"
 			)
 			.from(
-				".hero-buttons > *",
+				".hero-buttons",
 				{
 					opacity: 0,
 					stagger: 0.03,
@@ -143,7 +143,12 @@ function Hero() {
 					className="absolute left-3/4 top-1/2 z-0 hidden md:block hero-device"
 				/>
 				<div className="hero-main-content relative z-10 flex max-w-4xl flex-col items-start gap-8 pointer-events-none">
-					<ShimmerText asChild className="[background:radial-gradient(circle_at_center,var(--muted-foreground),transparent)_-200%_50%/200%_100%_no-repeat,var(--primary-foreground)]">
+					<ShimmerText
+						asChild
+						className=" animation-duration-[10s] 
+						[background:linear-gradient(60deg,var(--muted-foreground)_0%,var(--muted-foreground)_calc(50%-25px),#fff_50%,var(--muted-foreground)_calc(50%+25px),var(--muted-foreground)_100%)_-200%_50%/200%_100%]
+						dark:[background:linear-gradient(75deg,var(--muted-foreground)_0%,var(--muted-foreground),#fff_50%,var(--muted-foreground),var(--muted-foreground)_100%)_-200%_50%/200%_100%]"
+					>
 						<h1 className="text-3xl md:text-4xl lg:text-7xl hero-text font-serif text-left">
 							Random Access Components
 						</h1>
@@ -158,9 +163,9 @@ function Hero() {
 						</h2>
 					</TextReveal>
 					<div className="mt-10 flex items-center gap-8 hero-buttons pointer-events-auto">
-						<BubbleButton asChild>
-							<Link href="/docs/getting-started">View docs</Link>
-						</BubbleButton>
+						<KeyboardButton asChild >
+							<Link href="/docs/getting-started">View Documentation</Link>
+						</KeyboardButton>
 					</div>
 				</div>
 			</div>
