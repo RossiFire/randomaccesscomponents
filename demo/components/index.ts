@@ -19,3 +19,4 @@ export { KeyboardButtonDemo } from "./keyboard-button/demo";
 export { GlowDemo } from "./glow/demo";
 export { SkewButtonDemo } from "./skew-button/demo";
 export { ShimmerTextDemo } from "./shimmer-text/demo";
+export { TypewriterDemo } from "./typewriter/demo";
